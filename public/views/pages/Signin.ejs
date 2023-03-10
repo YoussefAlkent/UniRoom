@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/header') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="container">
+        <div class="title">Login</div>
+        <div class="id">
+            <h3>
+                University ID/ Email: <br>
+                <input type="text" id="inputid">
+            <h3>
+        </div>
+
+        <div class="passwordnum">
+            <h3>Password: <br>
+                <input type="text" id="password">
+                <p><a href="/" class="idk">Forgot Your Password?</a></p>
+
+            </h3>
+
+        </div>
+        
+        <div class="otherid">
+            <div class="aiuid">
+                <a href="#"><img src="aiu.jpg" alt=""><i class="fab fa-twitter"></i>Sign in With AIU ID</a>
+            </div>
+            <div class="googleid"><a href="#"><i class="fab fa-facebook-f"></i>Sign in With Google</a></div>
+        </div>
+        <div class="button">
+            <button id="signin">Sign In</button>
+            <a href="signup/signup.html" ><button id="signup">Sign Up</button></a>
+        </div>
+    </div>
+    <script src="Signin.js"></script>
+</body>
+</html>

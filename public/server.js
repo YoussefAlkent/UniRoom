@@ -7,27 +7,41 @@ var fs = require('fs');
 var app = express();
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res){
-    res.render('pages/booking')
+// app.get('/', function(req, res){
+//     res.render('pages/booking')
+// });
+// var con = mysql.createConnection({
+//     host: "DESKTOP-TD40LLD",
+//     user:"Bedair",
+//     password:"12345"
+
+// });
+// var sql = "SELECT * FROM aiuroom.person";
+// con.connect(function(err){
+//     if (err) throw err;
+//     console.log("Connected!");
+//     // con.query(sql, function(err,result, fields){
+//     //     if (err) throw err;
+//     //     console.log("Result: " + result[0].Fname)
+//     // })
+// })
+
+app.get('/', function(request, response, next){
+    let query = "SELECT * FROM aiuroom.building";
+
+    con.query(query, function(error, data){
+        if(error){
+           throw error; 
+        } else {
+            res.render('b_data', {b_data:data});
+        }
+    });
 });
+
 app.listen(8080);
 console.log('Server is running, Port: 8080')
 /*
-var con = mysql.createConnection({
-    host: "DESKTOP-TD40LLD",
-    user:"Bedair",
-    password:"12345"
 
-});
-var sql = "SELECT * FROM aiuroom.person";
-con.connect(function(err){
-    if (err) throw err;
-    console.log("Connected!");
-    con.query(sql, function(err,result, fields){
-        if (err) throw err;
-        console.log("Result: " + result[0].Fname)
-    })
-})
 const hostname = '127.0.0.1';
 const port = 8080;
 

@@ -1,21 +1,39 @@
 const http = require("http");
 const ejs = require('ejs')
-var express = require('express')
-var mysql = require('mysql');
-var fs = require('fs');
+const express = require('express');
+const mysql = require('mysql');
+const fs = require('fs');
+var con = mysql.createConnection({
+    host: "uni-room.mysql.database.azure.com",
+    port: 3306,
+    user:"Uniroom_Admin",
+    password:"vtaiu@12345"
+});
+
 
 var app = express();
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
-// app.get('/', function(req, res){
-//     res.render('pages/booking')
-// });
-// var con = mysql.createConnection({
-//     host: "DESKTOP-TD40LLD",
-//     user:"Bedair",
-//     password:"12345"
+app.use(express.static(__dirname + '/public/css'));
 
-// });
+app.get('/', function(request, response, next){
+    let query = "SELECT * FROM aiuroom.building";
+    console.log("querying");
+    con.query(query, function(error, data){
+        if(error){
+           throw error; 
+        } else {
+            response.render('pages/booking', {b_data: data, error:false});
+            //console.log(data);
+        }
+    });
+});
+
+app.get('/', function(req, res){
+    res.render('pages/booking')
+});
+
 // var sql = "SELECT * FROM aiuroom.person";
 // con.connect(function(err){
 //     if (err) throw err;
@@ -26,17 +44,7 @@ app.set('view engine', 'ejs');
 //     // })
 // })
 
-app.get('/', function(request, response, next){
-    let query = "SELECT * FROM aiuroom.building";
 
-    con.query(query, function(error, data){
-        if(error){
-           throw error; 
-        } else {
-            res.render('b_data', {b_data:data});
-        }
-    });
-});
 
 app.listen(8080);
 console.log('Server is running, Port: 8080')
@@ -66,3 +74,4 @@ const ejs = require('ejs')
 var app = express();
 
 */
+module.exports = app;

@@ -3,7 +3,7 @@
 
 <head>
   <%- include('../partials/head') %>
-  <link rel=stylesheet type="text/css" href="style.css">
+  <link rel=stylesheet href="css/style.css">
 </head>
 
 <body>
@@ -13,6 +13,7 @@
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
+      Building No:<%= b_data[0].BuildingNo %><br>
       <button id="termBtn">Term</button> <button id="dateBtn">Date</button>
       <br>
       <div id='date-selection' hidden>
@@ -91,4 +92,4 @@
 </body>
 
 </html>
-﻿
+

@@ -15,7 +15,8 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-app.use(express.static(__dirname + '/public/css'));
+app.listen(8080);
+app.use(express.static('css'));
 
 app.get('/', function(request, response, next){
     let query = "SELECT * FROM aiuroom.building";
@@ -31,7 +32,9 @@ app.get('/', function(request, response, next){
 });
 
 app.get('/', function(req, res){
-    res.render('pages/booking')
+    res.render('pages/booking', {css_file:'../../css/style.css'});
+    res.render('pages/booking');
+    
 });
 
 // var sql = "SELECT * FROM aiuroom.person";
@@ -46,7 +49,7 @@ app.get('/', function(req, res){
 
 
 
-app.listen(8080);
+
 console.log('Server is running, Port: 8080')
 /*
 

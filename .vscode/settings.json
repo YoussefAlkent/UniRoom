@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "uni-room.mysql.database.azure.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "UniRoom",
+            "database": "aiuroom",
+            "username": "Uniroom_Admin",
+            "askForPassword": true
+        }
+    ]
+}

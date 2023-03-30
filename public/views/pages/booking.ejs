@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <%
+     // window.addEventListener('load', function () {
+      console.log('booking.js loaded');
+        // let termBtn = document.getElementById("termBtn");
+        // let dateBtn = document.getElementById("dateBtn");
+        // let dateStatus = 0; //0: term, 1: date 
+        selectDate = function() {
+          dateStatus = 1;
+          console.log("date");
+          document.getElementById("term-selection").hidden= true;
+          document.getElementById("date-selection").hidden= false;
+        }
+        
+       // });
+    %>
 <head>
   <%- include('../partials/head') %>
+  <script src='/booking.js' type="text/js"></script>
   <link rel="stylesheet" type="text/css" href='/style.css'>
+  
 </head>
 
 <body>
@@ -14,7 +30,8 @@
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
       Building No:<%= b_data[0].BuildingNo %><br>
-      <button id="termBtn">Term</button> <button id="dateBtn">Date</button>
+      <button id="termBtn">Term</button> 
+      <button id="dateBtn">Date</button>
       <br>
       <div id='date-selection' hidden>
         <label for="start-date">Start Date
@@ -78,9 +95,40 @@
     </div>
     <div class='grid-item' id='select-room'>
       Select Room
+      <div class='box-title' id='room-title'>
+        Select Room
+      </div>
+      <div class='apartment' id="apt-1">
+        <div class='room' id='room-1'>1</div>
+        <div class='room' id='room-2'>2</div>
+        <div class='room' id='room-3'>3</div>
+      </div>
+      <div class='apartment' id="apt-2">
+        <div class='room' id='room-4'>4</div>
+        <div class='room' id='room-5'>5</div>
+        <div class='room' id='room-6'>6</div>
+      </div>
+      <div class='apartment' id="apt-3">
+        <div class='room' id='room-7'>7</div>
+        <div class='room' id='room-8'>8</div>
+        <div class='room' id='room-9'>9</div>
+      </div>
+      <div class='apartment' id="apt-4">
+        <div class='room' id='room-10'>10</div>
+        <div class='room' id='room-11'>11</div>
+        <div class='room' id='room-12'>12</div>
+      </div>
     </div>
     <div class='grid-item' id='select-floor'>
       Select Floor
+      <div class='box-title'>
+        Select Floor
+      </div>
+      <div class='floor' id='floor-1'>1</div>
+      <div class='floor' id='floor-2'>2</div>
+      <div class='floor' id='floor-3'>3</div>
+      <div class='floor' id='floor-4'>4</div>
+      <div class='floor' id='floor-5'>5</div>
     </div>
     <div class='grid-item' id='selection-info'>
       Room Information

@@ -17,13 +17,14 @@ app.set('views', __dirname + '/views');
 
 app.listen(8080);
 app.use(express.static('css'));
-
+app.use(express.static('js'));
 app.get('/', function(request, response, next){
     let query = "SELECT * FROM aiuroom.building";
     console.log("querying");
     con.query(query, function(error, data){
         if(error){
            throw error; 
+           //response.render('pages/booking', {b_data: 0, error:false});
         } else {
             response.render('pages/booking', {b_data: data, error:false});
             //console.log(data);

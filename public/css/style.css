@@ -259,6 +259,28 @@
   #B8 {
   
   }
+  .apartment {
+    display: grid;
+    border-style: solid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .room {
+    border-style: solid;
+    border-color: gray;
+    margin: 2px;
+    background-color: lightblue;
+  }
+  .room:hover{
+    background-color: #5565ff;
+  }
+  .floor{
+    margin:5px;
+    border-style: solid;
+    background-color: lightgray;
+  }
+  .floor:hover{
+    background-color: #5565ff;
+  }
   hr.solid {
     border-top: 3px solid #bbb;
   }

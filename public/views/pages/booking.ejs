@@ -19,7 +19,7 @@
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
-      Building No:<%= b_data[0].BuildingNo %><br>
+      
 
       <button id="termBtn" onclick="selectTerm()">Term</button> 
       <button id="dateBtn" onclick="selectDate()">Date</button>
@@ -36,20 +36,20 @@
         </label>
       </div>
       <div id="term-selection">
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Fall 2023/2024
       </label>
       <br>
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Spring 2023/2024
       </label>
       <br>
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Summer 2023/2024
       </label>
@@ -59,30 +59,15 @@
       <div id='Btitle' class='building-grid-item'>
         Select building
       </div>
-      <div id='B1' class='building-grid-item'>
-        <button id="B1btn" class="building-btn">B1</button>
-      </div>
-      <div id='B2' class='building-grid-item'>
-        <button id="B2btn" class="building-btn">B2</button>
-      </div>
-      <div id='B3' class='building-grid-item'>
-        <button id="B3btn" class="building-btn">B3</button>
-      </div>
-      <div id='B4' class='building-grid-item'>
-        <button id="B4btn" class="building-btn">B4</button>
-      </div>
-      <div id='B5' class='building-grid-item'>
-        <button id="B5btn" class="building-btn">B5</button>
-      </div>
-      <div id='B6' class='building-grid-item'>
-        <button id="B6btn" class="building-btn">B6</button>
-      </div>
-      <div id='B7' class='building-grid-item'>
-        <button id="B7btn" class="building-btn">B7</button>
-      </div>
-      <div id='B8' class='building-grid-item'>
-        <button id="B8btn" class="building-btn">B8</button>
-      </div>
+      <%b_data.forEach(b => {
+        %>
+        <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
+          <button id="B1btn" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else{%>unavailable<%}%>">
+            Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
+          </button>
+        </div>
+         <%
+      });%>
     </div>
     <div class='grid-item' id='select-room'>
       Select Room

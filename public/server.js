@@ -18,23 +18,35 @@ app.set('views', __dirname + '/views');
 app.listen(8080);
 app.use(express.static('css'));
 app.use(express.static('js'));
-app.get('/', function(request, response, next){
+
+app.get('/', function(request, res, next){
     let query = "SELECT * FROM aiuroom.building";
     console.log("querying");
+    let book = require('./js/booking');
+    console.log(book);
     con.query(query, function(error, data){
         if(error){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
-            response.render('pages/booking', {b_data: data, error:false});
+            res.render('pages/booking', {b_data: data, book:book, error:false});
             //console.log(data);
         }
     });
+
+    //res.render('pages/booking', {book: book, error:false});
+   // res.render('pages/booking');
 });
 
 app.get('/', function(req, res){
-    res.render('pages/booking', {css_file:'../../css/style.css'});
-    res.render('pages/booking');
+    
+});
+
+app.get('/', function(req, res){
+    //res.render('pages/booking', {css_file:'../../css/style.css'});
+    
+    
+    
     
 });
 

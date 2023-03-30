@@ -3,17 +3,7 @@
   <%
      // window.addEventListener('load', function () {
       console.log('booking.js loaded');
-        // let termBtn = document.getElementById("termBtn");
-        // let dateBtn = document.getElementById("dateBtn");
-        // let dateStatus = 0; //0: term, 1: date 
-        selectDate = function() {
-          dateStatus = 1;
-          console.log("date");
-          document.getElementById("term-selection").hidden= true;
-          document.getElementById("date-selection").hidden= false;
-        }
-        
-       // });
+
     %>
 <head>
   <%- include('../partials/head') %>
@@ -24,14 +14,15 @@
 
 <body>
   <%- include('../partials/nav') %>
-
+  
 
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
       Building No:<%= b_data[0].BuildingNo %><br>
-      <button id="termBtn">Term</button> 
-      <button id="dateBtn">Date</button>
+
+      <button id="termBtn" onclick="selectTerm()">Term</button> 
+      <button id="dateBtn" onclick="selectDate()">Date</button>
       <br>
       <div id='date-selection' hidden>
         <label for="start-date">Start Date
@@ -140,4 +131,18 @@
 </body>
 
 </html>
+<script>
+    let selectTerm = function() {
+      dateStatus = 0;
+      console.log("term");
+      document.getElementById("term-selection").hidden= false;
+      document.getElementById("date-selection").hidden= true;
+    };
+    let selectDate = function() {
+      dateStatus = 0;
+      console.log("date");
+      document.getElementById("term-selection").hidden= true;
+      document.getElementById("date-selection").hidden= false;
+    }
+</script>
 

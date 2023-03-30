@@ -14,7 +14,7 @@
 
 <body>
   <%- include('../partials/nav') %>
-  
+  <% let selectedBuilding = 0%>
 
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
@@ -62,17 +62,23 @@
       <%b_data.forEach(b => {
         %>
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <button id="B1btn" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else{%>unavailable<%}%>">
+          <button id="B1btn" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else{%>unavailable<%}%>" 
+            onclick="selectBuilding('<%= b.BuildingNo%>')" 
+            <%if(b.AvailableRooms ==0){%> disabled <%}%> >
             Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
           </button>
         </div>
+
          <%
       });%>
     </div>
     <div class='grid-item' id='select-room'>
-      Select Room
       <div class='box-title' id='room-title'>
-        Select Room
+        <%if(selectedBuilding > 0) {%>
+          Select Room in Building <%=selectedBuilding%>
+        <% } else { %>
+          Please Select a Building
+        <% } %>
       </div>
       <div class='apartment' id="apt-1">
         <div class='room' id='room-1'>1</div>
@@ -96,7 +102,6 @@
       </div>
     </div>
     <div class='grid-item' id='select-floor'>
-      Select Floor
       <div class='box-title'>
         Select Floor
       </div>
@@ -128,6 +133,12 @@
       console.log("date");
       document.getElementById("term-selection").hidden= true;
       document.getElementById("date-selection").hidden= false;
-    }
+    };
+    function selectBuilding(bNo) {
+      console.log("selected building "+bNo);
+      selectedBuilding = bNo;
+      document.getElementById('room-title').innerText = "Select Room in Building "+bNo;
+
+    };
 </script>
 

@@ -206,6 +206,11 @@
     border-width: medium;
     border-color: black;
   }
+  .box-title {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-style: none;
+  }
   #select-time {
     grid-area: time;
     height: 500px;
@@ -219,6 +224,9 @@
   }
   #select-room {
     grid-area: room;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr;
   }
   #select-floor {
     grid-area: floor;
@@ -238,10 +246,10 @@
   .building-btn.available{
     background-color:green;
   }
-  .building-btn.unavailable{
+  .building-btn .unavailable{
     background-color:gray;
   }
-  .building-btn:hover {
+  .building-btn:hover  {
     background-color: #00acee;
   }
   #Btitle {

@@ -1,0 +1,104 @@
+CREATE TABLE `apartment` (
+  `ApartmentNo` int NOT NULL,
+  `SID` int NOT NULL,
+  `StudentNum` int DEFAULT NULL,
+  `BuildingNo` int NOT NULL,
+  PRIMARY KEY (`ApartmentNo`),
+  KEY `SIDApartment_idx` (`SID`),
+  KEY `BuildingNoApartment_idx` (`BuildingNo`),
+  CONSTRAINT `BuildingNoApartment` FOREIGN KEY (`BuildingNo`) REFERENCES `building` (`BuildingNo`),
+  CONSTRAINT `SIDApartment` FOREIGN KEY (`SID`) REFERENCES `student` (`SID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `blacklist` (
+  `Reason` varchar(255) DEFAULT NULL,
+  `StudentId` int NOT NULL,
+  PRIMARY KEY (`StudentId`),
+  KEY `SIDBlaclist_idx` (`StudentId`),
+  CONSTRAINT `SIDBlaclist` FOREIGN KEY (`StudentId`) REFERENCES `student` (`SID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `booking` (
+  `StartTime` date DEFAULT NULL,
+  `EndTime` date DEFAULT NULL,
+  `Flag` int DEFAULT NULL,
+  `NID` int NOT NULL,
+  `RoomNo` int NOT NULL,
+  KEY `NIDBooking_idx` (`NID`),
+  KEY `RoomNoBooking_idx` (`RoomNo`),
+  CONSTRAINT `NIDBooking` FOREIGN KEY (`NID`) REFERENCES `person` (`NID`),
+  CONSTRAINT `RoomNoBooking` FOREIGN KEY (`RoomNo`) REFERENCES `room` (`RoomNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `building` (
+  `BuildingNo` int NOT NULL,
+  `Address` varchar(255) NOT NULL,
+  `Administrator` varchar(255) NOT NULL,
+  `AvailableRooms` int DEFAULT NULL,
+  `StudentNum` int DEFAULT NULL,
+  PRIMARY KEY (`BuildingNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `person` (
+  `NID` int NOT NULL,
+  `Fname` varchar(255) DEFAULT NULL,
+  `Lname` varchar(255) DEFAULT NULL,
+  `Phone` int NOT NULL,
+  `HomeAddress` varchar(255) DEFAULT NULL,
+  `Universityemail` varchar(255) DEFAULT NULL,
+  `Username` varchar(255) NOT NULL,
+  `Password` int NOT NULL,
+  `Gender` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`NID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `room` (
+  `RoomNo` int NOT NULL,
+  `RoomStatus` tinyint(1) DEFAULT NULL,
+  `Resident` varchar(255) DEFAULT NULL,
+  `SID` int NOT NULL,
+  `NID` int NOT NULL,
+  `ApartmentNo` int NOT NULL,
+  `BuildingNo` int NOT NULL,
+  PRIMARY KEY (`RoomNo`),
+  KEY `SID_idx` (`SID`),
+  KEY `NID_idx` (`NID`),
+  KEY `ApartmentNoRoom_idx` (`ApartmentNo`),
+  KEY `BuildingNo_idx` (`BuildingNo`),
+  CONSTRAINT `ApartmentNoRoom` FOREIGN KEY (`ApartmentNo`) REFERENCES `apartment` (`ApartmentNo`),
+  CONSTRAINT `BuildingNo` FOREIGN KEY (`BuildingNo`) REFERENCES `building` (`BuildingNo`),
+  CONSTRAINT `NIDRoom` FOREIGN KEY (`NID`) REFERENCES `person` (`NID`),
+  CONSTRAINT `SIDRoom` FOREIGN KEY (`SID`) REFERENCES `student` (`SID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `staff` (
+  `Position` varchar(255) DEFAULT NULL,
+  `Department` varchar(255) DEFAULT NULL,
+  `NID` int NOT NULL,
+  PRIMARY KEY (`NID`),
+  KEY `NID_idx` (`NID`),
+  CONSTRAINT `NIDStaff` FOREIGN KEY (`NID`) REFERENCES `person` (`NID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `student` (
+  `SID` int NOT NULL,
+  `Grade` varchar(255) DEFAULT NULL,
+  `Parentnumber` int NOT NULL,
+  `Parent` varchar(255) NOT NULL,
+  `year` int NOT NULL,
+  `attendance` varchar(255) DEFAULT NULL,
+  `NID` int NOT NULL,
+  `StudentName` varchar(255) NOT NULL,
+  PRIMARY KEY (`SID`),
+  KEY `NID_idx` (`NID`),
+  CONSTRAINT `NIDStudent` FOREIGN KEY (`NID`) REFERENCES `person` (`NID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

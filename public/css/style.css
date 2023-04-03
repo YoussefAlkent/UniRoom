@@ -206,6 +206,11 @@
     border-width: medium;
     border-color: black;
   }
+  .box-title {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-style: none;
+  }
   #select-time {
     grid-area: time;
     height: 500px;
@@ -219,6 +224,9 @@
   }
   #select-room {
     grid-area: room;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr;
   }
   #select-floor {
     grid-area: floor;
@@ -231,33 +239,44 @@
     margin:1px;
     border-style: solid;
   }
+  .building-btn {
+    width:100%;
+    height:100%;
+  }
+  .building-btn.available{
+    background-color:green;
+  }
+  .building-btn .unavailable{
+    background-color:gray;
+  }
+  .building-btn:hover  {
+    background-color: #00acee;
+  }
   #Btitle {
     grid-column-start: 1;
     grid-column-end: 3;
   }
-  #B1 {
-  
+  .apartment {
+    display: grid;
+    border-style: solid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
-  #B2 {
-  
+  .room {
+    border-style: solid;
+    border-color: gray;
+    margin: 2px;
+    background-color: lightblue;
   }
-  #B3 {
-  
+  .room:hover{
+    background-color: #5565ff;
   }
-  #B4 {
-  
+  .floor{
+    margin:5px;
+    border-style: solid;
+    background-color: lightgray;
   }
-  #B5 {
-  
-  }
-  #B6 {
-  
-  }
-  #B7 {
-  
-  }
-  #B8 {
-  
+  .floor:hover{
+    background-color: #5565ff;
   }
   hr.solid {
     border-top: 3px solid #bbb;
@@ -265,10 +284,13 @@
   body{
     background-color: #ffffff;
   }
-  .container{
+  .term-row{
     display: grid;
-    height: 500px;
-    width: 100%;
+    height: 35px;
+    width: 250px;
+    vertical-align: middle;
+    font-size: 15pt;
+    display: inline;
     grid-template-areas: 
     "title"
     "top"
@@ -276,6 +298,17 @@
     "mid2"
     "mid3"
     "bot";
+  }
+  label.term-row{
+    vertical-align: middle;
+    font-size: 15pt;
+    display: inline;
+  }
+  .term-checkbox {
+    padding: 5px;
+    width: 35px;
+    height:35px;
+    
   }
   .title{
     display: flex;
@@ -291,7 +324,7 @@
     justify-content: center;
     grid-area: "top";
   }
-  input{
+  .signin-input{
     width: 250px;
     height: 30px;
   }
@@ -359,9 +392,6 @@ img{
   }
   hr.solid {
     border-top: 3px solid #bbb;
-  }
-  body{
-    background-color: #ff8177;
   }
 .signupaccount{
     display: grid;
@@ -443,10 +473,7 @@ img{
     grid-area: "mid6";
   }
 
-  input{
-    width: 250px;
-    height: 30px;
-  }
+
   .pickurgender{
     display: flex;
     align-items: center;

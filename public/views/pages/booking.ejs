@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%
+     // window.addEventListener('load', function () {
+      console.log('booking.js loaded');
 
+    %>
 <head>
   <%- include('../partials/head') %>
-  <link rel=stylesheet href="public\css\style.css">
+  <script src='/booking.js' type="text/js"></script>
+  <link rel="stylesheet" type="text/css" href='/style.css'>
+  
 </head>
 
 <body>
   <%- include('../partials/nav') %>
-
+  <% let selectedBuilding = 0%>
 
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
-      Building No:<%= b_data[0].BuildingNo %><br>
-      <button id="termBtn">Term</button> <button id="dateBtn">Date</button>
+      
+
+      <button id="termBtn" onclick="selectTerm()">Term</button> 
+      <button id="dateBtn" onclick="selectDate()">Date</button>
       <br>
       <div id='date-selection' hidden>
         <label for="start-date">Start Date
@@ -28,20 +36,20 @@
         </label>
       </div>
       <div id="term-selection">
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Fall 2023/2024
       </label>
       <br>
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Spring 2023/2024
       </label>
       <br>
-      <label class="container">
-        <input type="checkbox">
+      <label class="term-row">
+        <input type="checkbox" class="term-checkbox">
         <span class="checkmark"></span>
         Summer 2023/2024
       </label>
@@ -51,36 +59,57 @@
       <div id='Btitle' class='building-grid-item'>
         Select building
       </div>
-      <div id='B1' class='building-grid-item'>
-        <button id="B1btn" class="building-btn">B1</button>
-      </div>
-      <div id='B2' class='building-grid-item'>
-        <button id="B2btn" class="building-btn">B2</button>
-      </div>
-      <div id='B3' class='building-grid-item'>
-        <button id="B3btn" class="building-btn">B3</button>
-      </div>
-      <div id='B4' class='building-grid-item'>
-        <button id="B4btn" class="building-btn">B4</button>
-      </div>
-      <div id='B5' class='building-grid-item'>
-        <button id="B5btn" class="building-btn">B5</button>
-      </div>
-      <div id='B6' class='building-grid-item'>
-        <button id="B6btn" class="building-btn">B6</button>
-      </div>
-      <div id='B7' class='building-grid-item'>
-        <button id="B7btn" class="building-btn">B7</button>
-      </div>
-      <div id='B8' class='building-grid-item'>
-        <button id="B8btn" class="building-btn">B8</button>
-      </div>
+      <%b_data.forEach(b => {
+        %>
+        <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
+          <button id="B1btn" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else{%>unavailable<%}%>" 
+            onclick="selectBuilding('<%= b.BuildingNo%>')" 
+            <%if(b.AvailableRooms ==0){%> disabled <%}%> >
+            Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
+          </button>
+        </div>
+
+         <%
+      });%>
     </div>
     <div class='grid-item' id='select-room'>
-      Select Room
+      <div class='box-title' id='room-title'>
+        <%if(selectedBuilding > 0) {%>
+          Select Room in Building <%=selectedBuilding%>
+        <% } else { %>
+          Please Select a Building
+        <% } %>
+      </div>
+      <div class='apartment' id="apt-1">
+        <div class='room' id='room-1'>1</div>
+        <div class='room' id='room-2'>2</div>
+        <div class='room' id='room-3'>3</div>
+      </div>
+      <div class='apartment' id="apt-2">
+        <div class='room' id='room-4'>4</div>
+        <div class='room' id='room-5'>5</div>
+        <div class='room' id='room-6'>6</div>
+      </div>
+      <div class='apartment' id="apt-3">
+        <div class='room' id='room-7'>7</div>
+        <div class='room' id='room-8'>8</div>
+        <div class='room' id='room-9'>9</div>
+      </div>
+      <div class='apartment' id="apt-4">
+        <div class='room' id='room-10'>10</div>
+        <div class='room' id='room-11'>11</div>
+        <div class='room' id='room-12'>12</div>
+      </div>
     </div>
     <div class='grid-item' id='select-floor'>
-      Select Floor
+      <div class='box-title'>
+        Select Floor
+      </div>
+      <div class='floor' id='floor-1'>1</div>
+      <div class='floor' id='floor-2'>2</div>
+      <div class='floor' id='floor-3'>3</div>
+      <div class='floor' id='floor-4'>4</div>
+      <div class='floor' id='floor-5'>5</div>
     </div>
     <div class='grid-item' id='selection-info'>
       Room Information
@@ -92,4 +121,24 @@
 </body>
 
 </html>
+<script>
+    let selectTerm = function() {
+      dateStatus = 0;
+      console.log("term");
+      document.getElementById("term-selection").hidden= false;
+      document.getElementById("date-selection").hidden= true;
+    };
+    let selectDate = function() {
+      dateStatus = 0;
+      console.log("date");
+      document.getElementById("term-selection").hidden= true;
+      document.getElementById("date-selection").hidden= false;
+    };
+    function selectBuilding(bNo) {
+      console.log("selected building "+bNo);
+      selectedBuilding = bNo;
+      document.getElementById('room-title').innerText = "Select Room in Building "+bNo;
+
+    };
+</script>
 

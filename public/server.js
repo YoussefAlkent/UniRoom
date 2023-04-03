@@ -15,23 +15,39 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-app.use(express.static(__dirname + '/public/css'));
+app.listen(8080);
+app.use(express.static('css'));
+app.use(express.static('js'));
 
-app.get('/', function(request, response, next){
+app.get('/', function(request, res, next){
     let query = "SELECT * FROM aiuroom.building";
     console.log("querying");
+    let book = require('./js/booking');
+    console.log(book);
     con.query(query, function(error, data){
         if(error){
            throw error; 
+           //response.render('pages/booking', {b_data: 0, error:false});
         } else {
-            response.render('pages/booking', {b_data: data, error:false});
+            res.render('pages/booking', {b_data: data, book:book, error:false});
             //console.log(data);
         }
     });
+
+    //res.render('pages/booking', {book: book, error:false});
+   // res.render('pages/booking');
 });
 
 app.get('/', function(req, res){
-    res.render('pages/booking')
+    
+});
+
+app.get('/', function(req, res){
+    //res.render('pages/booking', {css_file:'../../css/style.css'});
+    
+    
+    
+    
 });
 
 // var sql = "SELECT * FROM aiuroom.person";
@@ -46,7 +62,7 @@ app.get('/', function(req, res){
 
 
 
-app.listen(8080);
+
 console.log('Server is running, Port: 8080')
 /*
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>About Us</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+
+		h1 {
+			font-size: 36px;
+			margin: 0;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 40px;
+			text-align: justify;
+		}
+
+		section {
+			margin-bottom: 40px;
+			padding-bottom: 40px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		h2 {
+			font-size: 24px;
+			margin: 0 0 20px 0;
+		}
+
+		p {
+			margin: 0 0 20px 0;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>About Us</h1>
+	</header>
+	<main>
+		<section>
+			<h2>Our Mission</h2>
+			<p><%= mission %></p>
+		</section>
+		<section>
+			<h2>Our Team</h2>
+			<% for(var i=0; i<teams.length; i++) { %>
+			<h3><%= teams[i].name %></h3>
+			<p><%= teams[i].description %></p>
+			<% } %>
+		</section>
+	</main>
+</body>
+</html>

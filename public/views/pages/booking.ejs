@@ -1,6 +1,15 @@
 <!DOCTYPE html>
+<script>
+  let selectedBuilding=0;
+  let selectedFloor=1;
+  const ROOMS_PER_FLOOR = 12; 
+</script>
+
 <html lang="en">
   <%
+    let selectedBuilding=0;
+    let selectedFloor=1;
+    const ROOMS_PER_FLOOR = 12; 
      // window.addEventListener('load', function () {
       console.log('booking.js loaded');
 
@@ -14,7 +23,7 @@
 
 <body>
   <%- include('../partials/nav') %>
-  <% let selectedBuilding = 0%>
+
 
   <div class='grid-container'>
     <div class='grid-item' id='select-time'>
@@ -59,10 +68,10 @@
       <div id='Btitle' class='building-grid-item'>
         Select building
       </div>
-      <%b_data.forEach(b => {
+      <%b_data[0].forEach(b => {
         %>
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <button id="B1btn" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else{%>unavailable<%}%>" 
+          <button id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else if(b.BuildingNo==selectedBuilding){%>selected<%}else{%>unavailable<%}%>" 
             onclick="selectBuilding('<%= b.BuildingNo%>')" 
             <%if(b.AvailableRooms ==0){%> disabled <%}%> >
             Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
@@ -75,31 +84,36 @@
     <div class='grid-item' id='select-room'>
       <div class='box-title' id='room-title'>
         <%if(selectedBuilding > 0) {%>
-          Select Room in Building <%=selectedBuilding%>
+          Select Room in Building $(selectedBuilding)
         <% } else { %>
           Please Select a Building
         <% } %>
+        <%=b_data[1][0]%>
       </div>
-      <div class='apartment' id="apt-1">
-        <div class='room' id='room-1'>1</div>
-        <div class='room' id='room-2'>2</div>
-        <div class='room' id='room-3'>3</div>
+      <!-- ROOM SELECTION VIEW -->
+      <% let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+        let eRoom = sRoom + ROOMS_PER_FLOOR //eroom: one more than last room index to display;
+      for(let i=sRoom;i<eRoom;i+=3) {
+        if(i<b_data[1].length){
+        %>
+      <div class='apartment' id="apt-<%=b_data[1][(i/3)+1].ApartmentNo%>">
+        <div class='room <%if(b_data[1][i].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i].RoomNo%>' >
+          Room <%=b_data[1][i].RoomNo%> <br>
+          <%if(b_data[1][i].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
+        </div>
+        <div class='room <%if(b_data[1][i+1].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i+1].RoomNo%>'>
+          Room <%=b_data[1][i+1].RoomNo%> <br>
+          <%if(b_data[1][i+1].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
+        </div>
+        <div class='room <%if(b_data[1][i+2].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i+2].RoomNo%>'>
+          Room <%=b_data[1][i+2].RoomNo%> <br>
+          <%if(b_data[1][i+2].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
+        </div>
       </div>
-      <div class='apartment' id="apt-2">
-        <div class='room' id='room-4'>4</div>
-        <div class='room' id='room-5'>5</div>
-        <div class='room' id='room-6'>6</div>
-      </div>
-      <div class='apartment' id="apt-3">
-        <div class='room' id='room-7'>7</div>
-        <div class='room' id='room-8'>8</div>
-        <div class='room' id='room-9'>9</div>
-      </div>
-      <div class='apartment' id="apt-4">
-        <div class='room' id='room-10'>10</div>
-        <div class='room' id='room-11'>11</div>
-        <div class='room' id='room-12'>12</div>
-      </div>
+      <%
+          }
+        }
+      %>
     </div>
     <div class='grid-item' id='select-floor'>
       <div class='box-title'>
@@ -112,8 +126,8 @@
       <div class='floor' id='floor-5'>5</div>
     </div>
     <div class='grid-item' id='selection-info'>
-      Room Information
-      <a href="Payment.html">Proceed to Payment</a>
+      Room Information 
+            <a href="Payment.html">Proceed to Payment</a>
     </div>
 
   </div>
@@ -122,6 +136,7 @@
 
 </html>
 <script>
+
     let selectTerm = function() {
       dateStatus = 0;
       console.log("term");
@@ -135,10 +150,14 @@
       document.getElementById("date-selection").hidden= false;
     };
     function selectBuilding(bNo) {
+      if(document.getElementById('Bbtn'+selectedBuilding)!=null){
+        console.log(document.getElementById('Bbtn<%=selectedBuilding%>'));
+        document.getElementById('Bbtn'+selectedBuilding).classList.remove('selected');
+      }
       console.log("selected building "+bNo);
       selectedBuilding = bNo;
       document.getElementById('room-title').innerText = "Select Room in Building "+bNo;
-
+      document.getElementById('Bbtn'+selectedBuilding).classList.add('selected');
     };
 </script>
 

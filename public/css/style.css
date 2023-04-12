@@ -246,12 +246,17 @@
   .building-btn.available{
     background-color:green;
   }
-  .building-btn .unavailable{
-    background-color:gray;
+  .building-btn.selected{
+    background-color:#00acee
   }
   .building-btn:hover  {
     background-color: #00acee;
   }
+  .building-btn.unavailable, .building-btn.room.unavailable:hover{
+    background-color:gray;
+    color:black;
+  }
+
   #Btitle {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -267,9 +272,19 @@
     margin: 2px;
     background-color: lightblue;
   }
+  .room.available{
+    background-color:green;
+  }
+  .room.selected{
+    background-color:#3b5998
+  }
   .room:hover{
     background-color: #5565ff;
   }
+  .room.unavailable{
+    background-color:gray;
+  }
+
   .floor{
     margin:5px;
     border-style: solid;

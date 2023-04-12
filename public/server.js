@@ -7,7 +7,8 @@ var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
     port: 3306,
     user:"Uniroom_Admin",
-    password:"vtaiu@12345"
+    password:"vtaiu@12345",
+    multipleStatements:true
 });
 
 
@@ -19,16 +20,20 @@ app.listen(8080);
 app.use(express.static('css'));
 app.use(express.static('js'));
 
+let r_data;
 app.get('/', function(request, res, next){
-    let query = "SELECT * FROM aiuroom.building";
+    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1";
     console.log("querying");
     let book = require('./js/booking');
     console.log(book);
+    let room_query = "SELECT * FROM aiuroom.room";
+
     con.query(query, function(error, data){
         if(error){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
+            console.log(data);
             res.render('pages/booking', {b_data: data, book:book, error:false});
             //console.log(data);
         }

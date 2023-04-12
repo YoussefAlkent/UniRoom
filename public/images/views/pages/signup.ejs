@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/header') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="signupaccount">
+        <div class="title">Sign Up to a New Account</div>
+        <div class="sName">
+            <h3>
+                Name: <br>
+                <input id="name" type="text">
+            </h3>
+        </div>
+        <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text"></h3></div>
+        <div class="sEmail"><h3>University Email: <br><input id="email" type="text"></h3></div>
+        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="text"></h3></div>
+        <div class="sId"><h3>University ID: <br><input id="id" type="text"></h3></div>
+        <div class="ps"><h3>Password: <br><input id="password" type="text"></h3></div>
+        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text"></h3></div>
+        <div class="rps"><h3>Repeat Password: <br><input id="rpassword" type="text"></h3></div>
+        <div class="pickurgender">
+            <label for="languages">Gender: </label>
+            <select name="gender" id="languages">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            </select>
+    
+            <label for="year">Year of Study: </label>
+            <select name="year" id="year">
+                <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option>
+                <option value="four">4</option>
+                <option value="five">5</option>
+                <option value="six">6</option>
+            </select>
+        </div>
+        <div class="studyfleid">
+            <label for="fleid">Field of Study: </label>
+            <select name="fleid" id="fleid">
+                <option value="cs">Computer Science</option>
+                <option value="art">Art</option>
+                <option value="ce">Computer Engineer</option>
+                <option value="ec">Economy</option>
+            </select>
+        </div>
+        <div class="confirmbut">
+            <button id="confirm">confirm !</button>
+        </div>
+
+
+    </div>
+</body>
+</html>

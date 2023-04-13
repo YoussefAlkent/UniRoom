@@ -4,7 +4,8 @@ const express = require('express');
 const mysql = require('mysql');
 const fs = require('fs');
 const cookieParser = require('cookie-parser')
-const nodeMailer = require('node-mailer')
+const nodemailer = require('nodemailer')
+const session = require('express-session')
 
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
@@ -13,7 +14,7 @@ var con = mysql.createConnection({
     password:"vtaiu@12345",
     multipleStatements:true
 });
-var transporter = nodeMailer.createTransport({
+var transporter = nodemailer.createTransport({
     host:'smtp.gmail.com',
     auth:{
         user: "", //Use an email here, Until we can create one for the entire team

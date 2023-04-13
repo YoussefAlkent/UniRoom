@@ -48,12 +48,41 @@ app.get('/', function(req, res){
 });
 
 app.get('/', function(req, res){
-    //res.render('pages/booking', {css_file:'../../css/style.css'});
-    
-    
-    
+    res.render('pages/booking', {css_file:'../../css/style.css'}); 
     
 });
+app.post('/Signin', async (req, res) =>{
+    var name = req.body.name;
+    var pass = req.body.pass
+    let query = "SELECT * FROM person WHERE NID=? AND Password =?"
+    let values = [name, pass];
+    con.query(query,[values], function(err, result){
+        if(result == null){
+
+        } else{
+            res.render(booking)
+        }
+    })
+})
+app.post('/signup', async(req, res)=>{
+    var Fname = req.body.name;
+    var email = req.body.uemail;
+    var uid = req.body.uid;
+    var pass = req.body.pass;
+    var phonenum = req.body.phonenum;
+    var repeatpass = req.body.repeatpass;
+    var gender = req.body.gender;
+    var year = req.body.year;
+    var field = req.body.fleid;
+    if(pass == repeatpass){
+        let query = "INSERT INTO person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES ?"
+        let values=[Fname, phonenum, email, uid, password, gender, uid]
+        con.query(query, [values], function(err, result){
+            if (err) throw err;
+            console.log("Signup Successful:  ", result)
+        })
+    }
+})
 
 // var sql = "SELECT * FROM aiuroom.person";
 // con.connect(function(err){

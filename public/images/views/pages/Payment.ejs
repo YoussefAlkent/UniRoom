@@ -1,0 +1,48 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <%- include('../partials/header') %>
+    </head>
+    <body>
+        <%- include('../partials/nav') %>
+
+        <div class="main">
+            <div class="main__container">
+                <div class="main__content">
+                    <h3 class="bookingHead">Cost and Payment</h3>
+                    <p style="font-size: medium;" class="bookingInfo">Booking Cost:</p>
+                    <p style="font-size: medium;"class="bookingInfo">Extra Cost(s):</p>
+                    <div class="textA">
+                    <label class="bookingInfo">Cardholder Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="text" name="" id="payName" class="payTA"><br>
+                    </div>
+                    <div class="textA">
+                    <label class="bookingInfo">Credit Card Number:</label>
+                    <input type="text" name="" id="payCC" class="payTA"><br>
+                    </div>
+                    <div class="textA">
+                    <label class="bookingInfo">CVC: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="password" name="" id="payCVC" class="payTA"><br>
+                    </div>
+                    <div class="textA">
+                    <label class="bookingInfo">Billing Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="text" name="" id="payAddress" class="payTA"><br>
+                </div>
+                </div>
+                <div class="main__img--container">
+                    <h3 class="bookingHead">Booking Information <br> <br></h3>
+                    <p id="bookNum" class="bookingInfo">Booking Number: </p>
+                    <p id="floorNum" class="bookingInfo">Floor Number: </p>
+                    <p id="roomNum" class="bookingInfo">Room Number: </p>
+                    <p id="bookLen" class="bookingInfo">Duration of Stay: </p>
+                    <p id="bookName" class="bookingInfo">Booking under the Name: </p>
+                    <p id="UID" class="bookingInfo">University ID: </p>
+                    <p id="UMail" class="bookingInfo">University Email: </p>
+                </div>
+            </div>
+            <button id="submit" class="main__btn"><a href="/">Process Payment</a></button>
+            <p style="font-size: medium;" class="bookingInfo">Your Transaction is Secured.</p>
+        </div>
+        <script src="app.js"></script>
+    </body>
+    </html>

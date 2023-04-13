@@ -105,6 +105,7 @@ app.post('/Signin', async (req, res) =>{
     })
 })
 app.post('/signup', async(req, res)=>{
+    console.log(req.body)
     var Fname = req.body.name;
     var email = req.body.uemail;
     var uid = req.body.uid;

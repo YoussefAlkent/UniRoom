@@ -33,7 +33,7 @@ app.get('/', function(request, res, next){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
-            console.log(data);
+            //console.log(data);
             res.render('pages/booking', {b_data: data, book:book, error:false});
             //console.log(data);
         }
@@ -43,17 +43,11 @@ app.get('/', function(request, res, next){
    // res.render('pages/booking');
 });
 
-app.get('/', function(req, res){
-    
+app.get('/Login', function(req, res){
+    console.log("login requested");
+    res.render('pages/Signin');
 });
 
-app.get('/', function(req, res){
-    //res.render('pages/booking', {css_file:'../../css/style.css'});
-    
-    
-    
-    
-});
 
 // var sql = "SELECT * FROM aiuroom.person";
 // con.connect(function(err){

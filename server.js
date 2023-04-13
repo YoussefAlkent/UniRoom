@@ -3,6 +3,9 @@ const ejs = require('ejs')
 const express = require('express');
 const mysql = require('mysql');
 const fs = require('fs');
+const cookieParser = require('cookie-parser')
+const nodeMailer = require('node-mailer')
+
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
     port: 3306,
@@ -10,12 +13,35 @@ var con = mysql.createConnection({
     password:"vtaiu@12345",
     multipleStatements:true
 });
+var transporter = nodeMailer.createTransport({
+    host:'smtp.gmail.com',
+    auth:{
+        user: "", //Use an email here, Until we can create one for the entire team
+        pass: "" //Use an app specific password here if using 2fa
+    }
+})
+function createSignUpMail(email){
+    return {
+        from: "",//Enter your email here
+        to:email,
+        subject: "You Succesfully signed up!",
+        text:"Welcome to UniRoom!, You have been signed up"
+    }
+}
+function createLogInMail(email){
+     return {
+        from: "",//Enter your email here
+        to:email,
+        subject: "You have been logged in",
+        text:"Someone just logged in with your account, if it was you, please ignore this email, if not, please change your password"
+    }
+}
 
 
 var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
+app.use(cookieParser())
 app.listen(8080);
 app.use(express.static('css'));
 app.use(express.static('js'));
@@ -60,8 +86,21 @@ app.post('/Signin', async (req, res) =>{
         if(result == null){
 
         } else{
+            transporter.sendMail(createLogInMail(result.email), function(err, info){
+                if (err) throw err; else{console.log("email sent" + info.response)}
+            })
             res.render(booking)
         }
+    })
+    app.use(function (req, res, next){
+        var cookie = req.cookies.loginCookie;
+        if(cookie === undefined){
+            res.cookie('loginCookie',name , {maxAge: 900000, httpOnly:true})
+            console.log("Created cookie")
+        } else{
+            console.log('Cookie Existed', cookie)
+        }
+        next();
     })
 })
 app.post('/signup', async(req, res)=>{
@@ -74,54 +113,25 @@ app.post('/signup', async(req, res)=>{
     var gender = req.body.gender;
     var year = req.body.year;
     var field = req.body.fleid;
+    var parentnum = req.body.parentnum
     if(pass == repeatpass){
+        transporter.sendMail(createSignUpMail(email), function(err, info){
+            if(err) throw err; else console.log("email sent" + info.response)
+        })
         let query = "INSERT INTO person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES ?"
         let values=[Fname, phonenum, email, uid, password, gender, uid]
         con.query(query, [values], function(err, result){
             if (err) throw err;
-            console.log("Signup Successful:  ", result)
+            console.log("Signup 1 Successful:  ", result)
+        })
+        let query2 = "INSERT INTO student (SID, NID, Grade, Parentnumber, Parent, StudentName) VALUES ?"
+        let values2 = [uid, uid, year, parentnum, parent, Fname]
+        con.query(query2, [values2], function(err, result){
+            if (err) throw err;
+            console.log("Signup 2 Succesful")
         })
     }
 })
 
-// var sql = "SELECT * FROM aiuroom.person";
-// con.connect(function(err){
-//     if (err) throw err;
-//     console.log("Connected!");
-//     // con.query(sql, function(err,result, fields){
-//     //     if (err) throw err;
-//     //     console.log("Result: " + result[0].Fname)
-//     // })
-// })
-
-
-
-
 console.log('Server is running, Port: 8080')
-/*
-
-const hostname = '127.0.0.1';
-const port = 8080;
-
-var server = null;
-fs.readFile('../index.html', function(error, html){
-    if(error) throw error;
-    server = http.createServer(function(req, res) {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        res.write(html)
-        res.end();
-    });
-    server.listen(port,hostname,function(){
-        console.log("Server running at http://" + hostname + ':' + port +'/')
-    })
-});
-
-/*
-var express = require('express');
-const ejs = require('ejs')
-
-var app = express();
-
-*/
 module.exports = app;

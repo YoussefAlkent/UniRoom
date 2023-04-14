@@ -6,6 +6,8 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser')
 const nodemailer = require('nodemailer')
 const session = require('express-session')
+const jwt = require('jsonwebtoken')
+const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT'
 
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
@@ -46,6 +48,7 @@ app.use(cookieParser())
 app.listen(8080);
 app.use(express.static('css'));
 app.use(express.static('js'));
+var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 let r_data;
 app.get('/', function(request, res, next){
@@ -81,10 +84,14 @@ app.get('/', function(req, res){
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
     var pass = req.body.pass
-    let query = "SELECT * FROM person WHERE NID=? AND Password =?"
-    let values = [name, pass];
+    let query = "SELECT * FROM person WHERE NID=?";
+    let values = [name];
     con.query(query,[values], function(err, result){
-        if(result == null){
+        if(result.password == pass){
+            const token = jwt.sign(user,secretPhrase, {expiresIn:"3h"})
+            res.cookie('token', token,{
+                httpOnly:true
+            })
 
         } else{
             transporter.sendMail(createLogInMail(result.email), function(err, info){
@@ -137,3 +144,18 @@ app.post('/signup', async(req, res)=>{
 
 console.log('Server is running, Port: 8080')
 module.exports = app;
+
+app.get('/bookingStart/'+ user, urlencodedParser , (req,res,next)=>{
+    const token = req.cookies.token;
+    try{
+        const user = jwt.verify(token,secretPhrase)
+        req.user = user;
+        next();
+    }
+    catch{
+        res.clearCookie('token')
+        return res.redirect('/Signin')
+    }
+}, (req,res)=>{
+    res.redirect('/')
+})

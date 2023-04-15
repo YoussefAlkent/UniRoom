@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT'
+const bodyParser = require('body-parser')
 
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
@@ -74,7 +75,7 @@ app.get('/', function(request, res, next){
 });
 
 app.get('/', function(req, res){
-    
+    res.render('index')
 });
 
 app.get('/', function(req, res){
@@ -97,7 +98,7 @@ app.post('/Signin', async (req, res) =>{
             transporter.sendMail(createLogInMail(result.email), function(err, info){
                 if (err) throw err; else{console.log("email sent" + info.response)}
             })
-            res.render(booking)
+            res.redirect('/')
         }
     })
     app.use(function (req, res, next){
@@ -142,10 +143,7 @@ app.post('/signup', async(req, res)=>{
     }
 })
 
-console.log('Server is running, Port: 8080')
-module.exports = app;
-
-app.get('/bookingStart/'+ user, urlencodedParser , (req,res,next)=>{
+app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
     const token = req.cookies.token;
     try{
         const user = jwt.verify(token,secretPhrase)
@@ -159,3 +157,6 @@ app.get('/bookingStart/'+ user, urlencodedParser , (req,res,next)=>{
 }, (req,res)=>{
     res.redirect('/')
 })
+console.log('Server is running, Port: 8080')
+module.exports = app;
+

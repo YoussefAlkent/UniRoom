@@ -1,0 +1,9 @@
+index > signup
+index > login
+index > (if token) booking
+index > (if token) profile
+profile > (if !token) login
+booking > (if !token) login
+signup > login
+booking > (if !token) login
+booking > payment

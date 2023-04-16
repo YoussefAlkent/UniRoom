@@ -3,6 +3,13 @@ const ejs = require('ejs')
 const express = require('express');
 const mysql = require('mysql');
 const fs = require('fs');
+const cookieParser = require('cookie-parser')
+const nodemailer = require('nodemailer')
+const session = require('express-session')
+const jwt = require('jsonwebtoken')
+const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT'
+const bodyParser = require('body-parser')
+
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
     port: 3306,
@@ -10,18 +17,47 @@ var con = mysql.createConnection({
     password:"vtaiu@12345",
     multipleStatements:true
 });
+var transporter = nodemailer.createTransport({
+    host:'smtp.gmail.com',
+    auth:{
+        user: "", //Use an email here, Until we can create one for the entire team
+        pass: "" //Use an app specific password here if using 2fa
+    }
+})
+function createSignUpMail(email){
+    return {
+        from: "",//Enter your email here
+        to:email,
+        subject: "You Succesfully signed up!",
+        text:"Welcome to UniRoom!, You have been signed up"
+    }
+}
+function createLogInMail(email){
+     return {
+        from: "",//Enter your email here
+        to:email,
+        subject: "You have been logged in",
+        text:"Someone just logged in with your account, if it was you, please ignore this email, if not, please change your password"
+    }
+}
 
 let b_data;
 
 var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
+app.use(cookieParser())
 app.listen(8080);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public/stylesheets'));
 app.use(express.static('../public/javascript'));
+
+app.use(express.static('css'));
+app.use(express.static('js'));
+var urlencodedParser = bodyParser.urlencoded({extended:false})
+
 
 let r_data;
 app.get('/', function(request, res, next){
@@ -48,7 +84,7 @@ app.get('/', function(request, res, next){
 });
 
 app.get('/', function(req, res){
-    
+    res.render('index')
 });
 
 app.get('/', function(req, res){
@@ -58,17 +94,35 @@ app.get('/', function(req, res){
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
     var pass = req.body.pass
-    let query = "SELECT * FROM person WHERE NID=? AND Password =?"
-    let values = [name, pass];
+    let query = "SELECT * FROM person WHERE NID=?";
+    let values = [name];
     con.query(query,[values], function(err, result){
-        if(result == null){
+        if(result.password == pass){
+            const token = jwt.sign(user,secretPhrase, {expiresIn:"3h"})
+            res.cookie('token', token,{
+                httpOnly:true
+            })
 
         } else{
-            res.render(booking)
+            transporter.sendMail(createLogInMail(result.email), function(err, info){
+                if (err) throw err; else{console.log("email sent" + info.response)}
+            })
+            res.redirect('/')
         }
+    })
+    app.use(function (req, res, next){
+        var cookie = req.cookies.loginCookie;
+        if(cookie === undefined){
+            res.cookie('loginCookie',name , {maxAge: 900000, httpOnly:true})
+            console.log("Created cookie")
+        } else{
+            console.log('Cookie Existed', cookie)
+        }
+        next();
     })
 })
 app.post('/signup', async(req, res)=>{
+    console.log(req.body)
     var Fname = req.body.name;
     var email = req.body.uemail;
     var uid = req.body.uid;
@@ -78,12 +132,22 @@ app.post('/signup', async(req, res)=>{
     var gender = req.body.gender;
     var year = req.body.year;
     var field = req.body.fleid;
+    var parentnum = req.body.parentnum
     if(pass == repeatpass){
+        transporter.sendMail(createSignUpMail(email), function(err, info){
+            if(err) throw err; else console.log("email sent" + info.response)
+        })
         let query = "INSERT INTO person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES ?"
         let values=[Fname, phonenum, email, uid, password, gender, uid]
         con.query(query, [values], function(err, result){
             if (err) throw err;
-            console.log("Signup Successful:  ", result)
+            console.log("Signup 1 Successful:  ", result)
+        })
+        let query2 = "INSERT INTO student (SID, NID, Grade, Parentnumber, Parent, StudentName) VALUES ?"
+        let values2 = [uid, uid, year, parentnum, parent, Fname]
+        con.query(query2, [values2], function(err, result){
+            if (err) throw err;
+            console.log("Signup 2 Succesful")
         })
     }
 })
@@ -108,44 +172,20 @@ app.post('/Building', async (req, res) =>{
 
 
 
-// var sql = "SELECT * FROM aiuroom.person";
-// con.connect(function(err){
-//     if (err) throw err;
-//     console.log("Connected!");
-//     // con.query(sql, function(err,result, fields){
-//     //     if (err) throw err;
-//     //     console.log("Result: " + result[0].Fname)
-//     // })
-// })
-
-
-
-
+app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
+    const token = req.cookies.token;
+    try{
+        const user = jwt.verify(token,secretPhrase)
+        req.user = user;
+        next();
+    }
+    catch{
+        res.clearCookie('token')
+        return res.redirect('/Signin')
+    }
+}, (req,res)=>{
+    res.redirect('/')
+})
 console.log('Server is running, Port: 8080')
-/*
-
-const hostname = '127.0.0.1';
-const port = 8080;
-
-var server = null;
-fs.readFile('../index.html', function(error, html){
-    if(error) throw error;
-    server = http.createServer(function(req, res) {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        res.write(html)
-        res.end();
-    });
-    server.listen(port,hostname,function(){
-        console.log("Server running at http://" + hostname + ':' + port +'/')
-    })
-});
-
-/*
-var express = require('express');
-const ejs = require('ejs')
-
-var app = express();
-
-*/
 module.exports = app;
+

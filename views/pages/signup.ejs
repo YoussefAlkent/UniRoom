@@ -5,8 +5,8 @@
 </head>
 <body>
     <%- include('../partials/nav') %>
-
     <div class="signupaccount">
+        <form action="/signup" method="post">
         <div class="title">Sign Up to a New Account</div>
         <div class="sName">
             <h3>
@@ -14,7 +14,6 @@
                 <input id="name" type="text" name="name">
             </h3>
         </div>
-        <form action="/signup" method="post">
         <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text" name="parent"></h3></div>
         <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="uemail"></h3></div>
         <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="text" name="parentnum"></h3></div>

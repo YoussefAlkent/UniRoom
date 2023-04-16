@@ -2,7 +2,8 @@
 <script>
   //let selectedBuilding=0;
   let selectedRoom = 0;
-  let selectedFloor=1;
+  // let selectedFloor=1;
+  
   let dateStatus =0;
   const ROOMS_PER_FLOOR = 12; 
 </script>
@@ -15,8 +16,11 @@
      // selectedBuilding= sBuilding;
     //}
     let selectedRoom = 0;
-    let selectedFloor=1;
+    // let selectedFloor=1;
     const ROOMS_PER_FLOOR = 12; 
+    // sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+    // eRoom = sRoom + ROOMS_PER_FLOOR;
+
      // window.addEventListener('load', function () {
       console.log('booking.js loaded');
 
@@ -86,6 +90,9 @@
         %>
       <form action="/Building" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
+          <input name="sRoom" value="<%=sRoom%>" hidden>
+          <input name="eRoom" value="<%=eRoom%>" hidden>
+          <input name="floor" value="<%=selectedFloor%>" hidden>
           <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%} else if(b.AvailableRooms >0){%>available<%}else{%>unavailable<%}%>" 
             onclick="selectBuilding('<%= b.BuildingNo%>')" 
             name="bNo"
@@ -96,7 +103,7 @@
         </div>
       </form>
 
-         <% console.log(sBuilding)
+         <% 
       });%>
     </div>
     <div class='grid-item' id='select-room'>
@@ -115,13 +122,13 @@
       /**
        *  APARTMENT generation: 3 rooms per apartment
        */
-        let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
-        let eRoom = sRoom + ROOMS_PER_FLOOR; //eroom: one more than last room index to display;
-        for(let i=sRoom;i<eRoom;i+=3) {
-          if(i<r_data.length){
+        // sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+        // eRoom = sRoom + ROOMS_PER_FLOOR; //eroom: one more than last room index to display;
+        for(let i=0;i<ROOMS_PER_FLOOR;i+=3) {
+          
 
       %>
-      <div class='apartment' id="apt-<%=r_data[(i/3)+1].ApartmentNo%>">
+      <div class='apartment' id="apt-<%=(r_data[i].RoomNo / 3)+1%>">
 
         <button class='room <%if(r_data[i].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
           onclick="selectRoom('<%=r_data[i].RoomNo%>')">
@@ -143,7 +150,7 @@
 
       </div>
       <%
-          }
+          
         }
       %>
     </div>
@@ -151,11 +158,20 @@
       <div class='box-title'>
         Select Floor
       </div>
-      <button class='floor <%if(selectedFloor==1){%>selected<%}%>' id='floor-1' onclick="selectFloor(1)">1</button>
-      <button class='floor <%if(selectedFloor==2){%>selected<%}%>' id='floor-2' onclick="selectFloor(2)">2</button>
-      <button class='floor <%if(selectedFloor==3){%>selected<%}%>' id='floor-3' onclick="selectFloor(3)">3</button>
-      <button class='floor <%if(selectedFloor==4){%>selected<%}%>' id='floor-4' onclick="selectFloor(4)">4</button>
-      <button class='floor <%if(selectedFloor==5){%>selected<%}%>' id='floor-5' onclick="selectFloor(5)">5</button>
+      <% for(let i=1; i<=5; i++){ %>
+        <form action="/Building" method="post">
+          <input name="bNo" value="<%=sBuilding%>" hidden>
+          <input name="floor" value="<%=i%>" hidden>
+          <input name="sRoom" value="<%=((i-1)*12)+1%>" hidden>
+          <input name="eRoom" value="<%=((i-1)*12)+ROOMS_PER_FLOOR%>" hidden>
+          <button type="submit" 
+            class='floor <%if(selectedFloor==i){%>selected<%}%>' 
+            id='floor-<%=i%>' 
+            onclick="selectFloor('<%=i%>')"><%=i%>
+          </button>
+        </form>
+      <%}%>
+
     </div>
     <div class='grid-item' id='selection-info'>
       Booking Information <br>
@@ -193,14 +209,16 @@
       document.getElementById('dateBtn').classList.add('selected');
     };
     function selectFloor(n){
-      if(document.getElementById('floor-'+selectedFloor)!=null){
+      if(document.getElementById('floor-<%=selectedFloor%>')!=null){
         //console.log(document.getElementById('Bbtn<%=sBuilding%>'));
-        document.getElementById('floor-'+selectedFloor).classList.remove('selected');
+        document.getElementById('floor-<%=selectedFloor%>').classList.remove('selected');
       }
       console.log("selected floor "+n);
-      selectedFloor = n;
-      document.getElementById('floor-'+selectedFloor).classList.add('selected');
-      $("#select-room").load(" #select-room > *");
+      // selectedFloor = n;
+      document.getElementById('floor-<%=selectedFloor%>').classList.add('selected');
+      // sRoom = (n -1)*12;
+      // eRoom = sRoom + ROOMS_PER_FLOOR;
+      
     };   
  function selectBuilding(bNo) {
       if(document.getElementById('Bbtn'+sBuilding)!=null){
@@ -211,6 +229,7 @@
       sBuilding = bNo;
       document.getElementById('room-title').innerText = "Select Room in Building "+bNo;
       document.getElementById('Bbtn'+sBuilding).classList.add('selected');
+      window.history.pushState("", "", '/');
     };
     function selectRoom(rNo) {
       if(document.getElementById('room-'+selectedRoom)!=null){

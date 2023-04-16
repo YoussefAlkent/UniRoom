@@ -61,12 +61,11 @@ var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 let r_data;
 app.get('/', function(request, res, next){
-    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1";
+    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12";
     console.log("querying");
     let book = require('./public/javascript/booking');
-    console.log(book);
-    let room_query = "SELECT * FROM aiuroom.room";
-
+    //console.log(book);
+    
     con.query(query, function(error, data){
         if(error){
            throw error; 
@@ -74,8 +73,9 @@ app.get('/', function(request, res, next){
         } else {
            // console.log(data);
            b_data=data;
-            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:0, selectedFloor:1, error:false});
-            //console.log(data);
+           console.log(data[1]);
+            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:1, selectedFloor:1,sRoom:1, eRoom:12, error:false});
+           
         }
     });
 
@@ -153,10 +153,13 @@ app.post('/signup', async(req, res)=>{
 })
 app.post('/Building', async (req, res) =>{
     let bNo = req.body.bNo;
-    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=?"
-    console.log(bNo);
-    let values=[bNo]
-    con.query(query,[values], function(err, data){
+    let sRoom = req.body.sRoom;
+    let eRoom = req.body.eRoom;
+    let floor = req.body.floor;
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?"
+    
+    let values=[bNo, sRoom, eRoom];
+    con.query(query,values, function(err, data){
         
         if(err){
             throw err;
@@ -164,9 +167,11 @@ app.post('/Building', async (req, res) =>{
         else if(data == null){
 
         } else{
-            console.log(data);
-            //return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, error:false});
-            return res.redirect('/');
+            console.log(data[1]);
+            console.log(floor+" "+sRoom);
+
+            return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, selectedFloor:floor, sRoom:sRoom, eRoom:eRoom, error:false});
+            
         }
     });
 });

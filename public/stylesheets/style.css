@@ -6,7 +6,6 @@
 
 }
 
-
 .navbar {
   background: #393232;
   height: 80px;
@@ -82,35 +81,6 @@ img{
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
-}
-
-#Btitle {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-.apartment {
-  display: grid;
-  border-style: solid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.room {
-  border-style: solid;
-  border-color: gray;
-  margin: 2px;
-  background-color: lightblue;
-  width:100%;
-}
-.room.available{
-  background-color:green;
-}
-.room.selected{
-  background-color:#3b5998
-}
-.room:hover{
-  background-color: #00acee;
-}
-.room.unavailable{
-  background-color:gray;
 }
 
 

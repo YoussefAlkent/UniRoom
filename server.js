@@ -74,7 +74,7 @@ app.get('/', function(request, res, next){
         } else {
            // console.log(data);
            b_data=data;
-            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:0, error:false});
+            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:0, selectedFloor:1, error:false});
             //console.log(data);
         }
     });
@@ -165,7 +165,8 @@ app.post('/Building', async (req, res) =>{
 
         } else{
             console.log(data);
-            return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, error:false});
+            //return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, error:false});
+            return res.redirect('/');
         }
     });
 });

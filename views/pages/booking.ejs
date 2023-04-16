@@ -3,6 +3,7 @@
   //let selectedBuilding=0;
   let selectedRoom = 0;
   let selectedFloor=1;
+  let dateStatus =0;
   const ROOMS_PER_FLOOR = 12; 
 </script>
 
@@ -23,6 +24,7 @@
 <head>
   <%- include('../partials/head') %>
   <script src='/booking.js' type="text/js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href='/style.css'>
   <link rel="stylesheet" type="text/css" href='/booking.css'>
   
@@ -37,7 +39,7 @@
       Select Booking Range <br>
       
 
-      <button id="termBtn" onclick="selectTerm()">Term</button> 
+      <button id="termBtn" class="selected" onclick="selectTerm()">Term</button> 
       <button id="dateBtn" onclick="selectDate()">Date</button>
       <br>
       <form action="/Date">
@@ -84,7 +86,7 @@
         %>
       <form action="/Building" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else if(b.BuildingNo==sBuilding){%>selected<%}else{%>unavailable<%}%>" 
+          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%} else if(b.AvailableRooms >0){%>available<%}else{%>unavailable<%}%>" 
             onclick="selectBuilding('<%= b.BuildingNo%>')" 
             name="bNo"
             value="<%=b.BuildingNo%>"
@@ -104,34 +106,41 @@
         <% } else { %>
           Please Select a Building
         <% } %>
-        <%=r_data[0].RoomNo%>
+
       </div>
-      <!-- ROOM SELECTION VIEW -->
-      <% let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
-        let eRoom = sRoom + ROOMS_PER_FLOOR //eroom: one more than last room index to display;
-      for(let i=sRoom;i<eRoom;i+=3) {
-        if(i<r_data.length){
-        %>
+
+
+       <!-- ROOM SELECTION VIEW -->
+      <% 
+      /**
+       *  APARTMENT generation: 3 rooms per apartment
+       */
+        let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+        let eRoom = sRoom + ROOMS_PER_FLOOR; //eroom: one more than last room index to display;
+        for(let i=sRoom;i<eRoom;i+=3) {
+          if(i<r_data.length){
+
+      %>
       <div class='apartment' id="apt-<%=r_data[(i/3)+1].ApartmentNo%>">
+
         <button class='room <%if(r_data[i].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
           onclick="selectRoom('<%=r_data[i].RoomNo%>')">
           Room <%=r_data[i].RoomNo%> <br>
           <%if(r_data[i].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
         </button>
+
         <button class='room <%if(r_data[i+1].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
-          type="submit"
-          name="rNo"
-          value="<%=r_data[i].RoomNo%>">
+          onclick="selectRoom('<%=r_data[i+1].RoomNo%>')">
           Room <%=r_data[i+1].RoomNo%> <br>
           <%if(r_data[i+1].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
         </button>
+
         <button class='room <%if(r_data[i+2].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>'
-          type="submit"
-          name="rNo"
-          value="<%=r_data[i].RoomNo%>">
+          onclick="selectRoom('<%=r_data[i+2].RoomNo%>')">
           Room <%=r_data[i+2].RoomNo%> <br>
           <%if(r_data[i+2].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
         </button>
+
       </div>
       <%
           }
@@ -142,11 +151,11 @@
       <div class='box-title'>
         Select Floor
       </div>
-      <div class='floor' id='floor-1'>1</div>
-      <div class='floor' id='floor-2'>2</div>
-      <div class='floor' id='floor-3'>3</div>
-      <div class='floor' id='floor-4'>4</div>
-      <div class='floor' id='floor-5'>5</div>
+      <button class='floor <%if(selectedFloor==1){%>selected<%}%>' id='floor-1' onclick="selectFloor(1)">1</button>
+      <button class='floor <%if(selectedFloor==2){%>selected<%}%>' id='floor-2' onclick="selectFloor(2)">2</button>
+      <button class='floor <%if(selectedFloor==3){%>selected<%}%>' id='floor-3' onclick="selectFloor(3)">3</button>
+      <button class='floor <%if(selectedFloor==4){%>selected<%}%>' id='floor-4' onclick="selectFloor(4)">4</button>
+      <button class='floor <%if(selectedFloor==5){%>selected<%}%>' id='floor-5' onclick="selectFloor(5)">5</button>
     </div>
     <div class='grid-item' id='selection-info'>
       Booking Information <br>
@@ -172,14 +181,28 @@
       console.log("term");
       document.getElementById("term-selection").hidden= false;
       document.getElementById("date-selection").hidden= true;
+      document.getElementById('termBtn').classList.add('selected');
+      document.getElementById('dateBtn').classList.remove('selected');
     };
     let selectDate = function() {
-      dateStatus = 0;
+      dateStatus = 1;
       console.log("date");
       document.getElementById("term-selection").hidden= true;
       document.getElementById("date-selection").hidden= false;
+      document.getElementById('termBtn').classList.remove('selected');
+      document.getElementById('dateBtn').classList.add('selected');
     };
-    function selectBuilding(bNo) {
+    function selectFloor(n){
+      if(document.getElementById('floor-'+selectedFloor)!=null){
+        //console.log(document.getElementById('Bbtn<%=sBuilding%>'));
+        document.getElementById('floor-'+selectedFloor).classList.remove('selected');
+      }
+      console.log("selected floor "+n);
+      selectedFloor = n;
+      document.getElementById('floor-'+selectedFloor).classList.add('selected');
+      $("#select-room").load(" #select-room > *");
+    };   
+ function selectBuilding(bNo) {
       if(document.getElementById('Bbtn'+sBuilding)!=null){
         console.log(document.getElementById('Bbtn<%=sBuilding%>'));
         document.getElementById('Bbtn'+sBuilding).classList.remove('selected');

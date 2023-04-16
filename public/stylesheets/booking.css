@@ -1,3 +1,13 @@
+body{
+    font-family:sans-serif;
+}
+button{
+    width:100%;
+    border-style:none;
+    border-radius:0.5em;
+
+}
+
 .grid-container {
     display: grid;
     gap: 1%;
@@ -13,9 +23,11 @@
     padding: 10px;
     margin: 10px;
     border-style: solid;
-    border: 1px 1px;
+    border: 1px;
     border-width: medium;
-    border-color: black;
+    border-color: #756f6f;
+    border-radius:0.8em;
+    background-color:#9c9292
 }
 
 .box-title {
@@ -54,7 +66,9 @@
 
 .building-grid-item {
     margin: 1px;
-    border-style: solid;
+    width:95%;
+    height:95%;
+    /* border-style: solid; */
 }
 
 .building-btn {
@@ -62,20 +76,24 @@
     height: 100%;
 }
 
-.building-btn.available {
+/* .building-btn.available {
     background-color: green;
-}
+} */
 
-.building-btn.selected {
-    background-color: #00acee
+.available {
+    background-color: rgb(207, 209, 207);
 }
-
-.building-btn:hover {
+button:hover {
     background-color: #00acee;
 }
+.selected,
+.selected:hover {
+    background-color: #5e4b4b
+}
 
-.building-btn.unavailable,
-.building-btn.room.unavailable:hover {
+
+.unavailable,
+.unavailable:hover {
     background-color: gray;
     color: black;
 }
@@ -87,23 +105,21 @@
 
 .apartment {
     display: grid;
-    border-style: solid;
+    /* border-style: solid; */
     grid-template-columns: 1fr 1fr 1fr;
 }
 
 .room {
-    border-style: solid;
-    border-color: gray;
+    /* border-style: solid; */
+    /* border-color: gray; */
     margin: 2px;
-    background-color: lightblue;
-    width: 100%;
+    width: 90%;
+    height:95%;
 }
 
-.room.available {
-    background-color: green;
-}
 
-.room.selected {
+
+/* .room.selected {
     background-color: #3b5998
 }
 
@@ -113,17 +129,15 @@
 
 .room.unavailable {
     background-color: gray;
-}
+} */
 
 .floor {
     margin: 5px;
-    border-style: solid;
-    background-color: lightgray;
 }
 
-.floor:hover {
+/* .floor:hover {
     background-color: #5565ff;
-}
+} */
 
 .term-row {
     display: grid;
@@ -152,4 +166,9 @@ label.term-row {
     width: 35px;
     height: 35px;
 
+}
+
+#termBtn,
+#dateBtn{
+    width:45%;
 }

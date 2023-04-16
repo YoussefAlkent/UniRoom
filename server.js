@@ -11,14 +11,17 @@ var con = mysql.createConnection({
     multipleStatements:true
 });
 
+let b_data;
 
 var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 app.listen(8080);
-app.use(express.static('css'));
-app.use(express.static('js'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public/stylesheets'));
+app.use(express.static('../public/javascript'));
 
 let r_data;
 app.get('/', function(request, res, next){
@@ -33,8 +36,9 @@ app.get('/', function(request, res, next){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
-            console.log(data);
-            res.render('pages/booking', {b_data: data, book:book, error:false});
+           // console.log(data);
+           b_data=data;
+            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:0, error:false});
             //console.log(data);
         }
     });
@@ -83,6 +87,26 @@ app.post('/signup', async(req, res)=>{
         })
     }
 })
+app.post('/Building', async (req, res) =>{
+    let bNo = req.body.bNo;
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=?"
+    console.log(bNo);
+    let values=[bNo]
+    con.query(query,[values], function(err, data){
+        
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else{
+            console.log(data);
+            return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, error:false});
+        }
+    });
+});
+
+
 
 // var sql = "SELECT * FROM aiuroom.person";
 // con.connect(function(err){

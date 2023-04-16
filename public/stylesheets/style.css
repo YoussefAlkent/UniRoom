@@ -271,6 +271,7 @@
     border-color: gray;
     margin: 2px;
     background-color: lightblue;
+    width:100%;
   }
   .room.available{
     background-color:green;
@@ -279,7 +280,7 @@
     background-color:#3b5998
   }
   .room:hover{
-    background-color: #5565ff;
+    background-color: #00acee;
   }
   .room.unavailable{
     background-color:gray;

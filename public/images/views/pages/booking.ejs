@@ -91,7 +91,10 @@
         <%=b_data[1][0]%>
       </div>
       <!-- ROOM SELECTION VIEW -->
-      <% let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+      <% 
+        let rooms = [];
+        
+        let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
         let eRoom = sRoom + ROOMS_PER_FLOOR //eroom: one more than last room index to display;
       for(let i=sRoom;i<eRoom;i+=3) {
         if(i<b_data[1].length){

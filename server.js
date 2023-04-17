@@ -41,32 +41,41 @@ function createLogInMail(email){
     }
 }
 
+let b_data;
 
 var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(cookieParser())
 app.listen(8080);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public/stylesheets'));
+app.use(express.static('../public/javascript'));
+
 app.use(express.static('css'));
 app.use(express.static('js'));
 var urlencodedParser = bodyParser.urlencoded({extended:false})
 
+
 let r_data;
 app.get('/', function(request, res, next){
-    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1";
+    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12";
     console.log("querying");
     let book = require('./public/javascript/booking');
-    console.log(book);
-    let room_query = "SELECT * FROM aiuroom.room";
-
+    //console.log(book);
+    
     con.query(query, function(error, data){
         if(error){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
-            console.log(data);
-            res.render('pages/booking', {b_data: data, book:book, error:false});
-            //console.log(data);
+           // console.log(data);
+           b_data=data;
+           console.log(data[1]);
+            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:1, selectedFloor:1,sRoom:1, eRoom:12, error:false});
+           
         }
     });
 
@@ -142,6 +151,32 @@ app.post('/signup', async(req, res)=>{
         })
     }
 })
+app.post('/Building', async (req, res) =>{
+    let bNo = req.body.bNo;
+    let sRoom = req.body.sRoom;
+    let eRoom = req.body.eRoom;
+    let floor = req.body.floor;
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?"
+    
+    let values=[bNo, sRoom, eRoom];
+    con.query(query,values, function(err, data){
+        
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else{
+            console.log(data[1]);
+            console.log(floor+" "+sRoom);
+
+            return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, selectedFloor:floor, sRoom:sRoom, eRoom:eRoom, error:false});
+            
+        }
+    });
+});
+
+
 
 // app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
 //     const token = req.cookies.token;

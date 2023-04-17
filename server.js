@@ -192,6 +192,6 @@ app.post('/Building', async (req, res) =>{
 // }, (req,res)=>{
 //     res.redirect('/')
 // })
-// console.log('Server is running, Port: 8080')
-// module.exports = app;
+console.log('Server is running, Port: 8080')
+module.exports = app;
 

@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const nodemailer = require('nodemailer')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
-const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT'
+const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT' //what the variable said
 const bodyParser = require('body-parser')
 
 var con = mysql.createConnection({
@@ -143,20 +143,20 @@ app.post('/signup', async(req, res)=>{
     }
 })
 
-app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
-    const token = req.cookies.token;
-    try{
-        const user = jwt.verify(token,secretPhrase)
-        req.user = user;
-        next();
-    }
-    catch{
-        res.clearCookie('token')
-        return res.redirect('/Signin')
-    }
-}, (req,res)=>{
-    res.redirect('/')
-})
-console.log('Server is running, Port: 8080')
-module.exports = app;
+// app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
+//     const token = req.cookies.token;
+//     try{
+//         const user = jwt.verify(token,secretPhrase)
+//         req.user = user;
+//         next();
+//     }
+//     catch{
+//         res.clearCookie('token')
+//         return res.redirect('/Signin')
+//     }
+// }, (req,res)=>{
+//     res.redirect('/')
+// })
+// console.log('Server is running, Port: 8080')
+// module.exports = app;
 

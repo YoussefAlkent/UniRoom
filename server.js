@@ -37,7 +37,7 @@ function createLogInMail(email){
         from: "",//Enter your email here
         to:email,
         subject: "You have been logged in",
-        text:"Someone just logged in with your account, if it was you, please ignore this email, if not, please change your password"
+        text:"Someone just logged in with your account. If it was you, please ignore this email-- if not, please change your password."
     }
 }
 
@@ -59,7 +59,6 @@ app.use(express.static('js'));
 var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 
-let r_data;
 app.get('/', function(request, res, next){
     let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12";
     console.log("querying");
@@ -72,9 +71,19 @@ app.get('/', function(request, res, next){
            //response.render('pages/booking', {b_data: 0, error:false});
         } else {
            // console.log(data);
-           b_data=data;
-           console.log(data[1]);
-            res.render('pages/booking', {b_data: b_data[0], r_data:b_data[1], book:book, sBuilding:1, selectedFloor:1,sRoom:1, eRoom:12, error:false});
+           console.log(data[2]);
+            res.render('pages/booking', {
+                b_data: data[0], 
+                r_data: data[1], 
+                booking: data[2],
+                sBuilding:1, 
+                selectedFloor:1,
+                sRoom:1, 
+                eRoom:12, 
+                sDate:'2023-01-01', 
+                eDate:'2999-01-02',
+                error:false
+            });
            
         }
     });
@@ -83,14 +92,14 @@ app.get('/', function(request, res, next){
    // res.render('pages/booking');
 });
 
-app.get('/', function(req, res){
-    res.render('index')
-});
+// app.get('/', function(req, res){
+//     res.render('index')
+// });
 
-app.get('/', function(req, res){
-    res.render('pages/booking', {css_file:'../../css/style.css'}); 
+// app.get('/', function(req, res){
+//     res.render('pages/booking', {css_file:'../../css/style.css'}); 
     
-});
+// });
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
     var pass = req.body.pass
@@ -155,10 +164,12 @@ app.post('/Building', async (req, res) =>{
     let bNo = req.body.bNo;
     let sRoom = req.body.sRoom;
     let eRoom = req.body.eRoom;
+    let sDate = req.body.sDate;
+    let eDate = req.body.eDate;
     let floor = req.body.floor;
-    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?"
-    
-    let values=[bNo, sRoom, eRoom];
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?"
+    console.log("date"+sDate);
+    let values=[bNo, sRoom, eRoom, sDate, eDate];
     con.query(query,values, function(err, data){
         
         if(err){
@@ -167,11 +178,45 @@ app.post('/Building', async (req, res) =>{
         else if(data == null){
 
         } else{
-            console.log(data[1]);
+            console.log(data[2]);
             console.log(floor+" "+sRoom);
 
-            return res.render('pages/booking', {b_data:data[0], r_data: data[1], sBuilding:bNo, selectedFloor:floor, sRoom:sRoom, eRoom:eRoom, error:false});
+            return res.render('pages/booking', {
+                b_data:data[0], 
+                r_data: data[1], 
+                bookings:data[2], 
+                sBuilding:bNo, 
+                selectedFloor:floor, 
+                sRoom:sRoom, 
+                eRoom:eRoom, 
+                sDate:sDate, 
+                eDate:eDate, 
+                error:false
+            });
             
+        }
+    });
+});
+
+app.post('/Date', async (req, res) =>{
+    let bNo = req.body.bNo;
+    let sRoom = req.body.sRoom;
+    let eRoom = req.body.eRoom;
+    let sDate = req.body.start-date;
+    let eDate = req.body.end-date;
+    let floor = req.body.floor;
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE StartTime>=? AND EndTime<=?"
+    
+    let values=[bNo, sRoom, eRoom, sDate, eDate];
+    con.query(query,values, function(err, data){
+        console.log(data[2]);
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else {
+            return res.render('pages/booking', {b_data:data[0], r_data: data[1], bookings:data[2], sBuilding:bNo, selectedFloor:floor, sRoom:sRoom, eRoom:eRoom, error:false});          
         }
     });
 });

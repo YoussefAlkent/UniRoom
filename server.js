@@ -60,12 +60,14 @@ var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 
 app.get('/', function(request, res, next){
-    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12";
+    let sDate='2023-01-01';
+    let eDate='2999-01-02';
+    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?";
     console.log("querying");
     let book = require('./public/javascript/booking');
     //console.log(book);
-    
-    con.query(query, function(error, data){
+    values = [sDate, eDate];
+    con.query(query, values, function(error, data){
         if(error){
            throw error; 
            //response.render('pages/booking', {b_data: 0, error:false});
@@ -75,13 +77,13 @@ app.get('/', function(request, res, next){
             res.render('pages/booking', {
                 b_data: data[0], 
                 r_data: data[1], 
-                booking: data[2],
+                bookings: data[2],
                 sBuilding:1, 
                 selectedFloor:1,
                 sRoom:1, 
                 eRoom:12, 
-                sDate:'2023-01-01', 
-                eDate:'2999-01-02',
+                sDate:sDate, 
+                eDate:eDate,
                 error:false
             });
            

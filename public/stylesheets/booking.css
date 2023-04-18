@@ -10,13 +10,13 @@ button{
 
 .grid-container {
     display: grid;
-    gap: 1%;
+    gap: 0px;
     width: 99%;
     height: 90%;
     grid-template-areas:
-        'head head head head head head head head head head'
-        'time building building building room room room room room floor'
-        'time building building building info info info info info info';
+        'head head head head head head head head head'
+        'time building building room room room room room floor'
+        'time building building info info info info info info';
 }
 
 .grid-item {
@@ -31,9 +31,9 @@ button{
     background-color:#9c9292
 }
 
-.header {
+#header {
     grid-area: head;
-    width: 700px;
+
 }
 
 .box-title {
@@ -43,6 +43,7 @@ button{
 }
 
 #select-time {
+    
     grid-area: time;
     
 }
@@ -111,7 +112,12 @@ button:hover {
 
 .apartment {
     display: grid;
-    /* border-style: solid; */
+    border-style: solid;
+    border-width:2px;
+    border-color:#756f6f;
+    border-radius:0.6em;
+    margin:0.1em;
+    padding:0.1em;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -177,4 +183,8 @@ label.term-row {
 #termBtn,
 #dateBtn{
     width:45%;
+}
+
+#find-avail-rooms {
+    align-self: end;
 }

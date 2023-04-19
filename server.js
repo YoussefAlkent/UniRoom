@@ -9,6 +9,7 @@ const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT' //what the variable said
 const bodyParser = require('body-parser')
+const paymentAuth = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TnpVeU5UY3dMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuNDFiTDBadWdjWTZZV19PRURha2pjUVNDNnNDZXlSR2pwVjVLWGhmbVdCS1BtX2J1bXA3LWRrS0E2T29ybmx5WWRtdTVxVWFSeWp2SjRWR2FrclNETWc=" //Our paymob Key
 
 var con = mysql.createConnection({
     host: "uni-room.mysql.database.azure.com",
@@ -158,7 +159,7 @@ app.post('/signup', async(req, res)=>{
         let values2 = [uid, uid, year, parentnum, parent, Fname]
         con.query(query2, [values2], function(err, result){
             if (err) throw err;
-            console.log("Signup 2 Succesful")
+            console.log("Signup 2 Succesful", result)
         })
     }
 })

@@ -42,8 +42,6 @@ function createLogInMail(email){
     }
 }
 
-let b_data;
-
 var app = express();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -60,7 +58,7 @@ app.use(express.static('js'));
 var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 
-app.get('/', function(request, res, next){
+app.get('/Booking', function(request, res, next){
     let sDate='2023-01-01';
     let eDate='2999-01-02';
     let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?";
@@ -90,19 +88,7 @@ app.get('/', function(request, res, next){
            
         }
     });
-
-    //res.render('pages/booking', {book: book, error:false});
-   // res.render('pages/booking');
 });
-
-// app.get('/', function(req, res){
-//     res.render('index')
-// });
-
-// app.get('/', function(req, res){
-//     res.render('pages/booking', {css_file:'../../css/style.css'}); 
-    
-// });
 
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
@@ -171,9 +157,9 @@ app.post('/Booking', async (req, res) =>{
     let sDate = req.body.sDate;
     let eDate = req.body.eDate;
     let floor = req.body.floor;
-    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?"
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE (startTime<=? AND endTime>=?) OR (startTime>=? AND endTime<=?) OR (startTime>=? AND startTime<=?) OR (endTime>=? AND endTime<=?)"
     console.log("date"+sDate);
-    let values=[bNo, sRoom, eRoom, sDate, eDate];
+    let values=[bNo, sRoom, eRoom, sDate, eDate, sDate, eDate, sDate, eDate, sDate, eDate];
     con.query(query,values, function(err, data){
         
         if(err){
@@ -200,6 +186,11 @@ app.post('/Booking', async (req, res) =>{
             
         }
     });
+});
+
+app.get('/', async (req, res) => {
+    console.log("home");
+    res.render('pages/index');
 });
 
 app.post('/Home', async (req, res) => {

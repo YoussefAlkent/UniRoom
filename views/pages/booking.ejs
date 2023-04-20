@@ -205,13 +205,17 @@
     <div class='grid-item' id='selection-info'>
       Booking Information <br>
       <% if(r_data != null){ %>
-
-        Building:<%=r_data[0].BuildingNo%> <br>
-        Room Number:<%=r_data[0].RoomNo%> <br>
-        Resident:<%=r_data[0].Resident%> <br>
-
-        <% } %>
-        <a href="Payment.html">Proceed to Payment</a>
+        <div id="si-start">Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
+        <div id="si-end">Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
+        <div id="si-building">Building: <%=sBuilding%> </div>
+        <div id="si-roomNo">Room Number:<%=sRoom%></div>
+      <% } %>
+      <br>
+      <form action="/Payment" method="post">
+        <button type="submit">
+          Proceed to Payment
+        </button>
+      </form>
       </div>
 
     </div>
@@ -270,7 +274,12 @@
     }
     console.log("selected room " + rNo);
     selectedRoom = rNo;
-    document.getElementById('selection-info').innerText = "Information for Room " + rNo + " in Building <%=sBuilding%>";
+    
+    document.getElementById("si-start").innerHTML = "Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
+    document.getElementById("si-end").innerHTML = "Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
+    document.getElementById("si-building").innerHTML = "Building: <%=sBuilding%>";
+    document.getElementById("si-roomNo").innerText = "Room Number:"+rNo;
+
     document.getElementById('room-' + rNo).classList.add('selected');
   };
 </script>

@@ -30,6 +30,12 @@
             </li>
             <li class="navbar__item">
                 <form action="/Booking" method="post">
+                    <input name="bNo" value="<%=1%>" hidden>
+                    <input name="sRoom" value="<%=1%>" hidden>
+                    <input name="eRoom" value="<%=12%>" hidden>
+                    <input name="sDate" value="<%='2023-01-01'%>" hidden>
+                    <input name="eDate" value="<%='2999-01-02'%>" hidden>
+                    <input name="floor" value="<%=1%>" hidden>
                     <button type="submit" class="navbar__links">
                         Book A Room
                     </button>

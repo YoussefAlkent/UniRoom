@@ -91,7 +91,7 @@ button{
     background-color: rgb(207, 209, 207);
 }
 button:hover {
-    background-color: #00acee;
+    background-color: #ED8D8D;
 }
 .selected,
 .selected:hover {
@@ -125,6 +125,7 @@ button:hover {
     /* border-style: solid; */
     /* border-color: gray; */
     margin: 2px;
+    padding: 8px;
     width: 90%;
     height:95%;
 }

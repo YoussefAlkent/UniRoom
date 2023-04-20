@@ -66,7 +66,7 @@
       <button id="termBtn"  onclick="selectTerm()">Term</button>
       <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
       <br>
-      <form action="/Building" method="post">
+      <form action="/Booking" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
         <input name="sRoom" value="<%=sRoom%>" hidden>
         <input name="eRoom" value="<%=eRoom%>" hidden>
@@ -114,7 +114,7 @@
       </div>
       <%b_data.forEach(b => {
         %>
-      <form action="/Building" method="post">
+      <form action="/Booking" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
           <input name="sRoom" value="<%=sRoom%>" hidden>
           <input name="eRoom" value="<%=eRoom%>" hidden>
@@ -188,7 +188,7 @@
           Select Floor
         </div>
         <% for(let i=1; i<=6; i++){ %>
-        <form action="/Building" method="post">
+        <form action="/Booking" method="post">
           <input name="bNo" value="<%=sBuilding%>" hidden>
           <input name="floor" value="<%=i%>" hidden>
           <input name="sRoom" value="<%=((i-1)*12)+1%>" hidden>

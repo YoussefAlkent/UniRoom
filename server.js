@@ -103,6 +103,7 @@ app.get('/', function(request, res, next){
 //     res.render('pages/booking', {css_file:'../../css/style.css'}); 
     
 // });
+
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
     var pass = req.body.pass
@@ -163,7 +164,7 @@ app.post('/signup', async(req, res)=>{
         })
     }
 })
-app.post('/Building', async (req, res) =>{
+app.post('/Booking', async (req, res) =>{
     let bNo = req.body.bNo;
     let sRoom = req.body.sRoom;
     let eRoom = req.body.eRoom;
@@ -201,29 +202,44 @@ app.post('/Building', async (req, res) =>{
     });
 });
 
-app.post('/Date', async (req, res) =>{
-    let bNo = req.body.bNo;
-    let sRoom = req.body.sRoom;
-    let eRoom = req.body.eRoom;
-    let sDate = req.body.start-date;
-    let eDate = req.body.end-date;
-    let floor = req.body.floor;
-    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE StartTime>=? AND EndTime<=?"
-    
-    let values=[bNo, sRoom, eRoom, sDate, eDate];
-    con.query(query,values, function(err, data){
-        console.log(data[2]);
-        if(err){
-            throw err;
-        }
-        else if(data == null){
-
-        } else {
-            return res.render('pages/booking', {b_data:data[0], r_data: data[1], bookings:data[2], sBuilding:bNo, selectedFloor:floor, sRoom:sRoom, eRoom:eRoom, error:false});          
-        }
-    });
+app.post('/Home', async (req, res) => {
+    console.log("home");
+    res.render('pages/index');
 });
 
+app.post('/About', async (req, res) => {
+    // Data 
+    const data = {
+        mission: 'our mission is to create a simple and efficient online system for any student at Alamein International University to book housing for short- and long-term stays..',
+        teams: [
+            { name: 'member 1:', description: 'Youssef Bedair' },
+            { name: 'member 2:', description: 'Omar El-Hamraway' },
+            { name: 'member 3:', description: ' Rebecca Whitten' },
+            { name: 'member 4:', description: 'Tedy Huang' },
+            { name: 'member 5:', description: 'Khaled Bahaaeldin' }
+        ]
+    };
+    res.render('pages/about', data);
+});
+app.get('/About', (req, res) => {
+    // Data 
+    const data = {
+        mission: 'our mission is to create a simple and efficient online system for any student at Alamein International University to book housing for short- and long-term stays..',
+        teams: [
+            { name: 'member 1:', description: 'Youssef Bedair' },
+            { name: 'member 2:', description: 'Omar El-Hamraway' },
+            { name: 'member 3:', description: ' Rebecca Whitten' },
+            { name: 'member 4:', description: 'Tedy Huang' },
+            { name: 'member 5:', description: 'Khaled Bahaaeldin' }
+        ]
+    };
+    res.render('pages/about', data);
+});
+
+app.post('/SignIn', async (req, res) => {
+    console.log("home");
+    res.render('pages/Signin');
+});
 
 
 // app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{

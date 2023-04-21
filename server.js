@@ -243,3 +243,6 @@ app.post('/Date', async (req, res) =>{
 console.log('Server is running, Port: 8080')
 module.exports = app;
 
+app.post('/payment', (req,res)=>{
+    
+})

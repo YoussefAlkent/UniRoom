@@ -1,82 +1,4 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family:'Times New Roman', Times, serif;
 
-}
-.navbar {
-  background: #393232;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
-.navbar__container {
-  display: flex;
-  justify-content: space-between;
-  height: 80px;
-  z-index: 1;
-  width: 100%;
-  max-width: 1300px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 50px;
-  padding-left: 50px;
-}
-
-#navbar__logo {
-  background-color: #4D4545;
-  background-image: linear-gradient(to top, #fafafa 0%, #4ac7d8 100%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 2rem;
-}
-
-.fa-gem {
-  margin-right: 0.5rem;
-}
-
-.navbar__menu {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  text-align: center;
-}
-
-.navbar__item {
-  height: 80px;
-}
-
-.navbar__links {
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  padding: 0 1rem;
-  height: 100%;
-}
-
-.navbar__btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 1rem;
-  width: 100%;
-}
 hr.solid {
   border-top: 3px solid #bbb;
 }
@@ -125,6 +47,9 @@ h3{
   margin-right: 20px;
   align-items: center;
   grid-area: "top1";
+}
+input{
+  border-radius: 10px;
 }
 .pName{
   display: flex;
@@ -180,6 +105,7 @@ h3{
 input{
   width: 250px;
   height: 30px;
+  padding: 4px 8px;
 }
 .pickurgender{
   display: flex;
@@ -205,11 +131,26 @@ input{
   grid-area: "bot";
 }
 button{
-  width: 160px;
+  width: 300px;
   height: 60px;
   font-size: 17px;
+  margin-bottom: 30px;
+  border-radius: 20px;
 }
-img{
-  width: 150px;
-  height: 100px;
+#ai_logo{
+  width: 50px;
+  height: 50px;
+  border-radius: 20px;
+  margin-right: 5px;
 }
+form i {
+  margin-left: -30px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.invalid-password,
+.invalid-confirm-password {
+  border: 2px solid red;
+}
+
+

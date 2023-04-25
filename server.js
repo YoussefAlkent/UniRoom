@@ -93,9 +93,11 @@ app.get('/Booking', function(request, res, next){
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
     var pass = req.body.pass
-    let query = "SELECT * FROM person WHERE NID=?";
+    let query = "SELECT * FROM aiuroom.person WHERE NID=?";
     let values = [name];
-    con.query(query,[values], function(err, result){
+    con.query(query,values, function(err, result){
+        console.log(result);
+        let user = result.Username;
         if(result.password == pass){
             const token = jwt.sign(user,secretPhrase, {expiresIn:"3h"})
             res.cookie('token', token,{

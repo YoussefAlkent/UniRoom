@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../partials/head') %>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel=stylesheet href="/signup.css"></link>
+    <title>UniRoom - Home</title>
 </head>
 <body>
-    <%- include('../partials/nav') %>
-    <div class="signupaccount">
-        <form action="/signup" method="post">
-        <div class="title">Sign Up to a New Account</div>
+<nav class="navbar">
+    <div class="navbar__container">
+        <img id="uni_logo" src="public/UniRoom_white.svg" alt="">
+        <div class="navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+                <a href="/" class="navbar__links">
+                    Home
+                </a>
+            </li>
+            <li class="navbar__item">
+                <a href="/" class="navbar__links">
+                    About
+                </a>
+            </li>
+            <li class="navbar__btn">
+                <a href="/" class="button">
+                    Sign In
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="colorback">
+    <form class="signupaccount" method="post" action="signup_process.php">
+        <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Sign Up to a New Account</div>
         <div class="sName">
             <h3>
                 Name: <br>
                 <input id="name" type="text" name="name">
             </h3>
         </div>
-        <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text" name="parent"></h3></div>
-        <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="uemail"></h3></div>
-        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="text" name="parentnum"></h3></div>
-        <div class="sId"><h3>University ID: <br><input id="id" type="text" name="uid"></h3></div>
-        <div class="ps"><h3>Password: <br><input id="password" type="text" name="pass"></h3></div>
-        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text" name="phonenum"></h3></div>
-        <div class="rps"><h3>Repeat Password: <br><input id="rpassword" type="text" name="repeatpass"></h3></div>
+        <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text"></h3></div>
+        <div class="sEmail"><h3>University Email: <br><input id="email" type="text"></h3></div>
+        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel"></h3></div>
+        <div class="sId"><h3>University ID: <br><input id="id" type="number"></h3></div>
+        <div class="ps"><h3>Password: <br><input id="password" type="password"></h3>
+            <i class="bi-eye-slash" id="togglePassword"></i>
+        </div>
+        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text"></h3></div>
+        <div class="rps"><h3>Repeat Password: <br><input id="rpassword" type="password"></h3>
+            <i class="bi-eye-slash" id="togglePasswordConfirm"></i>
+        </div>
         <div class="pickurgender">
             <label for="languages">Gender: </label>
             <select name="gender" id="languages">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
-    
+
             <label for="year">Year of Study: </label>
             <select name="year" id="year">
                 <option value="one">1</option>
@@ -48,12 +83,73 @@
             </select>
         </div>
         <div class="confirmbut">
-            <input type="submit" id="confirm">confirm !</button>
-        
+            <button id="submit" type="button">Confirm !</button>
         </div>
     </form>
-
-
-    </div>
+</div>
 </body>
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const togglePasswordConfirm = document.querySelector("#togglePasswordConfirm");
+    const password = document.querySelector("#password");
+    const confirmPassword = document.querySelector("#rpassword");
+
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+    });
+
+    togglePasswordConfirm.addEventListener("click", function () {
+        const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
+        confirmPassword.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+    });
+
+    function checkPassword(password) {
+        const hasUpperCase = /[A-Z]/.test(password);
+        if (!hasUpperCase) {
+            password.classList.add("invalid-password");
+        } else {
+            password.classList.remove("invalid-password");
+        }
+        return hasUpperCase;
+    }
+    password.addEventListener("input", function () {
+        checkPassword(password.value);
+    });
+
+    let timeout;
+    function checkPasswordsMatch(passwordValue, confirmPasswordValue) {
+        clearTimeout(timeout);
+        if (passwordValue !== confirmPasswordValue) {
+            confirmPassword.classList.add("invalid-confirm-password");
+
+            timeout = setTimeout(() => {
+                if (passwordValue !== confirmPasswordValue) {
+                    alert("Passwords do not match.");
+                }
+            }, 1000);
+        } else {
+            confirmPassword.classList.remove("invalid-confirm-password");
+        }
+        return passwordValue === confirmPasswordValue;
+    }
+
+    confirmPassword.addEventListener("input", function () {
+        checkPasswordsMatch(password.value, confirmPassword.value);
+    });
+
+
+    const form = document.querySelector("form");
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const passwordValue = password.value;
+        const confirmPasswordValue = confirmPassword.value;
+        const isValidPassword = checkPassword(passwordValue);
+        const isPasswordsMatch = checkPasswordsMatch(passwordValue, confirmPasswordValue);
+        if (isValidPassword && isPasswordsMatch) {
+        }
+    });
+</script>
 </html>

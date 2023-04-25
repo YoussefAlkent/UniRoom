@@ -8,24 +8,38 @@
         </div>
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="index.ejs" class="navbar__links">
-                    Home
-                </a>
+                <form action="/Home" method="post">
+                    <button type="submit" class="navbar__links">
+                        Home
+                    </button>
+                </form>
             </li>
             <li class="navbar__item">
-                <a href="About.ejs" class="navbar__links">
-                    About
-                </a>
-            </li>
-            <li class="navbar__btn">
-                <a href="/Login.ejs" class="button">
-                    Sign In
-                </a>
+                <form action="/About" method="post">
+                    <button type="submit" class="navbar__links">
+                        About
+                    </button>
+                </form>
             </li>
             <li class="navbar__item">
-                <a href="booking.ejs" class="button">
-                  Book a room
-                </a>
+                <form action="/SignIn" method="post">
+                    <button type="submit" class="navbar__links">
+                        Sign In
+                    </button>
+                </form>
+            </li>
+            <li class="navbar__item">
+                <form action="/Booking" method="post">
+                    <input name="bNo" value="<%=1%>" hidden>
+                    <input name="sRoom" value="<%=1%>" hidden>
+                    <input name="eRoom" value="<%=12%>" hidden>
+                    <input name="sDate" value="<%='2023-01-01'%>" hidden>
+                    <input name="eDate" value="<%='2999-01-02'%>" hidden>
+                    <input name="floor" value="<%=1%>" hidden>
+                    <button type="submit" class="navbar__links">
+                        Book A Room
+                    </button>
+                </form>
               </li>
         </ul>
     </div>

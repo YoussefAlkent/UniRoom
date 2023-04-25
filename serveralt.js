@@ -1,31 +1,28 @@
-const http = require("http");
-const ejs = require('ejs')
-const express = require('express');
-const mysql = require('mysql');
-const fs = require('fs');
-const bodyParser = require('body-parser')
-var con = mysql.createConnection({
-    host: "uni-room.mysql.database.azure.com",
-    port: 3306,
-    user:"Uniroom_Admin",
-    password:"vtaiu@12345",
-    multipleStatements:true
+const https = require('https');
+const paymentAuth = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TnpVeU5UY3dMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuNDFiTDBadWdjWTZZV19PRURha2pjUVNDNnNDZXlSR2pwVjVLWGhmbVdCS1BtX2J1bXA3LWRrS0E2T29ybmx5WWRtdTVxVWFSeWp2SjRWR2FrclNETWc="
+const data = JSON.stringify({ api_key: paymentAuth });
+
+const options = {
+  hostname: 'https://accept.paymob.com/api/auth/tokens',
+  port: 443,
+  path: '/api/endpoint',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+};
+
+const req = https.request(options, (res) => {
+  console.log(`statusCode: ${res.statusCode}`);
+  res.on('data', (d) => {
+    process.stdout.write(d);
+  });
 });
 
-var app = express();
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '\\views\\pages');
+req.on('error', (error) => {
+  console.error(error);
+});
 
-app.listen(8080);
-app.use(express.static('css'));
-app.use(express.static('js'));
-app.get('/', (req, res)=>{
-    res.render('signup')
-})
-
-
-app.post('/signup', async (req, res) =>{
-    console.log(req.body)
-})
+req.write(data);
+req.end();

@@ -1,163 +1,289 @@
 <!DOCTYPE html>
 <script>
-  let selectedBuilding=0;
-  let selectedFloor=1;
-  const ROOMS_PER_FLOOR = 12; 
+  //let selectedBuilding=0;
+  let selectedRoom = 0;
+  // let selectedFloor=1;
+
+  let dateStatus = 1;
+  const ROOMS_PER_FLOOR = 12;
 </script>
 
 <html lang="en">
-  <%
-    let selectedBuilding=0;
-    let selectedFloor=1;
+<%
+
+    //let selectedBuilding=0;
+    //if(typeof sBuilding !== undefined){
+     // selectedBuilding= sBuilding;
+    //}
+    let selectedRoom = 0;
+    // let selectedFloor=1;
     const ROOMS_PER_FLOOR = 12; 
+    // sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+    // eRoom = sRoom + ROOMS_PER_FLOOR;
+
      // window.addEventListener('load', function () {
       console.log('booking.js loaded');
-
+      function isAvailable(rid){
+        //console.log("checking room "+rid);
+        for(let i =0; i < bookings.length; i++){
+          //console.log(bookings[i].roomid);
+          //console.log(parseInt(rid));
+          if(parseInt(rid) == bookings[i].roomid){
+            //console.log("room unavailable");
+            return false;
+          }
+        }
+        return true;
+      } 
+      //isAvailable(11);
     %>
+
 <head>
   <%- include('../partials/head') %>
   <script src='/booking.js' type="text/js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href='/style.css'>
-  
+  <link rel="stylesheet" type="text/css" href='/booking.css'>
+
 </head>
 
 <body>
   <%- include('../partials/nav') %>
-
-
   <div class='grid-container'>
+    <div class="grid-item" id="header">
+      <%let sD=new Date(sDate); let eD = new Date(eDate);%>
+      <%if(eD.getYear() < 198){%>
+        Showing rooms available from <%= sD.toLocaleString('en-GB', {'dateStyle':"long"})%> 
+        to <%=eD.toLocaleString('en-GB', {'dateStyle':"long"})%>
+      <%} else {%>
+        Please Select Booking Range Below
+      <%}%>
+    </div>
     <div class='grid-item' id='select-time'>
       Select Booking Range <br>
-      
 
-      <button id="termBtn" onclick="selectTerm()">Term</button> 
-      <button id="dateBtn" onclick="selectDate()">Date</button>
+
+      <button id="termBtn"  onclick="selectTerm()">Term</button>
+      <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
       <br>
-      <div id='date-selection' hidden>
-        <label for="start-date">Start Date
+      <form action="/Booking" method="post">
+        <input name="bNo" value="<%=sBuilding%>" hidden>
+        <input name="sRoom" value="<%=sRoom%>" hidden>
+        <input name="eRoom" value="<%=eRoom%>" hidden>
+        <input name="floor" value="<%=selectedFloor%>" hidden>
+        <div id='date-selection' >
+          <label for="start-date">Start Date
+            <br>
+            <input type=date id="start-date" name="sDate">
+          </label>
           <br>
-        <input type=date id="start-date" name="start-date">
-        </label>
-        <br>
-        <label for="end-date">End Date
+          <label for="end-date">End Date
+            <br>
+            <input type=date id="end-date" name="eDate">
+          </label>
+        </div>
+        <div id="term-selection" hidden>
+          <label class="term-row">
+            <input type="checkbox" class="term-checkbox">
+            <span class="checkmark"></span>
+            Fall 2023/2024
+          </label>
           <br>
-        <input type=date id="end-date" name="End of Booking">
-        </label>
-      </div>
-      <div id="term-selection">
-      <label class="term-row">
-        <input type="checkbox" class="term-checkbox">
-        <span class="checkmark"></span>
-        Fall 2023/2024
-      </label>
-      <br>
-      <label class="term-row">
-        <input type="checkbox" class="term-checkbox">
-        <span class="checkmark"></span>
-        Spring 2023/2024
-      </label>
-      <br>
-      <label class="term-row">
-        <input type="checkbox" class="term-checkbox">
-        <span class="checkmark"></span>
-        Summer 2023/2024
-      </label>
-    </div>
+          <label class="term-row">
+            <input type="checkbox" class="term-checkbox">
+            <span class="checkmark"></span>
+            Spring 2023/2024
+          </label>
+          <br>
+          <label class="term-row">
+            <input type="checkbox" class="term-checkbox" name="sum2324">
+            <span class="checkmark"></span>
+            Summer 2023/2024
+          </label>
+
+
+        </div>
+        <button type="submit" id="find-avail-rooms">
+          Find Available Rooms
+        </button>
+      </form>
     </div>
     <div class='grid-item' id='select-building'>
       <div id='Btitle' class='building-grid-item'>
         Select building
       </div>
-      <%b_data[0].forEach(b => {
+      <%b_data.forEach(b => {
         %>
+      <form action="/Booking" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <button id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.AvailableRooms >0){%>available<%} else if(b.BuildingNo==selectedBuilding){%>selected<%}else{%>unavailable<%}%>" 
-            onclick="selectBuilding('<%= b.BuildingNo%>')" 
+          <input name="sRoom" value="<%=sRoom%>" hidden>
+          <input name="eRoom" value="<%=eRoom%>" hidden>
+          <input name="sDate" value="<%=sDate%>" hidden>
+          <input name="eDate" value="<%=eDate%>" hidden>
+          <input name="floor" value="<%=selectedFloor%>" hidden>
+          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%} else if(b.AvailableRooms >0){%>available<%}else{%>unavailable<%}%>" 
+            onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>"
             <%if(b.AvailableRooms ==0){%> disabled <%}%> >
             Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
           </button>
         </div>
+      </form>
 
-         <%
+      <% 
       });%>
     </div>
     <div class='grid-item' id='select-room'>
       <div class='box-title' id='room-title'>
-        <%if(selectedBuilding > 0) {%>
-          Select Room in Building $(selectedBuilding)
+        <%if(sBuilding > 0) {%>
+        Select Room in Building <%=sBuilding%>
         <% } else { %>
-          Please Select a Building
+        Please Select a Building
         <% } %>
-        <%=b_data[1][0]%>
+
       </div>
+
+
       <!-- ROOM SELECTION VIEW -->
-      <% let sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
-        let eRoom = sRoom + ROOMS_PER_FLOOR //eroom: one more than last room index to display;
-      for(let i=sRoom;i<eRoom;i+=3) {
-        if(i<b_data[1].length){
-        %>
-      <div class='apartment' id="apt-<%=b_data[1][(i/3)+1].ApartmentNo%>">
-        <div class='room <%if(b_data[1][i].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i].RoomNo%>' >
-          Room <%=b_data[1][i].RoomNo%> <br>
-          <%if(b_data[1][i].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
-        </div>
-        <div class='room <%if(b_data[1][i+1].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i+1].RoomNo%>'>
-          Room <%=b_data[1][i+1].RoomNo%> <br>
-          <%if(b_data[1][i+1].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
-        </div>
-        <div class='room <%if(b_data[1][i+2].RoomStatus==0){%>available<%} else{%>unavailable<%}%>' id='room-<%=b_data[1][i+2].RoomNo%>'>
-          Room <%=b_data[1][i+2].RoomNo%> <br>
-          <%if(b_data[1][i+2].RoomStatus==0){%> Available <%} else{%> Occupied <%}%>
-        </div>
+      <% 
+      /**
+       *  APARTMENT generation: 3 rooms per apartment
+       */
+        // sRoom = (selectedFloor -1)*12; //sroom: first room index to display based on selected floor
+        // eRoom = sRoom + ROOMS_PER_FLOOR; //eroom: one more than last room index to display;
+        for(let i=0;i<ROOMS_PER_FLOOR;i+=3) {
+          
+
+      %>
+      <div class='apartment' id="apt-<%=(r_data[i].RoomNo / 3)+1%>">
+
+        <button
+          class='room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>'
+          onclick="selectRoom('<%=r_data[i].RoomNo%>')">
+          Room <%=r_data[i].RoomNo%> <br>
+          <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%> Available <%} else{%> Occupied
+          <%}%>
+        </button>
+
+        <button class='room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
+          onclick="selectRoom('<%=r_data[i+1].RoomNo%>')">
+          Room <%=r_data[i+1].RoomNo%> <br>
+          <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%> Available <%} else{%> Occupied
+          <%}%>
+        </button>
+
+        <button class='room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>'
+          onclick="selectRoom('<%=r_data[i+2].RoomNo%>')">
+          Room <%=r_data[i+2].RoomNo%> <br>
+          <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%> Available <%} else{%> Occupied <%}%>
+        </button>
+
       </div>
       <%
-          }
+          
         }
       %>
-    </div>
-    <div class='grid-item' id='select-floor'>
-      <div class='box-title'>
-        Select Floor
       </div>
-      <div class='floor' id='floor-1'>1</div>
-      <div class='floor' id='floor-2'>2</div>
-      <div class='floor' id='floor-3'>3</div>
-      <div class='floor' id='floor-4'>4</div>
-      <div class='floor' id='floor-5'>5</div>
+      <div class='grid-item' id='select-floor'>
+        <div class='box-title'>
+          Select Floor
+        </div>
+        <% for(let i=1; i<=6; i++){ %>
+        <form action="/Booking" method="post">
+          <input name="bNo" value="<%=sBuilding%>" hidden>
+          <input name="floor" value="<%=i%>" hidden>
+          <input name="sRoom" value="<%=((i-1)*12)+1%>" hidden>
+          <input name="eRoom" value="<%=((i-1)*12)+ROOMS_PER_FLOOR%>" hidden>
+          <input name="sDate" value="<%=sDate%>" hidden>
+          <input name="eDate" value="<%=eDate%>" hidden>
+          <button type="submit" class='floor <%if(selectedFloor==i){%>selected<%}%>' 
+            id='floor-<%=i%>' onclick="selectFloor('<%=i%>')"><%=i%>
+          </button>
+        </form>
+        <%}%>
+
     </div>
     <div class='grid-item' id='selection-info'>
-      Room Information 
-            <a href="Payment.html">Proceed to Payment</a>
-    </div>
+      Booking Information <br>
+      <% if(r_data != null){ %>
+        <div id="si-start">Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
+        <div id="si-end">Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
+        <div id="si-building">Building: <%=sBuilding%> </div>
+        <div id="si-roomNo">Room Number:<%=sRoom%></div>
+      <% } %>
+      <br>
+      <form action="/Payment" method="post">
+        <input name="bNo" value="<%=sBuilding%>" hidden>
+        <input name="sDate" value="<%=sDate%>" hidden>
+        <input name="eDate" value="<%=eDate%>" hidden>
+        <input name="rNo" value="<%=sRoom%>" hidden>
+        <button type="submit">
+          Proceed to Payment
+        </button>
+      </form>
+      </div>
 
-  </div>
+    </div>
 
 </body>
 
 </html>
 <script>
+  
+  let selectTerm = function () {
+    dateStatus = 0;
+    console.log("term");
+    document.getElementById("term-selection").hidden = false;
+    document.getElementById("date-selection").hidden = true;
+    document.getElementById('termBtn').classList.add('selected');
+    document.getElementById('dateBtn').classList.remove('selected');
+  };
+  let selectDate = function () {
+    dateStatus = 1;
+    console.log("date");
+    document.getElementById("term-selection").hidden = true;
+    document.getElementById("date-selection").hidden = false;
+    document.getElementById('termBtn').classList.remove('selected');
+    document.getElementById('dateBtn').classList.add('selected');
+  };
 
-    let selectTerm = function() {
-      dateStatus = 0;
-      console.log("term");
-      document.getElementById("term-selection").hidden= false;
-      document.getElementById("date-selection").hidden= true;
-    };
-    let selectDate = function() {
-      dateStatus = 0;
-      console.log("date");
-      document.getElementById("term-selection").hidden= true;
-      document.getElementById("date-selection").hidden= false;
-    };
-    function selectBuilding(bNo) {
-      if(document.getElementById('Bbtn'+selectedBuilding)!=null){
-        console.log(document.getElementById('Bbtn<%=selectedBuilding%>'));
-        document.getElementById('Bbtn'+selectedBuilding).classList.remove('selected');
-      }
-      console.log("selected building "+bNo);
-      selectedBuilding = bNo;
-      document.getElementById('room-title').innerText = "Select Room in Building "+bNo;
-      document.getElementById('Bbtn'+selectedBuilding).classList.add('selected');
-    };
+  function selectFloor(n) {
+    if (document.getElementById('floor-<%=selectedFloor%>') != null) {
+      //console.log(document.getElementById('Bbtn<%=sBuilding%>'));
+      document.getElementById('floor-<%=selectedFloor%>').classList.remove('selected');
+    }
+    console.log("selected floor " + n);
+    // selectedFloor = n;
+    document.getElementById('floor-<%=selectedFloor%>').classList.add('selected');
+    // sRoom = (n -1)*12;
+    // eRoom = sRoom + ROOMS_PER_FLOOR;
+
+  };
+
+  function selectBuilding(bNo) {
+    if (document.getElementById('Bbtn' + sBuilding) != null) {
+      console.log(document.getElementById('Bbtn<%=sBuilding%>'));
+      document.getElementById('Bbtn' + sBuilding).classList.remove('selected');
+    }
+    console.log("selected building " + bNo);
+    sBuilding = bNo;
+    document.getElementById('room-title').innerText = "Select Room in Building " + bNo;
+    document.getElementById('Bbtn' + sBuilding).classList.add('selected');
+    window.history.pushState("", "", '/');
+  };
+
+  function selectRoom(rNo) {
+    if (document.getElementById('room-' + selectedRoom) != null) {
+      //console.log(document.getElementById('Bbtn<%=sBuilding%>'));
+      document.getElementById('room-' + selectedRoom).classList.remove('selected');
+    }
+    console.log("selected room " + rNo);
+    selectedRoom = rNo;
+    
+    document.getElementById("si-start").innerHTML = "Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
+    document.getElementById("si-end").innerHTML = "Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
+    document.getElementById("si-building").innerHTML = "Building: <%=sBuilding%>";
+    document.getElementById("si-roomNo").innerText = "Room Number:"+rNo;
+
+    document.getElementById('room-' + rNo).classList.add('selected');
+  };
 </script>
-

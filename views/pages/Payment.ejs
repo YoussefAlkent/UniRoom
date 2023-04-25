@@ -43,6 +43,10 @@
                 </div>
             </div>
             <form action="/ConfirmBooking" method="post">
+                <input name="bNo" value="<%=bNo%>" hidden> 
+                <input name="rNo" value="<%=rNo%>" hidden> 
+                <input name="sDate" value="<%=sDate%>" hidden>
+                <input name="eDate" value="<%=eDate%>" hidden>    
                 <button id="submit" class="main__btn" type="submit">Submit Payment</button>
             </form>
             

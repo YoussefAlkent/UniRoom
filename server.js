@@ -247,10 +247,10 @@ app.post('/ConfirmBooking', async (req, res) => {
     let rNo = req.body.rNo;
     let sDate = req.body.sDate;
     let eDate = req.body.eDate;
-    let sFloor = req.body.floor;
+    let roomid = bNo+rNo;
 
-    let query = "INSERT INTO aiuroom.booking (NID, StartTime, EndTime, RoomNo) VALUES ?"
-    let values=[111111111, sDate, eDate, rNo];
+    let query = "INSERT INTO aiuroom.booking (NID, StartTime, EndTime, RoomNo, roomid) VALUES (?)"
+    let values=[111111111, sDate, eDate, rNo, roomid];
     con.query(query,[values], function(err, data){
         
         if(err){
@@ -261,8 +261,9 @@ app.post('/ConfirmBooking', async (req, res) => {
         } else{
             //alert("Booking Successfully processed");
             console.log(data);
-            res.render('pages/index');
+            res.render('pages/paymentSuccess');
         }
+    });
 });
 
 
@@ -285,4 +286,4 @@ module.exports = app;
 
 app.post('/payment', (req,res)=>{
     
-})
+});

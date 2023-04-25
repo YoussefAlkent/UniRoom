@@ -63,16 +63,16 @@
       Select Booking Range <br>
 
 
-      <button id="termBtn"  onclick="selectTerm()" class="time">Term</button>
-      <button id="dateBtn"  class="selected time" onclick="selectDate()">Date</button>
+      <button id="termBtn"  onclick="selectTerm()">Term</button>
+      <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
       <br>
       <form action="/Booking" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
         <input name="sRoom" value="<%=sRoom%>" hidden>
         <input name="eRoom" value="<%=eRoom%>" hidden>
         <input name="floor" value="<%=selectedFloor%>" hidden>
-        <div id='date-selection' class="time">
-          <label for="start-date" >Start Date
+        <div id='date-selection' >
+          <label for="start-date">Start Date
             <br>
             <input type=date id="start-date" name="sDate">
           </label>
@@ -83,19 +83,19 @@
           </label>
         </div>
         <div id="term-selection" hidden>
-          <label class="term-row time">
+          <label class="term-row">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Fall 2023/2024
           </label>
           <br>
-          <label class="term-row time">
+          <label class="term-row">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Spring 2023/2024
           </label>
           <br>
-          <label class="term-row time">
+          <label class="term-row">
             <input type="checkbox" class="term-checkbox" name="sum2324">
             <span class="checkmark"></span>
             Summer 2023/2024
@@ -103,7 +103,7 @@
 
 
         </div>
-        <button type="submit" id="find-avail-rooms" class="time">
+        <button type="submit" id="find-avail-rooms">
           Find Available Rooms
         </button>
       </form>
@@ -116,7 +116,7 @@
         %>
       <form action="/Booking" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <input name="sRoom" value="<%=sRoom%>" hidden> <!-- Hidden inputs just send in data to the server-->
+          <input name="sRoom" value="<%=sRoom%>" hidden>
           <input name="eRoom" value="<%=eRoom%>" hidden>
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
@@ -213,7 +213,6 @@
       <br>
       <form action="/Payment" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
-        <input name="floor" value="<%=selectedFloor%>" hidden>
         <input name="sDate" value="<%=sDate%>" hidden>
         <input name="eDate" value="<%=eDate%>" hidden>
         <input name="rNo" value="<%=sRoom%>" hidden>

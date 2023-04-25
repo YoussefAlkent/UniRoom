@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>UniRoom - Home</title>
-<head>
-    <%- include('../partials/head') %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-    <link rel=stylesheet href="style.css">
-    <link rel=stylesheet href="signup.css">
+    <link rel=stylesheet href="/style.css"></link>
+    <title>UniRoom - Home</title>
 </head>
 <body>
-    <%- include('../partials/nav') %>
-    <form action="/Signin" method="post">
-        <div class="container">
+<nav class="navbar">
+    <div class="navbar__container">
+        <img id="unilogo" src="UniRoom_white.svg" alt="">
+        <div class="navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+                <a href="/" class="navbar__links">
+                    Home
+                </a>
+            </li>
+            <li class="navbar__item">
+                <a href="/" class="navbar__links">
+                    About
+                </a>
+            </li>
+            <li class="navbar__btn">
+                <a href="/" class="button">
+                    Sign In
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<div class="colorcontainer">
+    <div class="colorcontainer">
+        <form class="container">
             <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Login</div>
                 <div class="id">
                     <h3>
-                        University ID/ Email: <br> 
-                        <input type="text" id="inputid" name="name" class="signin-input">
+                    University ID/ Email: <br> 
+                    <input type="text" id="inputid" name="name" class="signin-input">
                     <h3>
                 </div>
                 <div class="passwordnum">
@@ -30,29 +55,37 @@
                     <i class="bi-eye-slash" id="togglePassword"></i>
                 </div>
             </div>
-        </div>
-        <div class="button">
-            <input type="submit" id="signin">Sign In</input>
 
-            <button id="signup">Sign Up</button>
-        </div>
-    </form>
+            <div class="passwordnum">
+                <h3>Password: <br>
+                    <input type="password" id="password">
+                    <p><a href="/" class="idk">Forgot Your Password?</a></p>
+                </h3>
+                <i class="bi-eye-slash" id="togglePassword"></i>
 
-    <script>
-        const togglePassword = document.querySelector("#togglePassword");
-        const password = document.querySelector("#password");
+            </div>
+            <div class="button">
+                <button id="signin" type="button">Sign In</button>
+                <a href="signup/signup.html" ><button id="signup">Sign Up</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
 
-        togglePassword.addEventListener("click", function () {
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-            this.classList.toggle("bi-eye");
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
 
-        });
+    });
 
-        const form = document.querySelector("form");
-        form.addEventListener('signin', function (e) {
-            e.preventDefault();
-        })
-    </script>
+    const form = document.querySelector("form");
+    form.addEventListener('signin', function (e) {
+        e.preventDefault();
+    })
+</script>
 </body>
 </html>

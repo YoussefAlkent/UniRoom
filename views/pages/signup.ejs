@@ -5,13 +5,227 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-    <link rel=stylesheet href="/signup.css"></link>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family:'Times New Roman', Times, serif;
+
+        }
+        .navbar {
+            background: #393232;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar__container {
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            z-index: 1;
+            width: 100%;
+            max-width: 1300px;
+            margin-right: auto;
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 50px;
+        }
+
+
+        .navbar__menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            text-align: center;
+        }
+
+        .navbar__item {
+            height: 80px;
+        }
+
+        .navbar__links {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 0 1rem;
+            height: 100%;
+        }
+
+        .navbar__btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+            width: 100%;
+        }
+        hr.solid {
+            border-top: 3px solid #bbb;
+        }
+        body{
+            background-color: #8D6262;
+        }
+        .colorback{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 800px;
+            width: 100%;
+
+        }
+        .signupaccount{
+            display: grid;
+            background-color: #ED8D8D;
+            border-radius: 20px;
+            height: 600px;
+            width: 65%;
+            grid-template-columns: [start] 50% [line1] 50% [end];
+            grid-template-areas:
+    "title"
+    "top1 top2"
+    "mid1 mid2"
+    "mid3 mid4"
+    "mid5 mid6"
+    "select1 select2"
+    "bot";
+        }
+        h3{
+            font-size: 16px;
+        }
+        .title{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column: start / end;
+            grid-area: title;
+            margin-top: 50px;
+            font-size: 35px;
+        }
+        .sName{
+            display: flex;
+            justify-content: right;
+            margin-right: 20px;
+            align-items: center;
+            grid-area: top1;
+        }
+        input{
+            border-radius: 10px;
+        }
+        .pName{
+            display: flex;
+            justify-content: left;
+            margin-left: 20px;
+            align-items: center;
+            grid-area: top2;
+        }
+        .sEmail{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            margin-right: 20px;
+            grid-area: mid1;
+        }
+        .pPhone{
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-left: 20px;
+            grid-area: mid2;
+
+        }
+        .sId{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            margin-right: 20px;
+            grid-area: mid3;
+        }
+        .ps{
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-left: 20px;
+            grid-area: mid4;
+        }
+        .sPhone{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            margin-right: 20px;
+            grid-area: mid5;
+        }
+        .rps{
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-left: 20px;
+            grid-area: mid6;
+        }
+
+        input{
+            width: 250px;
+            height: 30px;
+            padding: 4px 8px;
+        }
+        .pickurgender{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            margin-right: 20px;
+            grid-area: select1;
+        }
+        .studyfleid{
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-left: 20px;
+            grid-area: select2;
+        }
+        .confirmbut{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column: start / end;
+            grid-area: bot;
+        }
+        button{
+            width: 300px;
+            height: 60px;
+            font-size: 17px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+        }
+        #ai_logo{
+            width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            margin-right: 5px;
+        }
+        form i {
+            margin-left: -30px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .invalid-password,
+        .invalid-confirm-password {
+            border: 2px solid rgb(235, 81, 81);
+        }
+
+    </style>
     <title>UniRoom - Home</title>
 </head>
 <body>
 <nav class="navbar">
     <div class="navbar__container">
-        <img id="uni_logo" src="public/UniRoom_white.svg" alt="">
+        <img id="uni_logo" src="/UniRoom_white.svg" alt="">
         <div class="navbar__toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -45,14 +259,14 @@
                 <input id="name" type="text" name="name">
             </h3>
         </div>
-        <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text"></h3></div>
-        <div class="sEmail"><h3>University Email: <br><input id="email" type="text"></h3></div>
-        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel"></h3></div>
-        <div class="sId"><h3>University ID: <br><input id="id" type="number"></h3></div>
-        <div class="ps"><h3>Password: <br><input id="password" type="password"></h3>
+        <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text" name="parent_name"></h3></div>
+        <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="email_address"></h3></div>
+        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel" name="parent_phone_num"></h3></div>
+        <div class="sId"><h3>University ID: <br><input id="id" type="number" name="student_id"></h3></div>
+        <div class="ps"><h3>Password: <br><input id="password" type="password" name="password"></h3>
             <i class="bi-eye-slash" id="togglePassword"></i>
         </div>
-        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text"></h3></div>
+        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text" name="student_phone"></h3></div>
         <div class="rps"><h3>Repeat Password: <br><input id="rpassword" type="password"></h3>
             <i class="bi-eye-slash" id="togglePasswordConfirm"></i>
         </div>
@@ -135,6 +349,7 @@
         }
         return passwordValue === confirmPasswordValue;
     }
+
 
     confirmPassword.addEventListener("input", function () {
         checkPasswordsMatch(password.value, confirmPassword.value);

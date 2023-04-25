@@ -2,7 +2,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family:sans-serif;
+  font-family:'Times New Roman', Times, serif;
+
 }
 
 
@@ -60,30 +61,16 @@
 
 .navbar__item {
   height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  width: 100%;
-
 }
 
 .navbar__links {
-  width:140px;
-  font-size: large;
-  background-color: #393232;
-  border:none;
-  color: #fafafa;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  margin:0.5em;
   padding: 0 1rem;
-  height: 50px;
-}
-.navbar__links:hover{
-  background-color:#ff8177;
+  height: 100%;
 }
 
 .navbar__btn {
@@ -109,7 +96,7 @@ body{
 .container{
   display: grid;
   height: 500px;
-  background-color: #fafafa;
+  background-color: #ED8D8D;
   border-radius: 20px;
   width: 40%;
   grid-template-areas:
@@ -172,7 +159,7 @@ p{
 }
 button{
   width: 160px;
-  height: 80px;
+  height: 50px;
   border-radius: 20px;
 }
 

@@ -1,116 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
-   <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
-    <!-- <header>
-      <div class="logo-container">
-        <img src="UniRoom_black.jpg" alt="Logo" class="logo" >
-        <h1>Uniroom</h1>
-      </div>
-      <div style="flex-grow: 1;"></div>
-      <p>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="UniRoom_white.svg" alt="Logo" class="logo" style="width: 100px; height: 80px;">
+    </div>
+    <div style="flex-grow: 1;"></div>
+    <p>
         <a href="/about">About Us</a>
-        | 
+        |
         <a href="/contact">Contact Us</a>
-        | 
+        |
         <a href="/signup">Sign In / Sign Up</a>
-      </p>
-    </header> -->
-    <main>
-      <h1>Say Goodbye to Dorm Room Hassles: Book with Us Today!</h1>
-      <p>Share your dorm room experience with someone who shares your interests and lifestyle. Upgrade your stay with our booking app today!</p>
-      <img src="AIU.jpg" alt="Placeholder Image" style="width: 650px;"class="rounded-image">
-	  <h1></h1>
-      <button id="button">Sign Up Now</button>
-      
-    </main>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-       body {
-              font-family:'Poppins', sans-serif;
-              margin: 0;
+    </p>
+</header>
+<main>
+
+    <div class="mainclass">
+        <div class="left">
+            <h1>Say Goodbye to Dorm Room Hassles: Book with Us Today!</h1>
+            <p>Share your dorm room experience with someone who shares your interests and lifestyle.</p>
+            <p>Upgrade your stay with our booking app today!</p>
+        </div>
+        <div class="right">
+            <img src="aiu_logo.png" alt="">
+        </div>
+    </div>
+    <div class="colorcontainer">
+        <div class="colorcontainer">
+            <form class="container">
+                <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Login</div>
+                <div class="id">
+                    <h3>
+                        University ID/ Email: <br>
+                        <input type="text" id="inputid">
+                        </h3>
+                </div>
+
+                <div class="passwordnum">
+                    <h3>Password: <br>
+                        <input type="password" id="password">
+                        <p style="font-size: small;"><a href="/" class="idk">Forgot Your Password?</a></p>
+                    </h3>
+                    <i class="bi-eye-slash" id="togglePassword"></i>
+
+                </div>
+                <div class="button">
+                    <button id="signin" type="button">Sign In</button>
+                    <button id="signup" type="button" onclick="goToSignUpPage()">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</main>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    body {
+        font-family:'Times New Roman', Times, serif;
+        margin: 0;
+    }
+
+    header {
+        background-color: #4D4545;
+        color: #fff;
+        padding: 1rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-left: 20px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+    }
+
+    .mainclass {
+        display: flex;
+        height: 500px;
+        background-color: #dab0b0;
+        border-radius: 20px;
+    }
+
+    .left {
+        width: 60%;
+        float: left;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        color: #8D6262;
+    }
+
+    .right {
+        width: 40%;
+        float: left;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    img {
+        object-fit: cover;
+        height: 300px;
+        width: 300px;
+    }
+
+    main {
+        background-color: #8D6262;
+        padding: 10px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        button {
+            font-size: 1rem;
+        }
+
+    }
+
+    .colorcontainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 550px;
+        width: 100%;
+    }
+
+    .container {
+        display: grid;
+        height: 500px;
+        width: 100%;
+        background-color: #dab0b0;
+        border-radius: 20px;
+        grid-template-areas:
+    "title"
+    "top"
+    "mid1"
+    "mid2"
+    "mid3"
+    "bot";
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: title;
+        margin-top: 50px;
+        font-size: 35px;
+    }
+
+    .id {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: top;
+        margin-left: 23px;
+    }
+
+    input {
+        width: 250px;
+        height: 25px;
+    }
+
+    .passwordnum {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: mid1;
+    }
+
+
+    button {
+        width: 160px;
+        height: 50px;
+        border-radius: 20px;
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid__area: bot;
+        font-size: 17px;
+        gap: 10px;
+
+    }
+
+    input {
+        border-radius: 10px;
+        padding: 4px 8px;
+    }
+
+    form i {
+        margin-left: -25px;
+        cursor: pointer;
+
+    }
+
+    #ai_logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 20px;
+        margin-right: 5px;
+    }
+</style>
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+    const signInButton = document.querySelector("#signin");
+    const inputId = document.querySelector("#inputid");
+
+    const correctAccountNumber = "123456";
+    const correctPassword = "secret";
+
+    function goToSignUpPage() {
+        window.location.href = "signup.html";
+    }
+
+    function isAccountCorrect() {
+        return inputId.value === correctAccountNumber;
+    }
+
+    function moveButton() {
+        if (!isAccountCorrect()) {
+            const currentPosition = signInButton.style.transform;
+
+            if (currentPosition === 'translateX(-100px)') {
+                signInButton.style.transform = 'translateX(100px)';
+            } else {
+                signInButton.style.transform = 'translateX(-100px)';
             }
-      
-            header {
-              background-color: #4D4545;
-              color: #fff;
-              padding: 1rem;
-              display: flex;
-              justify-content: flex-end;
-            }
-      
-            .logo-container {
-              display: flex;
-              align-items: center;
-            }
-      
-            .logo {
-              width: 50px;
-              height: 50px;
-              margin-right: 1rem;
-            }
-      
-            main {
-              background-color: #8D6262;
-              padding: 2rem;
-              text-align: center;
-            }
-      
-            h1 {
-              font-size: 3rem;
-              margin-bottom: 1rem;
-            }
-      
-            p {
-              font-size: 1.5rem;
-              margin-bottom: 1rem;
-            }
-      
-            #button {
-              background-color: #28a745;
-              color: #fff;
-              border: none;
-              padding: 1rem;
-              font-size: 1.2rem;
-              border-radius: 0.5rem;
-              cursor: pointer;
-            }
-      
-            #button:hover {
-              background-color: #218838;
-            }
-          
-          img {
-        border-radius: 50px;
-      }
-        
-      
-       
-      
-            @media (max-width: 768px) {
-              h1 {
-                font-size: 2rem;
-              }
-      
-              p {
-                font-size: 1.2rem;
-              }
-      
-              #button {
-                font-size: 1rem;
-              }
-          img {
-        border-radius: 50%;
-      }
-      
-            }
-    </style>
-  </body>
+        } else {
+            signInButton.style.transform = '';
+        }
+    }
+
+    signInButton.addEventListener("mouseenter", moveButton);
+
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+    });
+
+    const form = document.querySelector("form");
+    form.addEventListener('signin', function (e) {
+        e.preventDefault();
+    })
+</script>
+</body>
 </html>

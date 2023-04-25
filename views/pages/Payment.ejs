@@ -2,6 +2,7 @@
     <html lang="en">
     <head>
         <%- include('../partials/head') %>
+        <link rel="stylesheet" type="text/css" href='/style.css'>
     </head>
     <body>
         <%- include('../partials/nav') %>
@@ -31,16 +32,20 @@
                 </div>
                 <div class="main__img--container">
                     <h3 class="bookingHead">Booking Information <br> <br></h3>
-                    <p id="bookNum" class="bookingInfo">Booking Number: </p>
-                    <p id="floorNum" class="bookingInfo">Floor Number: </p>
-                    <p id="roomNum" class="bookingInfo">Room Number: </p>
-                    <p id="bookLen" class="bookingInfo">Duration of Stay: </p>
+                    <p id="bookNum" class="bookingInfo">Booking Number:  </p>
+                    <p id="bookNum" class="bookingInfo">Building Number: <%=bNo%> </p>
+                    <p id="floorNum" class="bookingInfo">Floor Number: <%=sFloor%> </p>
+                    <p id="roomNum" class="bookingInfo">Room Number: <%=rNo%> </p>
+                    <p id="bookLen" class="bookingInfo">Duration of Stay: <%= new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> to <%= new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%></p>
                     <p id="bookName" class="bookingInfo">Booking under the Name: </p>
                     <p id="UID" class="bookingInfo">University ID: </p>
                     <p id="UMail" class="bookingInfo">University Email: </p>
                 </div>
             </div>
-            <button id="submit" class="main__btn"><a href="/">Process Payment</a></button>
+            <form action="/ConfirmBooking" method="post">
+                <button id="submit" class="main__btn" type="submit">Submit Payment</button>
+            </form>
+            
             <p style="font-size: medium;" class="bookingInfo">Your Transaction is Secured.</p>
         </div>
         <script src="app.js"></script>

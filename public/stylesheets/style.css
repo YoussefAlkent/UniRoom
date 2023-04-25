@@ -63,25 +63,34 @@ img{
 
 .navbar__item {
   height: 80px;
-}
-
-.navbar__btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 1rem;
+  padding: 1rem;
   width: 100%;
+
+}
+
+.navbar__btn {
+  
 }
 
 .navbar__links {
   color: #fff;
+  font-size: 1em;
   background-color:#393232;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   padding: 1 1rem;
-  height: 5em;
+  height: 4em;
+  border:none;
+  box-shadow:none;
+  border-radius:1em;
+}
+.navbar__links:hover{
+  background-color:#8D6262;
 }
 
 

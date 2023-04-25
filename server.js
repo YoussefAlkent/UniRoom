@@ -232,6 +232,39 @@ app.post('/SignIn', async (req, res) => {
     res.render('pages/Signin');
 });
 
+app.post('/Payment', async (req, res) => {
+    let bNo = req.body.bNo;
+    let rNo = req.body.rNo;
+    let sDate = req.body.sDate;
+    let eDate = req.body.eDate;
+    let sFloor = req.body.floor;
+    
+    res.render('pages/Payment', {user:"TBD", bNo:bNo, rNo:rNo, sDate:sDate, eDate:eDate, sFloor:sFloor})
+});
+
+app.post('/ConfirmBooking', async (req, res) => {
+    let bNo = req.body.bNo;
+    let rNo = req.body.rNo;
+    let sDate = req.body.sDate;
+    let eDate = req.body.eDate;
+    let sFloor = req.body.floor;
+
+    let query = "INSERT INTO aiuroom.booking (NID, StartTime, EndTime, RoomNo) VALUES ?"
+    let values=[111111111, sDate, eDate, rNo];
+    con.query(query,[values], function(err, data){
+        
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(data);
+            res.render('pages/index');
+        }
+});
+
 
 // app.get('/bookingStart/', urlencodedParser , (req,res,next)=>{
 //     const token = req.cookies.token;

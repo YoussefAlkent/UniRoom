@@ -92,13 +92,14 @@ app.get('/Booking', function(request, res, next){
 
 app.post('/Signin', async (req, res) =>{
     var name = req.body.name;
-    var pass = req.body.pass
-    let query = "SELECT * FROM aiuroom.person WHERE NID=?";
-    let values = [name];
+    var pass = req.body.password;
+    let query = "SELECT * FROM aiuroom.person WHERE Universityemail=? OR NID=?";
+    let values = [name, name];
+    console.log(name);
     con.query(query,values, function(err, result){
-        console.log(result);
+        console.log(result[0].Password);
         let user = result.Username;
-        if(result.password == pass){
+        if(result[0].Password == pass){
             const token = jwt.sign(user,secretPhrase, {expiresIn:"3h"})
             res.cookie('token', token,{
                 httpOnly:true
@@ -191,8 +192,8 @@ app.post('/Booking', async (req, res) =>{
 });
 
 app.get('/', async (req, res) => {
-    console.log("home");
-    res.render('pages/index');
+    console.log(req.cookies.token);
+    res.render('pages/index', {cookie: req.cookies.token});
 });
 
 app.post('/Home', async (req, res) => {

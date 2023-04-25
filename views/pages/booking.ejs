@@ -63,16 +63,16 @@
       Select Booking Range <br>
 
 
-      <button id="termBtn"  onclick="selectTerm()">Term</button>
-      <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
+      <button id="termBtn"  onclick="selectTerm()" class="time">Term</button>
+      <button id="dateBtn"  class="selected time" onclick="selectDate()">Date</button>
       <br>
       <form action="/Booking" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
         <input name="sRoom" value="<%=sRoom%>" hidden>
         <input name="eRoom" value="<%=eRoom%>" hidden>
         <input name="floor" value="<%=selectedFloor%>" hidden>
-        <div id='date-selection' >
-          <label for="start-date">Start Date
+        <div id='date-selection' class="time">
+          <label for="start-date" >Start Date
             <br>
             <input type=date id="start-date" name="sDate">
           </label>
@@ -83,19 +83,19 @@
           </label>
         </div>
         <div id="term-selection" hidden>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Fall 2023/2024
           </label>
           <br>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Spring 2023/2024
           </label>
           <br>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox" name="sum2324">
             <span class="checkmark"></span>
             Summer 2023/2024
@@ -103,7 +103,7 @@
 
 
         </div>
-        <button type="submit" id="find-avail-rooms">
+        <button type="submit" id="find-avail-rooms" class="time">
           Find Available Rooms
         </button>
       </form>

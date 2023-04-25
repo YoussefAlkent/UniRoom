@@ -48,6 +48,10 @@ button{
     
 }
 
+.time {
+    margin-top: 1em;
+}
+
 #select-building {
     grid-area: building;
     display: grid;
@@ -95,7 +99,8 @@ button:hover {
 }
 .selected,
 .selected:hover {
-    background-color: #5e4b4b
+    background-color: #5e4b4b;
+    color: white;
 }
 
 

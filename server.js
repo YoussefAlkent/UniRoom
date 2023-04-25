@@ -285,5 +285,23 @@ console.log('Server is running, Port: 8080')
 module.exports = app;
 
 app.post('/Profile', (req,res)=>{
-    res.render('pages/Profile');
+    let nid = 111111111;
+    query="SELECT * FROM aiuroom.booking WHERE NID=?"
+
+    let values=[nid];
+    con.query(query,values, function(err, data){
+        
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(data);
+            res.render('pages/Profile', {bookings:[{sDate:"f",eDate:"e"}]});
+        }
+    });
+    
+   
 });

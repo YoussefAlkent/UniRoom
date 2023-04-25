@@ -1,16 +1,29 @@
+
+#profilecontainer{
+    display:grid;
+    grid-template-areas: "profile table"
+                        "profile table";
+}
+
+#profile{
+    grid-area:"profile";
+}
+#bookings{
+    grid-area: "table";
+}
 .tablecontainer{
     background-color: #fafafa;
     align-items:center;
-    margin: 5em;
+    margin: 3em;
     padding: 1em;
     border-radius: 1em;
 }
 
-.table {
+.table,th,td {
     border-style: solid;
     border-width: 1px;
     border-color:#ababab;
     padding: 0.5em;
     border-radius: 0.5em;
-    width:100%;
+    
 }

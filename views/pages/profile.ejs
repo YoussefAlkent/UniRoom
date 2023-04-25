@@ -10,29 +10,35 @@
     <link rel=stylesheet href="profile.css">
 </head>
 <body>
-    <div id="profile">
-        <h1>Profile</h1>
+    <div id="profilecontainer">
+        <div class='tablecontainer' id="profile">
+            <h1>Profile</h1>
+            
+        </div>
+        <div class="tablecontainer" id="bookings">
+            <h2>Bookings History</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Building</th>
+                        <th>Room</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bookings.forEach(booking => { %>
+                    <tr>
+                        <td><%=(""+booking.roomid).charAt(0)%></td>
+                        <td><%=booking.RoomNo%></td>
+                        <td><%=new Date(booking.StartTime).toLocaleString('en-GB', {'dateStyle':"short"})%></td>
+                        <td><%=new Date(booking.EndTime).toLocaleString('en-GB', {'dateStyle':"short"})%></td>
+                    </tr>
+                    <%}); %>
+                </tbody>
+        
+            </table>
+        </div>
     </div>
-    <div class="tablecontainer" id="list-artist">
-        <h2>Bookings</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% bookings.forEach(booking => { %>
-                <tr>
-                    <td><%=booking.sDate%></td>
-                    <td><%=booking.eDate%></td>
-                </tr>
-                <%}); %>
-            </tbody>
-    
-        </table>
-    </div>
-    
 </body>
 </html>

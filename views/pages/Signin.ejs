@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
     <%- include('../partials/head') %>
+    <link rel=stylesheet href="style.css">
+    <link rel=stylesheet href="signup.css">
 </head>
 <body>
     <%- include('../partials/nav') %>
     <form action="/Signin" method="post">
-    <!-- <div class="container">
+     <div class="container">
         <div class="title">Login</div>
         <div class="id">
             <h3>
-                University ID/ Email: <br> -->
+                University ID/ Email: <br> 
                 <input type="text" id="inputid" name="inputid" class="signin-input">
-            <!-- <h3>
-        </div> -->
-
+            <h3>
+        </div>
         <div class="passwordnum">
             <h3>Password: <br>
                 <input type="text" id="password" name="pass" class="signin-input">>
@@ -23,12 +24,12 @@
             </h3>
 
         </div>
-
         <div class="button">
             <input type="submit" id="signin">Sign In</input>
-            <a href="signup/signup.html" ><button id="signup">Sign Up</button></a>
+
+            <button id="signup">Sign Up</button>
         </div>
-    <!-- </div> -->
+    </div>
 </form>
 
     <script src="Signin.js"></script>

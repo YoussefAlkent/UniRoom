@@ -72,10 +72,11 @@ img{
 }
 
 .navbar__btn {
-  
+  width:100%;
 }
 
 .navbar__links {
+  width:140px;
   color: #fff;
   font-size: 1em;
   background-color:#393232;
@@ -111,7 +112,7 @@ body{
 .container{
   display: grid;
   height: 500px;
-  background-color: #ED8D8D;
+  background-color: #fafafa;
   border-radius: 20px;
   width: 40%;
   grid-template-areas:

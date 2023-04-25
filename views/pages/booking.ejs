@@ -116,7 +116,7 @@
         %>
       <form action="/Booking" method="post">
         <div id='B<%=b.BuildingNo%>' class='building-grid-item'>
-          <input name="sRoom" value="<%=sRoom%>" hidden>
+          <input name="sRoom" value="<%=sRoom%>" hidden> <!-- Hidden inputs just send in data to the server-->
           <input name="eRoom" value="<%=eRoom%>" hidden>
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
@@ -213,6 +213,7 @@
       <br>
       <form action="/Payment" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
+        <input name="floor" value="<%=selectedFloor%>" hidden>
         <input name="sDate" value="<%=sDate%>" hidden>
         <input name="eDate" value="<%=eDate%>" hidden>
         <input name="rNo" value="<%=sRoom%>" hidden>

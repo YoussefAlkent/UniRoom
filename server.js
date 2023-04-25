@@ -227,7 +227,7 @@ app.get('/About', (req, res) => {
     res.render('pages/about', data);
 });
 
-app.post('/SignIn', async (req, res) => {
+app.post('/SignInPage', async (req, res) => {
     console.log("home");
     res.render('pages/Signin');
 });
@@ -284,6 +284,6 @@ app.post('/ConfirmBooking', async (req, res) => {
 console.log('Server is running, Port: 8080')
 module.exports = app;
 
-app.post('/payment', (req,res)=>{
-    
+app.post('/Profile', (req,res)=>{
+    res.render('pages/Profile');
 });

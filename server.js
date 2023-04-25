@@ -230,7 +230,7 @@ app.get('/About', (req, res) => {
     res.render('pages/about', data);
 });
 
-app.post('/SignIn', async (req, res) => {
+app.post('/SignInPage', async (req, res) => {
     console.log("home");
     res.render('pages/Signin');
 });

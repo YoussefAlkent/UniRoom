@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
+    <link rel=stylesheet href="/style.css"></link>
 </head>
 <body>
 <header>
-    <div class="logo-container">
+    <%- include('../partials/nav') %>
+    <!-- <div class="logo-container">
         <img src="UniRoom_white.svg" alt="Logo" class="logo" style="width: 100px; height: 80px;">
     </div>
     <div style="flex-grow: 1;"></div>
@@ -17,7 +19,7 @@
         <a href="/contact">Contact Us</a>
         |
         <a href="/signup">Sign In / Sign Up</a>
-    </p>
+    </p> -->
 </header>
 <main>
 
@@ -28,7 +30,7 @@
             <p>Upgrade your stay with our booking app today!</p>
         </div>
         <div class="right">
-            <img src="aiu_logo.png" alt="">
+            <img src="aiu_logo.png" alt="" >
         </div>
     </div>
     <div class="colorcontainer">
@@ -92,8 +94,8 @@
     }
 
     .mainclass {
+        height:350px;
         display: flex;
-        height: 500px;
         background-color: #dab0b0;
         border-radius: 20px;
     }
@@ -101,7 +103,6 @@
     .left {
         width: 60%;
         float: left;
-        height: 500px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -112,8 +113,7 @@
 
     .right {
         width: 40%;
-        float: left;
-        height: 500px;
+        float: left;s
         display: flex;
         justify-content: center;
         align-items: center;
@@ -267,17 +267,17 @@
     }
 
     function moveButton() {
-        if (!isAccountCorrect()) {
-            const currentPosition = signInButton.style.transform;
+        // if (!isAccountCorrect()) {
+        //     const currentPosition = signInButton.style.transform;
 
-            if (currentPosition === 'translateX(-100px)') {
-                signInButton.style.transform = 'translateX(100px)';
-            } else {
-                signInButton.style.transform = 'translateX(-100px)';
-            }
-        } else {
-            signInButton.style.transform = '';
-        }
+        //     if (currentPosition === 'translateX(-100px)') {
+        //         signInButton.style.transform = 'translateX(100px)';
+        //     } else {
+        //         signInButton.style.transform = 'translateX(-100px)';
+        //     }
+        // } else {
+        //     signInButton.style.transform = '';
+        // }
     }
 
     signInButton.addEventListener("mouseenter", moveButton);

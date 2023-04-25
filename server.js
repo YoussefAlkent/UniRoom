@@ -302,7 +302,7 @@ app.post('/Profile', (req,res)=>{
         } else{
             //alert("Booking Successfully processed");
             console.log(data);
-            res.render('pages/Profile', {bookings:data});
+            res.render('pages/Profile', {bookings:[{sDate:"f",eDate:"e"}]});
         }
     });
     

@@ -55,6 +55,7 @@ app.use(express.static('../public/javascript'));
 
 app.use(express.static('css'));
 app.use(express.static('js'));
+app.use(express.static('public/images'));
 var urlencodedParser = bodyParser.urlencoded({extended:false})
 
 app.post('/Signin', async (req, res) =>{

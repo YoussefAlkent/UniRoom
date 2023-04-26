@@ -199,7 +199,9 @@ app.post('/Booking', async (req, res) =>{
     if(req.cookies.token){
         let token = jwt.verify(req.cookies.token, secretPhrase);
         let nid = token.id;
-        let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE (startTime<=? AND endTime>=?) OR (startTime>=? AND endTime<=?) OR (startTime>=? AND startTime<=?) OR (endTime>=? AND endTime<=?); SELECT * FROM aiuroom.person WHERE NID=?";
+        let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; \
+                     SELECT * FROM aiuroom.booking WHERE (startTime<=? AND endTime>=?) OR (startTime>=? AND endTime<=?) OR (startTime>=? AND startTime<=?) OR (endTime>=? AND endTime<=?); \
+                     SELECT * FROM aiuroom.person WHERE NID=?";
         console.log("date"+sDate);
         let values=[bNo, sRoom, eRoom, sDate, eDate, sDate, eDate, sDate, eDate, sDate, eDate, nid, nid];
         con.query(query,values, function(err, data){

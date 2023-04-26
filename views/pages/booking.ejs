@@ -119,10 +119,9 @@
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
           <input name="floor" value="<%=selectedFloor%>" hidden>
-          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%} else if(b.AvailableRooms >0){%>available<%}else{%>unavailable<%}%>" 
-            onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>"
-            <%if(b.AvailableRooms ==0){%> disabled <%}%> >
-            Building <%= b.BuildingNo %><br> Available Rooms:<%=b.AvailableRooms%>
+          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else{%>available<%}%>" 
+            onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>">
+            Building <h2><%= b.BuildingNo %></h2>
           </button>
         </div>
       </form>
@@ -157,21 +156,21 @@
         <button
           class='room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
           <%if(!isAvailable(r_data[i].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i].RoomNo%>')" <%}%>>
-          Room <%=r_data[i].RoomNo%> <br>
+          Room <h2> <%=r_data[i].RoomNo%> </h2>
           <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
         <button class='room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
           <%if(!isAvailable(r_data[i+1].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+1].RoomNo%>')" <%}%>>
-          Room <%=r_data[i+1].RoomNo%> <br>
+          Room <h2><%=r_data[i+1].RoomNo%></h2>
           <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
         <button class='room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>' 
           <%if(!isAvailable(r_data[i+2].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+2].RoomNo%>')" <%}%>>
-          Room <%=r_data[i+2].RoomNo%> <br>
+          Room <h2><%=r_data[i+2].RoomNo%></h2>
           <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%> Available <%} else{%> Occupied <%}%>
         </button>
 
@@ -194,7 +193,7 @@
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
           <button type="submit" class='floor <%if(selectedFloor==i){%>selected<%} else {%>available<%}%>' 
-            id='floor-<%=i%>' onclick="selectFloor('<%=i%>')"><%=i%>
+            id='floor-<%=i%>' onclick="selectFloor('<%=i%>')"><h2><%=i%></h2>
           </button>
         </form>
         <%}%>

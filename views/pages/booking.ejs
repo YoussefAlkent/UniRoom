@@ -157,22 +157,22 @@
       <div class='apartment' id="apt-<%=(r_data[i].RoomNo / 3)+1%>">
 
         <button
-          class='room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>'
-          onclick="selectRoom('<%=r_data[i].RoomNo%>')">
+          class='room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
+          <%if(!isAvailable(r_data[i].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i].RoomNo%>')" <%}%>>
           Room <%=r_data[i].RoomNo%> <br>
           <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
         <button class='room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
-          onclick="selectRoom('<%=r_data[i+1].RoomNo%>')">
+          <%if(!isAvailable(r_data[i+1].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+1].RoomNo%>')" <%}%>>
           Room <%=r_data[i+1].RoomNo%> <br>
           <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
-        <button class='room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>'
-          onclick="selectRoom('<%=r_data[i+2].RoomNo%>')">
+        <button class='room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>' 
+          <%if(!isAvailable(r_data[i+2].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+2].RoomNo%>')" <%}%>>
           Room <%=r_data[i+2].RoomNo%> <br>
           <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%> Available <%} else{%> Occupied <%}%>
         </button>
@@ -187,7 +187,7 @@
         <div class='box-title'>
           Select Floor
         </div>
-        <% for(let i=1; i<=6; i++){ %>
+        <% for(let i=6; i>=1; i--){ %>
         <form action="/Booking" method="post">
           <input name="bNo" value="<%=sBuilding%>" hidden>
           <input name="floor" value="<%=i%>" hidden>
@@ -216,7 +216,10 @@
         <input name="sDate" value="<%=sDate%>" hidden>
         <input name="eDate" value="<%=eDate%>" hidden>
         <input name="rNo" value="<%=sRoom%>" hidden>
-        <button type="submit">
+        <% if(userdata==null){%>
+          Sign in or Sign up to Book a Room
+        <%}%>
+        <button type="submit" <%if(userdata==null){%>disabled="true" class="unavailable"<%}%>>
           Proceed to Payment
         </button>
       </form>

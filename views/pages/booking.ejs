@@ -53,17 +53,15 @@
     <div class="grid-item" id="header">
       <%let sD=new Date(sDate); let eD = new Date(eDate);%>
       <%if(eD.getYear() < 198){%>
-        Showing rooms available from <%= sD.toLocaleString('en-GB', {'dateStyle':"long"})%> 
-        to <%=eD.toLocaleString('en-GB', {'dateStyle':"long"})%>
+        <h2>Showing rooms available from <%= sD.toLocaleString('en-GB', {'dateStyle':"long"})%> 
+        to <%=eD.toLocaleString('en-GB', {'dateStyle':"long"})%></h2>
       <%} else {%>
-        Please Select Booking Range Below
+        <h2>Please Select Booking Range Below</h2>
       <%}%>
     </div>
     <div class='grid-item' id='select-time'>
-      Select Booking Range <br>
-
-
-      <button id="termBtn"  onclick="selectTerm()">Term</button>
+      <h2>Select Booking Range</h2>
+      <button id="termBtn"  onclick="selectTerm()" hidden>Term</button>
       <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
       <br>
       <form action="/Booking" method="post">
@@ -72,30 +70,30 @@
         <input name="eRoom" value="<%=eRoom%>" hidden>
         <input name="floor" value="<%=selectedFloor%>" hidden>
         <div id='date-selection' >
-          <label for="start-date">Start Date
-            <br>
+          <label for="start-date">
+            <h3 class="time">Start Date</h3>
             <input type=date id="start-date" name="sDate">
           </label>
           <br>
-          <label for="end-date">End Date
-            <br>
+          <label for="end-date" class="time">
+            <h3 class="time">End Date</h3>
             <input type=date id="end-date" name="eDate">
           </label>
         </div>
         <div id="term-selection" hidden>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Fall 2023/2024
           </label>
           <br>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox">
             <span class="checkmark"></span>
             Spring 2023/2024
           </label>
           <br>
-          <label class="term-row">
+          <label class="term-row time">
             <input type="checkbox" class="term-checkbox" name="sum2324">
             <span class="checkmark"></span>
             Summer 2023/2024
@@ -103,14 +101,14 @@
 
 
         </div>
-        <button type="submit" id="find-avail-rooms">
+        <button type="submit" id="find-avail-rooms" class="time submit">
           Find Available Rooms
         </button>
       </form>
     </div>
     <div class='grid-item' id='select-building'>
       <div id='Btitle' class='building-grid-item'>
-        Select building
+        <h2>Select building</h2>
       </div>
       <%b_data.forEach(b => {
         %>
@@ -135,9 +133,9 @@
     <div class='grid-item' id='select-room'>
       <div class='box-title' id='room-title'>
         <%if(sBuilding > 0) {%>
-        Select Room in Building <%=sBuilding%>
+        <h2>Select Room in Building <%=sBuilding%></h2>
         <% } else { %>
-        Please Select a Building
+        <h2>Please Select a Building</h2>
         <% } %>
 
       </div>
@@ -185,7 +183,7 @@
       </div>
       <div class='grid-item' id='select-floor'>
         <div class='box-title'>
-          Select Floor
+          <h2>Select Floor</h2>
         </div>
         <% for(let i=6; i>=1; i--){ %>
         <form action="/Booking" method="post">
@@ -195,7 +193,7 @@
           <input name="eRoom" value="<%=((i-1)*12)+ROOMS_PER_FLOOR%>" hidden>
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
-          <button type="submit" class='floor <%if(selectedFloor==i){%>selected<%}%>' 
+          <button type="submit" class='floor <%if(selectedFloor==i){%>selected<%} else {%>available<%}%>' 
             id='floor-<%=i%>' onclick="selectFloor('<%=i%>')"><%=i%>
           </button>
         </form>
@@ -203,7 +201,7 @@
 
     </div>
     <div class='grid-item' id='selection-info'>
-      Booking Information <br>
+      <h2>Booking Information </h2>
       <% if(r_data != null){ %>
         <div id="si-start">Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
         <div id="si-end">Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
@@ -219,7 +217,7 @@
         <% if(userdata==null){%>
           Sign in or Sign up to Book a Room
         <%}%>
-        <button type="submit" <%if(userdata==null){%>disabled="true" class="unavailable"<%}%>>
+        <button type="submit" class="submit <%if(userdata==null){%>unavailable<%}%>" <%if(userdata==null){%>disabled="true"<%}%>>
           Proceed to Payment
         </button>
       </form>

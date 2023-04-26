@@ -35,25 +35,25 @@
     </div>
     <div class="colorcontainer">
         <div class="colorcontainer">
-            <form class="container">
+            <form class="container" action="/Signin" method="post">
                 <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Login</div>
                 <div class="id">
                     <h3>
                         University ID/ Email: <br>
-                        <input type="text" id="inputid">
-                        </h3>
+                        <input type="text" id="inputid" name="name">
+                    </h3>
                 </div>
 
                 <div class="passwordnum">
                     <h3>Password: <br>
-                        <input type="password" id="password">
+                        <input type="password" name="password" id="password">
                         <p style="font-size: small;"><a href="/" class="idk">Forgot Your Password?</a></p>
                     </h3>
                     <i class="bi-eye-slash" id="togglePassword"></i>
 
                 </div>
                 <div class="button">
-                    <button id="signin" type="button">Sign In</button>
+                    <button id="signin" type="submit">Sign In</button>
                     <button id="signup" type="button" onclick="goToSignUpPage()">Sign Up</button>
                 </div>
             </form>

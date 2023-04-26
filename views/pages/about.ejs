@@ -58,13 +58,13 @@
 	<main>
 		<section>
 			<h2>Our Mission</h2>
-			<p><%= mission %></p>
+			<p><%= data.mission %></p>
 		</section>
 		<section>
 			<h2>Our Team</h2>
-			<% for(var i=0; i<teams.length; i++) { %>
-			<h3><%= teams[i].name %></h3>
-			<p><%= teams[i].description %></p>
+			<% for(var i=0; i<data.teams.length; i++) { %>
+			<h3><%= data.teams[i].name %></h3>
+			<p><%= data.teams[i].description %></p>
 			<% } %>
 		</section>
 	</main>

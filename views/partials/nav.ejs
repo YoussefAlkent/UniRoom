@@ -26,13 +26,6 @@
                 </form>
             </li>
             <li class="navbar__item">
-                <form action="/SignInPage" method="post">
-                    <button type="submit" class="navbar__links">
-                        Sign In
-                    </button>
-                </form>
-            </li>
-            <li class="navbar__item">
                 <form action="/Booking" method="post">
                     <input name="bNo" value="<%=1%>" hidden>
                     <input name="sRoom" value="<%=1%>" hidden>
@@ -44,13 +37,20 @@
                         Book A Room
                     </button>
                 </form>
-              </li>
-              <li class="navbar__item">
+            </li>
+            <li class="navbar__item">
                 <form action="/Profile" method="post">
                     <button type="submit" class="navbar__links">
                         Profile
                     </button>
                 </form>
+            </li>
+            <li class="navbar__item" style="color:#eaeaea">
+                <%if(userdata==null){%>
+                    You're Not Signed In
+                <%} else {%>
+                    Welcome, <%=userdata.Fname%>
+                <%}%>
             </li>
         </ul>
     </div>

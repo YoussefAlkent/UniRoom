@@ -61,11 +61,13 @@ var urlencodedParser = bodyParser.urlencoded({extended:false})
 app.get('/Booking', function(request, res, next){
     let sDate='2023-01-01';
     let eDate='2999-01-02';
-    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?; SELECT * FROM aiuroom.person WHERE NID=?";
     console.log("querying");
     let book = require('./public/javascript/booking');
     //console.log(book);
-    values = [sDate, eDate];
+    values = [sDate, eDate, nid];
     con.query(query, values, function(error, data){
         if(error){
            throw error; 
@@ -83,7 +85,8 @@ app.get('/Booking', function(request, res, next){
                 eRoom:12, 
                 sDate:sDate, 
                 eDate:eDate,
-                error:false
+                error:false,
+                userdata:data[2][0]
             });
            
         }
@@ -97,19 +100,22 @@ app.post('/Signin', async (req, res) =>{
     let values = [name, name];
     console.log(name);
     con.query(query,values, function(err, result){
-        console.log(result[0].Password);
-        let user = result.Username;
+        console.log(result[0]);
+        let user = result[0].Username;
         if(result[0].Password == pass){
-            const token = jwt.sign(user,secretPhrase, {expiresIn:"3h"})
+            const token = jwt.sign({id:result[0].NID},secretPhrase, {expiresIn:"3h"})
+            console.log(token)
             res.cookie('token', token,{
                 httpOnly:true
-            })
-
+            });
+            console.log("cookie done");
+            res.redirect('/Profile');
         } else{
-            transporter.sendMail(createLogInMail(result.email), function(err, info){
-                if (err) throw err; else{console.log("email sent" + info.response)}
-            })
-            res.redirect('/')
+            // transporter.sendMail(createLogInMail(result.email), function(err, info){
+            //     //if (err) throw err;
+            //     //else{console.log("email sent" + info.response)}
+            // })
+            res.redirect('/');
         }
     })
     app.use(function (req, res, next){
@@ -160,9 +166,12 @@ app.post('/Booking', async (req, res) =>{
     let sDate = req.body.sDate;
     let eDate = req.body.eDate;
     let floor = req.body.floor;
-    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE (startTime<=? AND endTime>=?) OR (startTime>=? AND endTime<=?) OR (startTime>=? AND startTime<=?) OR (endTime>=? AND endTime<=?)"
+
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let query = "SELECT * from aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo=? AND RoomNo>=? AND RoomNo<=?; SELECT * FROM aiuroom.booking WHERE (startTime<=? AND endTime>=?) OR (startTime>=? AND endTime<=?) OR (startTime>=? AND startTime<=?) OR (endTime>=? AND endTime<=?); SELECT * FROM aiuroom.person WHERE NID=?";
     console.log("date"+sDate);
-    let values=[bNo, sRoom, eRoom, sDate, eDate, sDate, eDate, sDate, eDate, sDate, eDate];
+    let values=[bNo, sRoom, eRoom, sDate, eDate, sDate, eDate, sDate, eDate, sDate, eDate, nid, nid];
     con.query(query,values, function(err, data){
         
         if(err){
@@ -184,7 +193,8 @@ app.post('/Booking', async (req, res) =>{
                 eRoom:eRoom, 
                 sDate:sDate, 
                 eDate:eDate, 
-                error:false
+                error:false,
+                userdata:data[3][0]
             });
             
         }
@@ -192,13 +202,43 @@ app.post('/Booking', async (req, res) =>{
 });
 
 app.get('/', async (req, res) => {
-    console.log(req.cookies.token);
-    res.render('pages/index', {cookie: req.cookies.token});
+    query="SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid];
+    con.query(query,values, function(err, result){
+        
+        if(err){
+            throw err;
+        }
+        else if(result == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(result);
+            res.render('pages/index', {userdata:result[0]});
+        }
+    });
 });
 
 app.post('/Home', async (req, res) => {
-    console.log("home");
-    res.render('pages/index');
+    query="SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid];
+    con.query(query,values, function(err, result){
+        
+        if(err){
+            throw err;
+        }
+        else if(result == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(result);
+            res.render('pages/index', {userdata:result[0]});
+        }
+    });
 });
 
 app.post('/About', async (req, res) => {
@@ -213,7 +253,23 @@ app.post('/About', async (req, res) => {
             { name: 'member 5:', description: 'Khaled Bahaaeldin' }
         ]
     };
-    res.render('pages/about', data);
+    query="SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid];
+    con.query(query,values, function(err, result){
+        
+        if(err){
+            throw err;
+        }
+        else if(result == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(result);
+            res.render('pages/about', {data:data, userdata:result[0]});
+        }
+    });
 });
 app.get('/About', (req, res) => {
     // Data 
@@ -227,7 +283,24 @@ app.get('/About', (req, res) => {
             { name: 'member 5:', description: 'Khaled Bahaaeldin' }
         ]
     };
-    res.render('pages/about', data);
+    query="SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid];
+    con.query(query,values, function(err, result){
+        
+        if(err){
+            throw err;
+        }
+        else if(result == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(result);
+            res.render('pages/about', {data:data, userdata:result[0]});
+        }
+    });
+    
 });
 
 app.post('/SignInPage', async (req, res) => {
@@ -236,6 +309,7 @@ app.post('/SignInPage', async (req, res) => {
 });
 
 app.post('/Payment', async (req, res) => {
+    let token = jwt.verify(req.cookies.token, secretPhrase);
     let bNo = req.body.bNo;
     let rNo = req.body.rNo;
     let sDate = req.body.sDate;
@@ -287,11 +361,12 @@ app.post('/ConfirmBooking', async (req, res) => {
 console.log('Server is running, Port: 8080')
 module.exports = app;
 
-app.post('/Profile', (req,res)=>{
-    let nid = 111111111;
-    query="SELECT * FROM aiuroom.booking WHERE NID=?"
-
-    let values=[nid];
+app.get('/Profile', (req,res)=>{
+    
+    query="SELECT * FROM aiuroom.booking WHERE NID=?; SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid, nid];
     con.query(query,values, function(err, data){
         
         if(err){
@@ -302,7 +377,28 @@ app.post('/Profile', (req,res)=>{
         } else{
             //alert("Booking Successfully processed");
             console.log(data);
-            res.render('pages/Profile', {bookings:[{sDate:"f",eDate:"e"}]});
+            res.render('pages/Profile', {bookings:data[0],userdata:data[1][0], token:token});
+        }
+    });
+    
+});
+app.post('/Profile', (req,res)=>{
+    
+    query="SELECT * FROM aiuroom.booking WHERE NID=?; SELECT * FROM aiuroom.person WHERE NID=?";
+    let token = jwt.verify(req.cookies.token, secretPhrase);
+    let nid = token.id;
+    let values=[nid, nid];
+    con.query(query,values, function(err, data){
+        
+        if(err){
+            throw err;
+        }
+        else if(data == null){
+
+        } else{
+            //alert("Booking Successfully processed");
+            console.log(data);
+            res.render('pages/Profile', {bookings:data[0],userdata:data[1][0], token:token});
         }
     });
     

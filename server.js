@@ -68,7 +68,7 @@ app.post('/Signin', async (req, res) =>{
         console.log(result[0]);
         let user = result[0].Username;
         if(result[0].Password == pass){
-            const token = jwt.sign({id:result[0].NID},secretPhrase, {expiresIn:"30s"})
+            const token = jwt.sign({id:result[0].NID},secretPhrase, {expiresIn:"3h"})
             console.log(token)
             res.cookie('token', token,{
                 httpOnly:true
@@ -126,7 +126,7 @@ app.post('/signup', async(req, res)=>{
 });
 
 app.get('/Booking', function(req, res, next){
-    let sDate='2023-01-01';
+    let sDate='2020-01-01';
     let eDate='2999-01-02';
     try{
         let token = jwt.verify(req.cookies.token, secretPhrase);
@@ -437,24 +437,29 @@ app.post('/ConfirmBooking', async (req, res) => {
     let sDate = req.body.sDate;
     let eDate = req.body.eDate;
     let roomid = bNo+rNo;
-    let token = jwt.verify(req.cookies.token, secretPhrase);
-    let nid = token.id;
-    let query = "INSERT INTO aiuroom.booking (NID, StartTime, EndTime, RoomNo, roomid) VALUES (?); SELECT * FROM aiuroom.person WHERE NID=?"
-    let values=[[nid, sDate, eDate, rNo, roomid], nid];
-    con.query(query,values, function(err, data){
-        console.log(query);
-        console.log(data);
-        if(err){
-            res.render('pages/paymentSuccess', {userdata:data, message:"Something went wrong. Booking did not go through"});
-        }
-        else if(data == null){
-
-        } else{
-            //alert("Booking Successfully processed");
+    try{
+        let token = jwt.verify(req.cookies.token, secretPhrase);
+        let nid = token.id;
+        let query = "INSERT INTO aiuroom.booking (NID, StartTime, EndTime, RoomNo, roomid) VALUES (?); SELECT * FROM aiuroom.person WHERE NID=?"
+        let values=[[nid, sDate, eDate, rNo, roomid], nid];
+        con.query(query,values, function(err, data){
+            console.log(query);
             console.log(data);
-            res.render('pages/paymentSuccess', {userdata:data, message:"Booking Success!"});
-        }
-    });
+            if(err){
+                res.render('pages/paymentSuccess', {userdata:data, message:"Something went wrong. Booking did not go through"});
+            }
+            else if(data == null){
+    
+            } else{
+                //alert("Booking Successfully processed");
+                console.log(data);
+                res.render('pages/paymentSuccess', {userdata:data, message:"Booking Success!"});
+            }
+        });
+    } catch {
+        res.render('pages/paymentSuccess', {userdata:null, message:"Logout Session ended. Booking did not go through. Please log in again via the Home page and try again."});
+    }
+
 });
 
 

@@ -30,7 +30,7 @@ button{
     border-color: #756f6f;
     border-radius:0.5em;
     background-color:#a6a6a6;
-    filter: drop-shadow(10px 10px 4px #666666);
+    filter: drop-shadow(5px 5px 3px #706060);
 }
 
 #header {

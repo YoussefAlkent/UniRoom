@@ -119,9 +119,14 @@
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
           <input name="floor" value="<%=selectedFloor%>" hidden>
-          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else{%>available<%}%>" 
+          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F')) {%> unavailable<%} else {%>available<%}%>" 
             onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>">
             Building <h2><%= b.BuildingNo %></h2>
+            <%if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M'))  {%>
+              <p style="font-size:12px">Female Students Only</p>
+            <%} else if(userdata==null || (b.BuildingNo <4 && userdata.Gender=='F')){%>
+               <p style="font-size:12px"> Male Students Only</p>
+            <%}%>
           </button>
         </div>
       </form>
@@ -202,17 +207,17 @@
     <div class='grid-item' id='selection-info'>
       <h2>Booking Information </h2>
       <% if(r_data != null){ %>
-        <div id="si-start">Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
-        <div id="si-end">Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
+        <div id="si-start">Booking Start: <%if(new Date(eDate).getYear() < 198){%><%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%><%}%> </div>
+        <div id="si-end">Booking End: <%if(new Date(eDate).getYear() < 198){%> <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> <%}%> </div>
         <div id="si-building">Building: <%=sBuilding%> </div>
-        <div id="si-roomNo">Room Number:<%=sRoom%></div>
+        <div id="si-roomNo">Room Number: </div>
       <% } %>
       <br>
       <form action="/Payment" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
         <input name="sDate" value="<%=sDate%>" hidden>
         <input name="eDate" value="<%=eDate%>" hidden>
-        <input name="rNo" value="<%=sRoom%>" hidden>
+        <input id="submit-rNo" name="rNo" value="<%=selectedRoom%>" hidden>
         <% if(userdata==null){%>
           Sign in or Sign up to Book a Room
         <%}%>
@@ -278,7 +283,7 @@
     }
     console.log("selected room " + rNo);
     selectedRoom = rNo;
-    
+    document.getElementById("submit-rNo").value=selectedRoom;
     document.getElementById("si-start").innerHTML = "Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
     document.getElementById("si-end").innerHTML = "Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
     document.getElementById("si-building").innerHTML = "Building: <%=sBuilding%>";

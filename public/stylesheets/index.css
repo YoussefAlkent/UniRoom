@@ -160,7 +160,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        grid__area: bot;
+        grid-area: bot;
         font-size: 17px;
         gap: 10px;
 

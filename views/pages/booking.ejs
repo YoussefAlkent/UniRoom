@@ -61,8 +61,8 @@
     </div>
     <div class='grid-item' id='select-time'>
       <h2>Select Booking Range</h2>
-      <button id="termBtn"  onclick="selectTerm()" hidden>Term</button>
-      <button id="dateBtn"  class="selected" onclick="selectDate()">Date</button>
+      <button id="termBtn"  hidden onclick="selectTerm()">Term</button>
+      <button id="dateBtn"  class="bookbtn selected" onclick="selectDate()">Date</button>
       <br>
       <form action="/Booking" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
@@ -101,7 +101,7 @@
 
 
         </div>
-        <button type="submit" id="find-avail-rooms" class="time submit">
+        <button type="submit" id="find-avail-rooms" class="bookbtn time submit">
           Find Available Rooms
         </button>
       </form>
@@ -119,9 +119,17 @@
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
           <input name="floor" value="<%=selectedFloor%>" hidden>
-          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else{%>available<%}%>" 
-            onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>">
+          <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="bookbtn building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else if (userdata==null || b.BuildingNo==7 ||(b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F')) {%> unavailable<%} else {%>available<%}%>" 
+            onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>"
+            <%if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F')){%>disabled="true"<%}%>>
             Building <h2><%= b.BuildingNo %></h2>
+            <% if(b.BuildingNo == 7){%>
+              <p style="font-size:12px">Building Unavailable</p>
+            <%} else if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M'))  {%>
+              <p style="font-size:12px">Female Students Only</p>
+            <%} else if(userdata==null || (b.BuildingNo < 4 && userdata.Gender=='F')){%>
+               <p style="font-size:12px"> Male Students Only</p>
+            <%}%>
           </button>
         </div>
       </form>
@@ -154,21 +162,21 @@
       <div class='apartment' id="apt-<%=(r_data[i].RoomNo / 3)+1%>">
 
         <button
-          class='room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
+          class=' button room <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i].RoomNo%>' 
           <%if(!isAvailable(r_data[i].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i].RoomNo%>')" <%}%>>
           Room <h2> <%=r_data[i].RoomNo%> </h2>
           <%if(r_data[i].RoomStatus==0 && isAvailable(r_data[i].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
-        <button class='room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
+        <button class='button room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
           <%if(!isAvailable(r_data[i+1].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+1].RoomNo%>')" <%}%>>
           Room <h2><%=r_data[i+1].RoomNo%></h2>
           <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
-        <button class='room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>' 
+        <button class='button room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>' 
           <%if(!isAvailable(r_data[i+2].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+2].RoomNo%>')" <%}%>>
           Room <h2><%=r_data[i+2].RoomNo%></h2>
           <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%> Available <%} else{%> Occupied <%}%>
@@ -192,7 +200,7 @@
           <input name="eRoom" value="<%=((i-1)*12)+ROOMS_PER_FLOOR%>" hidden>
           <input name="sDate" value="<%=sDate%>" hidden>
           <input name="eDate" value="<%=eDate%>" hidden>
-          <button type="submit" class='floor <%if(selectedFloor==i){%>selected<%} else {%>available<%}%>' 
+          <button type="submit" class='button floor <%if(selectedFloor==i){%>selected<%} else {%>available<%}%>' 
             id='floor-<%=i%>' onclick="selectFloor('<%=i%>')"><h2><%=i%></h2>
           </button>
         </form>
@@ -202,21 +210,21 @@
     <div class='grid-item' id='selection-info'>
       <h2>Booking Information </h2>
       <% if(r_data != null){ %>
-        <div id="si-start">Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
-        <div id="si-end">Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> </div>
-        <div id="si-building">Building: <%=sBuilding%> </div>
-        <div id="si-roomNo">Room Number:<%=sRoom%></div>
+        <div id="si-start">Booking Start: <b><%if(new Date(eDate).getYear() < 198){%><%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%><%}%></b> </div>
+        <div id="si-end">Booking End: <b><%if(new Date(eDate).getYear() < 198){%> <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%> <%}%></b> </div>
+        <div id="si-building">Building: <b><%=sBuilding%> </b></div>
+        <div id="si-roomNo">Room Number: </div>
       <% } %>
       <br>
       <form action="/Payment" method="post">
         <input name="bNo" value="<%=sBuilding%>" hidden>
         <input name="sDate" value="<%=sDate%>" hidden>
         <input name="eDate" value="<%=eDate%>" hidden>
-        <input name="rNo" value="<%=sRoom%>" hidden>
+        <input id="submit-rNo" name="rNo" value="<%=selectedRoom%>" hidden>
         <% if(userdata==null){%>
           Sign in or Sign up to Book a Room
         <%}%>
-        <button type="submit" class="submit <%if(userdata==null){%>unavailable<%}%>" <%if(userdata==null){%>disabled="true"<%}%>>
+        <button type="submit" class="bookbtn submit <%if(userdata==null){%>unavailable<%}%>" <%if(userdata==null){%>disabled="true"<%}%>>
           Proceed to Payment
         </button>
       </form>
@@ -278,11 +286,11 @@
     }
     console.log("selected room " + rNo);
     selectedRoom = rNo;
-    
-    document.getElementById("si-start").innerHTML = "Booking Start: <%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
-    document.getElementById("si-end").innerHTML = "Booking End: <%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%>";
-    document.getElementById("si-building").innerHTML = "Building: <%=sBuilding%>";
-    document.getElementById("si-roomNo").innerText = "Room Number:"+rNo;
+    document.getElementById("submit-rNo").value=selectedRoom;
+    document.getElementById("si-start").innerHTML = "Booking Start: <b><%=new Date(sDate).toLocaleString('en-GB', {'dateStyle':"long"})%></b>";
+    document.getElementById("si-end").innerHTML = "Booking End: <b><%=new Date(eDate).toLocaleString('en-GB', {'dateStyle':"long"})%></b>";
+    document.getElementById("si-building").innerHTML = "Building: <b><%=sBuilding%></b>";
+    document.getElementById("si-roomNo").innerHTML = "Room Number: <b>"+rNo+"</b>";
 
     document.getElementById('room-' + rNo).classList.add('selected');
   };

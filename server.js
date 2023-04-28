@@ -66,7 +66,6 @@ app.post('/Signin', async (req, res) =>{
     console.log(name);
     con.query(query,values, function(err, result){
         console.log(result[0]);
-        let user = result[0].Username;
         if(result[0].Password == pass){
             const token = jwt.sign({id:result[0].NID},secretPhrase, {expiresIn:"30s"})
             console.log(token)

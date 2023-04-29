@@ -1,33 +1,79 @@
-body{
-    font-size:large;
-}
-
-#profilecontainer{
-    display:grid;
-    grid-template-areas: "profile table"
-                        "profile table";
-}
-
-#profile{
-    grid-area:profile;
-}
-#bookings{
-    grid-area:table;
-}
-.tablecontainer{
-    background-color: #fafafa;
-    align-items:center;
+:root {
+    --main-bg-color: #fafafa;
+    --main-text-color: #333;
+    --header-bg-color: #333;
+    --header-text-color: #fff;
+    --border-color: #ababab;
+    --shadow-color: #706060;
+  }
+  
+  body {
+    font-size: large;
+  }
+  
+  #profilecontainer {
+    display: grid;
+    grid-template-areas: "profile table" "profile table";
+  }
+  
+  #profile {
+    grid-area: profile;
+  }
+  
+  #bookings {
+    grid-area: table;
+  }
+  
+  .tablecontainer {
+    background-color: var(--main-bg-color);
+    align-items: center;
     margin: 3em;
     padding: 1em;
     border-radius: 1em;
-    filter: drop-shadow(5px 5px 3px #706060);
-}
-
-.table,th,td {
+    filter: drop-shadow(5px 5px 3px var(--shadow-color));
+  }
+  
+  .table,
+  th,
+  td {
     border-style: solid;
     border-width: 1px;
-    border-color:#ababab;
+    border-color: var(--border-color);
     padding: 0.5em;
     border-radius: 0.5em;
-    
-}
+  }
+  
+  header {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: justify;
+  }
+  
+  section {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin: 0 0 20px 0;
+  }
+  
+  p {
+    margin: 0 0 20px 0;
+  }
+  

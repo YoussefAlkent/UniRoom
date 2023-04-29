@@ -1,3 +1,13 @@
+:root {
+  --background-color: #8D6262;
+  --primary-color: #393232;
+  --secondary-color: #ED8D8D;
+  --background-color2: #ff8177;
+  --text-color: #fff;
+  --logo-gradient-start: #fafafa;
+  --logo-gradient-end: #4ac7d8;
+  --border-color: #bbb;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +21,7 @@ p{
 }
 
 .navbar {
-  background: #393232;
+  background: var(--primary-color);
   height: 100px;
   display: flex;
   justify-content: center;
@@ -36,8 +46,8 @@ p{
 
 
 #navbar__logo {
-  background-color: #ff8177;
-  background-image: linear-gradient(to top, #fafafa 0%, #4ac7d8 100%);
+  background-color: var(--background-color2);
+  background-image: linear-gradient(to top, var(--logo-gradient-start) 0%, var(--logo-gradient-end) 100%);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -67,8 +77,8 @@ p{
 }
 
 .navbar__links {
-  background-color:#393232;
-  color: #fff;
+  background-color:var(--primary-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,10 +96,10 @@ p{
   width: 100%;
 }
 hr.solid {
-  border-top: 3px solid #bbb;
+  border-top: 3px solid var(--border-color);
 }
 body{
-  background-color: #8D6262;
+  background-color: var(--background-color);
 }
 .colorcontainer{
   display: flex;
@@ -101,7 +111,7 @@ body{
 .container{
   display: grid;
   height: 500px;
-  background-color: #ED8D8D;
+  background-color: var(--secondary-color);
   border-radius: 20px;
   width: 40%;
   grid-template-areas:

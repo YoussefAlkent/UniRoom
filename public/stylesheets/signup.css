@@ -1,3 +1,13 @@
+:root {
+  --background-color: #8D6262;
+  --navbar-background-color: #393232;
+  --navbar-logo-background-color: #4D4545;
+  --navbar-logo-gradient-color-1: #fafafa;
+  --navbar-logo-gradient-color-2: #4ac7d8;
+  --navbar-links-color: #fff;
+  --hr-border-color: #bbb;
+  --colorback-background-color: #ED8D8D;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +16,7 @@
 
 }
 .navbar {
-  background: #393232;
+  background: var(--navbar-background-color);
   height: 80px;
   display: flex;
   justify-content: center;
@@ -31,8 +41,8 @@
 }
 
 #navbar__logo {
-  background-color: #4D4545;
-  background-image: linear-gradient(to top, #fafafa 0%, #4ac7d8 100%);
+  background-color: var(--navbar-logo-background-color);
+  background-image: linear-gradient(to top, var(--navbar-logo-gradient-color-1) 0%, var(--navbar-logo-gradient-color-2) 100%);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -61,7 +71,7 @@
 }
 
 .navbar__links {
-  color: #fff;
+  color:var(--navbar-links-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,10 +88,10 @@
   width: 100%;
 }
 hr.solid {
-  border-top: 3px solid #bbb;
+  border-top: 3px solid var(--hr-border-color);
 }
 body{
-  background-color: #8D6262;
+  background-color: var(--background-color);
 }
 .colorback{
   display: flex;
@@ -93,7 +103,7 @@ body{
 }
 .signupaccount{
   display: grid;
-  background-color: #ED8D8D;
+  background-color: var(--colorback-background-color);
   border-radius: 20px;
   height: 600px;
   width: 65%;

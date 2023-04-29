@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+:root {
+--main-color: #553939;
+--secondary-color: #472d2d;
+--navbar-color: #4D4545;
+--button-gradient-start: #feada6;
+--button-gradient-end: #f5efef;
+--button-outline: #ED8D8D;
+--button-outline-hover: #ffffff;
+--alert-color: #ED8D8D;
+--alert-success: #8D6262;
+--alert-warning: #4D4545;
+--alert-info: #393232;
+--text-color: #ffffff;
+--link-color: #333;
+--link-hover-color: #00bcd4;
+--navbar-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -15,14 +32,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#553939",endCo
 h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 h2 {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -38,7 +55,7 @@ a {
 
 button {
   background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
-  color: #ffffff;
+  color: var(--text-color);
   border: none;
   padding: 1rem 2rem;
   border-radius: 5px;
@@ -54,7 +71,7 @@ button {
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    background-color: #4D4545;
+    background-color: var(--navbar-color);
     padding: 0 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -63,7 +80,7 @@ button {
     font-size: 2rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -80,7 +97,7 @@ button {
 
 .navbar__item a {
     font-size: 1.2rem;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -103,7 +120,7 @@ button {
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    background-color: #4D4545;
+    background-color: var(--navbar-color);
     padding: 0 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -112,7 +129,7 @@ button {
     font-size: 2rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -129,32 +146,32 @@ button {
 
 .navbar__item a {
     font-size: 1.2rem;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .navbar__item a:hover {
-    color: #00bcd4;
+    color: var(--link-hover-color);
 }
 
 
 .button-secondary {
-  background-color: #ffffff;
-  color: #ffffff;
+  background-color: var(--text-color);
+  color: var(--text-color);
 }
 
 .button-outline {
-  border: 2px solid #ED8D8D;
+  border: 2px solid var(--alert-color);
   background-color: transparent;
-  color: #ED8D8D;
+  color: var(--alert-color);
   padding: 1rem 2rem;
   border-radius: 5px;
 }
 
 .button-outline:hover {
   background-position: right center;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .container {
@@ -164,29 +181,29 @@ button {
 }
 
 .alert {
-  background-color: #ED8D8D;
-  color: #ffffff;
+  background-color: var(--alert-color);
+  color: var(--text-color);
   padding: 1rem;
   margin-bottom: 2rem;
   border-radius: 5px;
 }
 
 .alert-success {
-  background-color: #8D6262;
+  background-color: var(--alert-success);
 }
 
 .alert-warning {
-  background-color: #4D4545;
+  background-color: var(--alert-warning);
 }
 
 .alert-info {
-  background-color: #393232;
+  background-color: var(--alert-info);
 }
 
 .bookingHead {
   font-size: 4rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -248,7 +265,7 @@ button {
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    background-color: #f1f1f1;
+    background-color:var(--text-color);
     padding: 0 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -257,7 +274,7 @@ button {
     font-size: 2rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -274,13 +291,13 @@ button {
 
 .navbar__item a {
     font-size: 1.2rem;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .navbar__item a:hover {
-    color: #00bcd4;
+    color: var(--link-hover-color);
 }
 
   .main__container {
@@ -296,7 +313,7 @@ button {
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    background-color: #f1f1f1;
+    background-color: var(--text-color);
     padding: 0 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -305,7 +322,7 @@ button {
     font-size: 2rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -322,12 +339,12 @@ button {
 
 .navbar__item a {
     font-size: 1.2rem;
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .navbar__item a:hover {
-    color: #00bcd4;
+    color: var(--link-hover-color);
 }
 }

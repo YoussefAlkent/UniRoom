@@ -1,3 +1,14 @@
+:root {
+    --border-color: #756f6f;
+    --background-color:#a6a6a6;
+    --background-color2:#a88181;
+    --background-color3: #fafafa;
+    --background-color4: #ED8D8D;
+    --background-color5: #483333;
+    --background-color6: gray;
+    --color1: black;
+    --border-color1:#756f6f;
+  }
 body{
     font-family:sans-serif;
 }
@@ -27,9 +38,9 @@ button{
     border-style: solid;
     border: 1px;
     border-width: medium;
-    border-color: #756f6f;
+    border-color:var(--border-color);
     border-radius:0.5em;
-    background-color:#a6a6a6;
+    background-color:var(--background-color);
     filter: drop-shadow(4px 3px 3px #706060);
 }
 
@@ -94,25 +105,25 @@ button{
 
 /* Button Color Classes */
 .submit {
-    background-color:#a88181
+    background-color:var(--background-color2)
 }
 .available {
-    background-color: #fafafa;
+    background-color:var(--background-color3);
 }
 button:hover {
-    background-color: #ED8D8D;
+    background-color: var(--background-color4);
 }
 .selected,
 .selected:hover {
-    background-color: #483333;
+    background-color: var(--background-color5);
     color:white;
 }
 
 
 .unavailable,
 .unavailable:hover {
-    background-color: gray;
-    color: black;
+    background-color: var(--background-color6);
+    color: var(--color1);
 }
 
 #Btitle {
@@ -124,7 +135,7 @@ button:hover {
     display: grid;
     border-style: solid;
     border-width:2px;
-    border-color:#756f6f;
+    border-color:var(--border-color1);
     border-radius:0.6em;
     margin:0.2em;
     padding:0.4em;

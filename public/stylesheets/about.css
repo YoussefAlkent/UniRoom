@@ -1,42 +1,49 @@
-body {
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --tertiary-color: #ccc;
+  }
+  
+  body {
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color: #333;
+    color: var(--primary-color);
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
+  }
+  
+  header {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 20px;
     text-align: center;
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 36px;
     margin: 0;
-}
-
-main {
+  }
+  
+  main {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px;
     text-align: justify;
-}
-
-section {
+  }
+  
+  section {
     margin-bottom: 40px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #ccc;
-}
-
-h2 {
+    border-bottom: 1px solid var(--tertiary-color);
+  }
+  
+  h2 {
     font-size: 24px;
     margin: 0 0 20px 0;
-}
-
-p {
+  }
+  
+  p {
     margin: 0 0 20px 0;
-}
+  }
+  

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
     <!-- <link rel=stylesheet href="/style.css"></link> -->
-    <link rel=stylesheet href="style.css"></link>
-</head>
-<body>
-<header>
-    <%- include('../partials/nav') %>
-    <!-- <div class="logo-container">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <%- include('../partials/nav') %>
+      <!-- <div class="logo-container">
         <img src="UniRoom_white.svg" alt="Logo" class="logo" style="width: 100px; height: 80px;">
     </div>
     <div style="flex-grow: 1;"></div>
@@ -21,66 +22,72 @@
         |
         <a href="/signup">Sign In / Sign Up</a>
     </p> -->
-</header>
-<main>
-    <div class="mainclass">
+    </header>
+    <main>
+      <div class="mainclass">
         <div class="left">
-            <h1>Say Goodbye to Dorm Room Hassles: Book with Us Today!</h1>
-            <p>Share your dorm room experience with someone who shares your interests and lifestyle.</p>
-            <p>Upgrade your stay with our booking app today!</p>
+          <h1>Say Goodbye to Dorm Room Hassles: Book with Us Today!</h1>
+          <p>
+            Share your dorm room experience with someone who shares your
+            interests and lifestyle.
+          </p>
+          <p>Upgrade your stay with our booking app today!</p>
         </div>
         <div class="right">
-            <img src="aiu_logo.png" alt="" >
+          <img src="index__image.png" alt="" />
         </div>
-    </div>
-    <div class="colorcontainer">
-            <form class="logincontainer" action="/Signin" method="post">
-                <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Login</div>
-                <div class="id">
-                    <h3>
-                        University ID/ Email: <br>
-                        <input type="text" id="inputid" name="name">
-                    </h3>
-                </div>
+      </div>
+      <div class="colorcontainer">
+        <form class="logincontainer" action="/Signin" method="post">
+          <div class="title">
+            <img src="aiu.jpg" alt="" id="ai_logo" />Login
+          </div>
+          <div class="id">
+            <h3>
+              University ID/ Email: <br />
+              <input type="text" id="inputid" name="name" />
+            </h3>
+          </div>
 
-                <div class="passwordnum">
-                    <h3>Password: <br>
-                        <input type="password" name="password" id="password">
-                        <p style="font-size: small;"><a href="/" class="idk">Forgot Your Password?</a></p>
-                    </h3>
-                    <i class="bi-eye-slash" id="togglePassword"></i>
+          <div class="passwordnum">
+            <h3>
+              Password: <br />
+              <input type="password" name="password" id="password" />
+              <p style="font-size: small">
+                <a href="/" class="idk">Forgot Your Password?</a>
+              </p>
+            </h3>
+            <i class="bi-eye-slash" id="togglePassword"></i>
+          </div>
+          <div class="button">
+            <button id="signin" type="submit">Sign In</button>
+            <button id="signup" type="button" onclick="goToSignUpPage()">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+      const signInButton = document.querySelector("#signin");
+      const inputId = document.querySelector("#inputid");
 
-                </div>
-                <div class="button">
-                    <button id="signin" type="submit">Sign In</button>
-                    <button id="signup" type="button" onclick="goToSignUpPage()">Sign Up</button>
-                </div>
-            </form>
-    </div>
+      const correctAccountNumber = "123456";
+      const correctPassword = "secret";
 
-
-</main>
-<script>
-    const togglePassword = document.querySelector("#togglePassword");
-    const password = document.querySelector("#password");
-    const signInButton = document.querySelector("#signin");
-    const inputId = document.querySelector("#inputid");
-
-    const correctAccountNumber = "123456";
-    const correctPassword = "secret";
-
-    function goToSignUpPage() {
+      function goToSignUpPage() {
         window.location.href = "signup.html";
-    }
+      }
 
-    function isAccountCorrect() {
+      function isAccountCorrect() {
         return inputId.value === correctAccountNumber;
-    }
+      }
 
-    function moveButton() {
+      function moveButton() {
         // if (!isAccountCorrect()) {
         //     const currentPosition = signInButton.style.transform;
-
         //     if (currentPosition === 'translateX(-100px)') {
         //         signInButton.style.transform = 'translateX(100px)';
         //     } else {
@@ -89,20 +96,21 @@
         // } else {
         //     signInButton.style.transform = '';
         // }
-    }
+      }
 
-    signInButton.addEventListener("mouseenter", moveButton);
+      signInButton.addEventListener("mouseenter", moveButton);
 
-    togglePassword.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
+      togglePassword.addEventListener("click", function () {
+        const type =
+          password.getAttribute("type") === "password" ? "text" : "password";
         password.setAttribute("type", type);
         this.classList.toggle("bi-eye");
-    });
+      });
 
-    const form = document.querySelector("form");
-    form.addEventListener('signin', function (e) {
+      const form = document.querySelector("form");
+      form.addEventListener("signin", function (e) {
         e.preventDefault();
-    })
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

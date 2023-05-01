@@ -1,24 +1,25 @@
 :root {
-  --background-color: #8D6262;
-  --primary-color: #393232;
-  --secondary-color: #ED8D8D;
+  --background-color: #8d6262;
+  --primary-color: #c9c5cb;
+  --navbar-color: #07004d;
+  --secondary-color: #A59292;
   --background-color2: #ff8177;
-  --text-color: #fff;
+  --text-color: #f8f7f7;
   --logo-gradient-start: #fafafa;
   --logo-gradient-end: #4ac7d8;
   --border-color: #bbb;
+  --accent-color: #3324d8;
 }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family:sans-serif;
-  font-size:large;
+  font-family: sans-serif;
+  font-size: large;
 }
 
-
 .navbar {
-  background: var(--primary-color);
+  background: var(--navbar-color);
   height: 100px;
   display: flex;
   justify-content: center;
@@ -27,8 +28,8 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  width:100%;
-  font-size:large;
+  width: 100%;
+  font-size: large;
 }
 
 .navbar__container {
@@ -41,10 +42,13 @@
   padding-left: 1.5em;
 }
 
-
 #navbar__logo {
   background-color: var(--background-color2);
-  background-image: linear-gradient(to top, var(--logo-gradient-start) 0%, var(--logo-gradient-end) 100%);
+  background-image: linear-gradient(
+    to top,
+    var(--logo-gradient-start) 0%,
+    var(--logo-gradient-end) 100%
+  );
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -69,11 +73,15 @@
 }
 
 .navbar__item {
-  vertical-align:middle;
+  vertical-align: middle;
+  margin: left 0.25rem right 0.25em;
+}
+.navbar__item > * {
+  color: var(--text-color);
 }
 
 .navbar__links {
-  background-color:var(--primary-color);
+  background-color: var(--navbar-color);
   color: var(--text-color);
   display: flex;
   align-items: center;
@@ -81,10 +89,12 @@
   text-decoration: none;
   padding: 0 1rem;
   height: 50px;
-  border-style:none;
+  border-style: none;
+  transition: ease-in-out 0.1s;
 }
-.navbar__links:hover{
-  background-color: var(--background-color);
+.navbar__links:hover {
+  background-color: var(--accent-color);
+  transition: ease-in-out 0.1s;
 }
 
 .navbar__btn {
@@ -97,17 +107,17 @@
 hr.solid {
   border-top: 3px solid var(--border-color);
 }
-body{
+body {
   background-color: var(--background-color);
 }
-.colorcontainer{
+.colorcontainer {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 600px;
   width: 100%;
 }
-.container{
+.container {
   display: grid;
   height: 500px;
   background-color: var(--secondary-color);
@@ -121,10 +131,10 @@ body{
     "mid3"
     "bot";
 }
-h3{
+h3 {
   font-size: 16px;
 }
-.title{
+.title {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,77 +142,67 @@ h3{
   margin-top: 50px;
   font-size: 35px;
 }
-.id{
+.id {
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: "top";
 }
-input{
+input {
   width: 250px;
   height: 30px;
 }
-.passwordnum{
+.passwordnum {
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: "mid1";
 }
 
-.otherid{
+.otherid {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   grid-area: "mid2";
 }
-.aiuid{
+.aiuid {
   display: flex;
   align-items: center;
   justify-items: center;
   width: 250px;
 }
-.googleid{
+.googleid {
   display: flex;
   align-items: center;
   justify-items: center;
   width: 250px;
-
 }
-button{
+button {
   width: 160px;
   height: 50px;
   border-radius: 20px;
 }
 
-.button{
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: "bot";
   font-size: 17px;
   gap: 10px;
-
 }
-input{
+input {
   border-radius: 10px;
   padding: 4px 8px;
 }
 form i {
   margin-left: -25px;
   cursor: pointer;
-
 }
-#ai_logo{
+#ai_logo {
   width: 50px;
   height: 50px;
   border-radius: 20px;
   margin-right: 5px;
 }
-
-
-
-
-
-
-

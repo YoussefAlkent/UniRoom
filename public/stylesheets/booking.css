@@ -1,9 +1,9 @@
 :root {
     --border-color: #756f6f;
-    --background-color2:#a88181;
+    --background-color2:var(--secondary-color);
     --background-color3: #fafafa;
-    --background-color4: #ED8D8D;
-    --background-color5: #483333;
+    --background-color4: var(--accent-color);
+    --background-color5: var(--navbar-color);
     --background-color6: gray;
     --color1: black;
     --border-color1:#756f6f;

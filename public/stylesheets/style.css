@@ -1,5 +1,5 @@
 :root {
-  --background-color: #8d6262;
+  --background-color: var(--primary-color);
   --primary-color: #c9c5cb;
   --navbar-color: #07004d;
   --secondary-color: #A59292;

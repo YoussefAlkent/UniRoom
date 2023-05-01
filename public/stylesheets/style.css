@@ -16,9 +16,6 @@
   font-size:large;
 }
 
-p{
-  font-size: large;
-}
 
 .navbar {
   background: var(--primary-color);
@@ -72,7 +69,6 @@ p{
 }
 
 .navbar__item {
-  height: 80px;
   vertical-align:middle;
 }
 
@@ -86,6 +82,9 @@ p{
   padding: 0 1rem;
   height: 50px;
   border-style:none;
+}
+.navbar__links:hover{
+  background-color: var(--background-color);
 }
 
 .navbar__btn {
@@ -149,9 +148,7 @@ input{
   justify-content: center;
   grid-area: "mid1";
 }
-p{
-  font-size: small;
-}
+
 .otherid{
   display: flex;
   flex-direction: column;

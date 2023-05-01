@@ -11,13 +11,16 @@
 body{
     font-family:sans-serif;
 }
-.button{
+.bookbtn{
     margin-top:0.3em;
     width:100%;
     padding: 0.5em;
     border-style:none;
     border-radius:0.5em;
     filter: drop-shadow(1px 2px 1px #816f6f);
+}
+.bookbtn:hover{
+    background-color:var(--background-color4)
 }
 
 .grid-container {
@@ -109,7 +112,7 @@ body{
 .available {
     background-color:var(--background-color3);
 }
-.button:hover {
+.booktbn:hover {
     background-color: var(--background-color4);
 }
 .selected,

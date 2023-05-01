@@ -107,19 +107,20 @@
 hr.solid {
   border-top: 3px solid var(--border-color);
 }
-body {
+body{
   background-color: var(--background-color);
 }
-.colorcontainer {
+.colorcontainer{
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 600px;
-  width: 100%;
+  background-color:var(--secondary-color);
+  margin: 0em 2em;
+  border-radius: 20px;
 }
-.container {
+.container{
   display: grid;
-  height: 500px;
+  grid-gap:0.5em;
   background-color: var(--secondary-color);
   border-radius: 20px;
   width: 40%;
@@ -130,33 +131,37 @@ body {
     "mid2"
     "mid3"
     "bot";
+
+  margin-bottom:2em;
 }
 h3 {
   font-size: 16px;
 }
-.title {
+.title{
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: "title";
+  grid-area: title;
   margin-top: 50px;
   font-size: 35px;
 }
-.id {
+.id{
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: "top";
+  grid-area: top;
 }
 input {
   width: 250px;
   height: 30px;
+  border-radius: 10px;
+  padding: 4px 8px;
 }
-.passwordnum {
+.passwordnum{
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: "mid1";
+  grid-area: mid1;
 }
 
 .otherid {
@@ -164,7 +169,7 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  grid-area: "mid2";
+  grid-area: mid2;
 }
 .aiuid {
   display: flex;
@@ -188,11 +193,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: "bot";
+  grid-area: bot;
   font-size: 17px;
   gap: 10px;
 }
-input {
+input{
   border-radius: 10px;
   padding: 4px 8px;
 }

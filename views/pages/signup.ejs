@@ -9,35 +9,9 @@
     <title>UniRoom - Home</title>
 </head>
 <body>
-<nav class="navbar">
-    <div class="navbar__container">
-        <img id="uni_logo" src="/UniRoom_white.svg" alt="">
-        <div class="navbar__toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-        <ul class="navbar__menu">
-            <li class="navbar__item">
-                <a href="/" class="navbar__links">
-                    Home
-                </a>
-            </li>
-            <li class="navbar__item">
-                <a href="/" class="navbar__links">
-                    About
-                </a>
-            </li>
-            <li class="navbar__btn">
-                <a href="/" class="button">
-                    Sign In
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <%- include('../partials/nav') %>
 <div class="colorback">
-    <form class="signupaccount" method="post" action="signup_process.php">
+    <form class="signupaccount" method="post" action="/Signup">
         <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Sign Up to a New Account</div>
         <div class="sName">
             <h3>

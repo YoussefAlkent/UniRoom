@@ -110,11 +110,11 @@ app.post('/SignupPage', async(req, res)=>{
             } else{
                 //alert("Booking Successfully processed");
                 console.log(data);
-                res.render('pages/signup', {userdata:data[0][0]});
+                res.render('pages/signup', {userdata:data[0][0], message:""});
             }
         });
     } catch {
-        res.redirect('/');
+        res.render('pages/signup', {userdata:null, message:""});
     } 
 });
 app.post('/signup', async(req, res)=>{
@@ -127,25 +127,34 @@ app.post('/signup', async(req, res)=>{
     var repeatpass = req.body.repeatpass;
     var gender = req.body.gender;
     var year = req.body.year;
-    var field = req.body.feild;
+    var field = req.body.field;
     var parentnum = req.body.parentnum
     let parent = req.body.parent_name;
     if(pass == repeatpass){
         transporter.sendMail(createSignUpMail(email), function(err, info){
             if(err) throw err; else console.log("email sent" + info.response)
         })
-        let query = "INSERT INTO person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES ?"
-        let values=[Fname, phonenum, email, uid, pass, gender, uid]
+        let query = "INSERT INTO aiuroom.person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES (?)"
+        let values=[Fname, phonenum, email, Fname, pass, gender, uid];
         con.query(query, [values], function(err, result){
-            if (err) throw err;
+            if (err){
+                res.render("pages/signup", {userdata:null, message:"An error occurred. Please try again."});
+                throw err;
+            } 
             console.log("Signup 1 Successful:  ", result)
         })
-        let query2 = "INSERT INTO student (SID, NID, Grade, Parentnumber, Parent, StudentName) VALUES ?"
-        let values2 = [uid, uid, year, parentnum, parent, Fname]
+        let query2 = "INSERT INTO aiuroom.student (SID, year, Parentnumber, Parent, StudentName, Uni_email) VALUES (?)"
+        let values2 = [uid, year, parentnum, parent, Fname, email]
         con.query(query2, [values2], function(err, result){
-            if (err) throw err;
+            if (err) {
+                res.render("pages/signup", {userdata:null, message:"An error occurred. Please try again."});
+                throw err;
+            }
             console.log("Signup 2 Succesful", result)
         })
+        res.redirect('/');
+    } else {
+        res.render('pages/signup',{userdata:null, message:"Passwords did not match. Please try again."})
     }
 });
 
@@ -165,13 +174,17 @@ app.get('/Booking', function(req, res, next){
             throw error; 
             //response.render('pages/booking', {b_data: 0, error:false});
             } else {
-            // console.log(data);
+            console.log(data[2][0].Gender);
+            let selectedBuilding=4;
+            if(data[2][0].Gender == 'M'){
+                selectedBuilding=1;
+            }
             console.log(data[2]);
                 res.render('pages/booking', {
                     b_data: data[0], 
                     r_data: data[1], 
                     bookings: data[2],
-                    sBuilding:1, 
+                    sBuilding:selectedBuilding, 
                     selectedFloor:1,
                     sRoom:1, 
                     eRoom:12, 
@@ -184,6 +197,7 @@ app.get('/Booking', function(req, res, next){
             }
         });
     } catch {
+        res.redirect('/');
         let query = "SELECT * FROM aiuroom.building; SELECT * FROM aiuroom.room WHERE BuildingNo = 1 AND RoomNo>=1 AND RoomNo<=12; SELECT * FROM aiuroom.booking WHERE StartTime<=? AND EndTime>=?";
         console.log("querying");
         let book = require('./public/javascript/booking');
@@ -239,7 +253,11 @@ app.post('/Booking', async (req, res) =>{
             } else{
                 console.log(data[2]);
                 console.log(floor+" "+sRoom);
-    
+                if(data[3][0].Gender=='F' && bNo <=3){
+                    bNo=4;
+                } else if(data[3][0].Gender=='M' && bNo >=4){
+                    bNo = 1;
+                }
                 return res.render('pages/booking', {
                     b_data:data[0], 
                     r_data: data[1], 
@@ -470,14 +488,15 @@ app.post('/ConfirmBooking', async (req, res) => {
             console.log(query);
             console.log(data);
             if(err){
-                res.render('pages/paymentSuccess', {userdata:data, message:"Something went wrong. Booking did not go through"});
+                console.log(err);
+                res.render('pages/paymentSuccess', {userdata:data[0], message:"Something went wrong. Booking did not go through"});
             }
             else if(data == null){
     
             } else{
                 //alert("Booking Successfully processed");
                 console.log(data);
-                res.render('pages/paymentSuccess', {userdata:data, message:"Booking Success!"});
+                res.render('pages/paymentSuccess', {userdata:data[0], message:"Booking Success!"});
             }
         });
     } catch {

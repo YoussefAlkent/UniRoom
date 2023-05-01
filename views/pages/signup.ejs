@@ -12,6 +12,7 @@
 <body>
     <%- include('../partials/nav') %>
 <div class="colorback">
+    <%=message%>
     <form class="signupaccount" method="post" action="/Signup">
         <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Sign up for a new account</div>
         <div class="sName">
@@ -23,7 +24,7 @@
         <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text" name="parent_name"></h3></div>
         <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="uemail"></h3></div>
         <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel" name="parentnum"></h3></div>
-        <div class="sId"><h3>University ID: <br><input id="id" type="number" name="student_id"></h3></div>
+        <div class="sId"><h3>University ID: <br><input id="id" type="number" name="uid"></h3></div>
         <div class="ps"><h3>Password: <br><input id="password" type="password" name="password"></h3>
             <i class="bi-eye-slash" id="togglePassword"></i>
         </div>
@@ -40,17 +41,17 @@
 
             <label for="year">Year of Study: </label>
             <select name="year" id="year">
-                <option value="one">1</option>
-                <option value="two">2</option>
-                <option value="three">3</option>
-                <option value="four">4</option>
-                <option value="five">5</option>
-                <option value="six">6</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+                <option value=6>6</option>
             </select>
         </div>
-        <div class="studyfeild">
-            <label for="feild">Field of Study: </label>
-            <select name="feild" id="feild">
+        <div class="studyfield">
+            <label for="field">Field of Study: </label>
+            <select name="field" id="field">
                 <option value="cs">Computer Science</option>
                 <option value="art">Art</option>
                 <option value="ce">Computer Engineer</option>

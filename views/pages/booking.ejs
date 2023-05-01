@@ -121,7 +121,7 @@
           <input name="floor" value="<%=selectedFloor%>" hidden>
           <button type='submit' id="Bbtn<%=b.BuildingNo%>" class="bookbtn building-btn <%if(b.BuildingNo==sBuilding){%>selected<%}else if (userdata==null || b.BuildingNo==7 ||(b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F')) {%> unavailable<%} else {%>available<%}%>" 
             onclick="selectBuilding('<%= b.BuildingNo%>')" name="bNo" value="<%=b.BuildingNo%>"
-            <%if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F')){%>disabled="true"<%}%>>
+            <%if (userdata==null || (b.BuildingNo>3 && userdata.Gender=='M') || (b.BuildingNo <4 && userdata.Gender=='F') || (b.BuildingNo==7)){%>disabled="true"<%}%>>
             Building <h2><%= b.BuildingNo %></h2>
             <% if(b.BuildingNo == 7){%>
               <p style="font-size:12px">Building Unavailable</p>
@@ -171,14 +171,14 @@
 
         <button class='bookbtn room <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+1].RoomNo%>'
           <%if(!isAvailable(r_data[i+1].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+1].RoomNo%>')" <%}%>>
-          Room <h2><%=r_data[i+1].RoomNo%></h2>
+          Room <h2> <%=r_data[i+1].RoomNo%> </h2>
           <%if(r_data[i+1].RoomStatus==0 && isAvailable(r_data[i+1].RoomID)){%> Available <%} else{%> Occupied
           <%}%>
         </button>
 
         <button class='bookbtn room <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%>available<%} else{%>unavailable<%}%>' id='room-<%=r_data[i+2].RoomNo%>' 
           <%if(!isAvailable(r_data[i+2].RoomID)){%>enabled="false"<%} else {%> onclick="selectRoom('<%=r_data[i+2].RoomNo%>')" <%}%>>
-          Room <h2><%=r_data[i+2].RoomNo%></h2>
+          Room <h2> <%=r_data[i+2].RoomNo%> </h2>
           <%if(r_data[i+2].RoomStatus==0 && isAvailable(r_data[i+2].RoomID)){%> Available <%} else{%> Occupied <%}%>
         </button>
 

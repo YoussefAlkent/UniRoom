@@ -1,8 +1,45 @@
 /* About.css:about.ejs*/
 :root {
-    --primary-color: #333;
-    --secondary-color: #fff;
-    --tertiary-color: #ccc;
+  --primary-color: #4D4545;
+  --secondary-color: #fff;
+  --tertiary-color: #ccc;
+  --border-color: #756f6f;
+  --pink:#ED8D8D;
+  --background-color:#a6a6a6;
+  --background-color2:#a88181;
+  --background-color3: #fafafa;
+  --background-color5: #483333;
+  --background-color6: gray;
+  --color1: black;
+  --border-color:#756f6f;
+  --secondary-color: #8D6262;
+  --accent-color: #dab0b0;
+  --text-color: #fff;
+  --border-color: #ababab;
+  --secondary-color: #4D4545;
+  --navbar-color: #4D4545;
+  --button-gradient-start: #feada6;
+  --button-gradient-end: #f5efef;
+  --alert-success: #8D6262;
+  --alert-warning: #4D4545;
+  --alert-info: #393232;
+  --text-color: #ffffff;
+  --link-color: #333;
+  --link-hover-color: #00bcd4;
+  --navbar-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --main-bg-color: #fafafa;
+  --main-text-color: #333;
+  --header-bg-color: #333;
+  --header-text-color: #fff;
+  --border-color: #ababab;
+  --shadow-color: #706060;
+  --background-color: #8D6262;
+  --navbar-background-color: #393232;
+  --navbar-logo-background-color: #4D4545;
+  --navbar-logo-gradient-color-1: #fafafa;
+  --navbar-logo-gradient-color-2: #4ac7d8;
+  --navbar-links-color: #fff;
+  --hr-border-color: #bbb;
   }
   
   body {
@@ -12,6 +49,19 @@
     color: var(--primary-color);
     margin: 0;
     padding: 0;
+
+    background-color: var(--background-color);
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+    background: var(--primary-color);
+    background: -moz-radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
+    background: -webkit-radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
+    background: radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#553939",endColorstr="#472d2d",GradientType=1);
+    
+    line-height: 1.6;
   }
   
   header {
@@ -20,17 +70,15 @@
     padding: 20px;
     text-align: center;
   }
-  
-  h1 {
-    font-size: 36px;
-    margin: 0;
-  }
-  
+
   main {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px;
     text-align: justify;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    text-align: center;
   }
   
   section {
@@ -53,20 +101,6 @@
   /* booking.css:booking.ejs*/
   /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-  :root {
-    --border-color: #756f6f;
-    --background-color:#a6a6a6;
-    --background-color2:#a88181;
-    --background-color3: #fafafa;
-    --background-color4: #ED8D8D;
-    --background-color5: #483333;
-    --background-color6: gray;
-    --color1: black;
-    --border-color1:#756f6f;
-  }
-body{
-    font-family:sans-serif;
-}
 button{
     margin-top:0.3em;
     width:100%;
@@ -166,7 +200,7 @@ button{
     background-color:var(--background-color3);
 }
 button:hover {
-    background-color: var(--background-color4);
+    background-color: var(--pink);
 }
 .selected,
 .selected:hover {
@@ -190,7 +224,7 @@ button:hover {
     display: grid;
     border-style: solid;
     border-width:2px;
-    border-color:var(--border-color1);
+    border-color:var(--border-color);
     border-radius:0.6em;
     margin:0.2em;
     padding:0.4em;
@@ -273,19 +307,9 @@ label.term-row {
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-    :root {
-        --primary-color: #4D4545;
-        --secondary-color: #8D6262;
-        --accent-color: #dab0b0;
-        --text-color: #fff;
-        --border-color: #ababab;
-      }
+
       
 
-    body {
-        font-family:'Times New Roman', Times, serif;
-        margin: 0;
-    }
 
     header {
         background-color: var(--primary-color);
@@ -310,9 +334,8 @@ label.term-row {
     }
 
     .mainclass {
-        height:350px;
         display: flex;
-        background-color: var(--accent-color);
+        background-color: var(--pink);
         border-radius: 20px;
     }
 
@@ -343,16 +366,6 @@ label.term-row {
         width: 300px;
     }
 
-    main {
-        background-color: var(--secondary-color);
-        padding: 10px;
-        text-align: center;
-    }
-
-    h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
 
     p {
         font-size: 1.2rem;
@@ -375,14 +388,15 @@ label.term-row {
     }
 
     .colorcontainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 550px;
-        width: 100%;
+      background-color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 550px;
+      width: 100%;
     }
 
-    .container {
+    .logincontainer {
         display: grid;
         height: 500px;
         width: 100%;
@@ -470,34 +484,9 @@ label.term-row {
 
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-:root {
---main-color: #553939;
---secondary-color: #472d2d;
---navbar-color: #4D4545;
---button-gradient-start: #feada6;
---button-gradient-end: #f5efef;
---button-outline: #ED8D8D;
---button-outline-hover: #ffffff;
---alert-color: #ED8D8D;
---alert-success: #8D6262;
---alert-warning: #4D4545;
---alert-info: #393232;
---text-color: #ffffff;
---link-color: #333;
---link-hover-color: #00bcd4;
---navbar-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
 
-body {
-  font-family: 'Poppins', sans-serif;
-background: rgb(85,57,57);
-background: -moz-radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
-background: -webkit-radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
-background: radial-gradient(circle, rgba(85,57,57,1) 0%, rgba(112,79,79,1) 0%, rgba(71,45,45,1) 57%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#553939",endColorstr="#472d2d",GradientType=1);
 
-  line-height: 1.6;
-}
+
 
 h1 {
   font-size: 3rem;
@@ -632,9 +621,9 @@ button {
 }
 
 .button-outline {
-  border: 2px solid var(--alert-color);
+  border: 2px solid var(--pink);
   background-color: transparent;
-  color: var(--alert-color);
+  color: var(--pink);
   padding: 1rem 2rem;
   border-radius: 5px;
 }
@@ -651,7 +640,7 @@ button {
 }
 
 .alert {
-  background-color: var(--alert-color);
+  background-color: var(--pink);
   color: var(--text-color);
   padding: 1rem;
   margin-bottom: 2rem;
@@ -822,18 +811,7 @@ button {
 /* profile.css:profile.ejs*/
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-:root {
-    --main-bg-color: #fafafa;
-    --main-text-color: #333;
-    --header-bg-color: #333;
-    --header-text-color: #fff;
-    --border-color: #ababab;
-    --shadow-color: #706060;
-  }
   
-  body {
-    font-size: large;
-  }
   
   #profilecontainer {
     display: grid;
@@ -867,24 +845,6 @@ button {
     border-radius: 0.5em;
   }
   
-  header {
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 36px;
-    margin: 0;
-  }
-  
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px;
-    text-align: justify;
-  }
   
   section {
     margin-bottom: 40px;
@@ -905,16 +865,6 @@ button {
   /* signup.css.css:signup.ejs*/
   /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-  :root {
-    --background-color: #8D6262;
-    --navbar-background-color: #393232;
-    --navbar-logo-background-color: #4D4545;
-    --navbar-logo-gradient-color-1: #fafafa;
-    --navbar-logo-gradient-color-2: #4ac7d8;
-    --navbar-links-color: #fff;
-    --hr-border-color: #bbb;
-    --colorback-background-color: #ED8D8D;
-  }
   * {
     box-sizing: border-box;
     margin: 0;
@@ -997,9 +947,7 @@ button {
   hr.solid {
     border-top: 3px solid var(--hr-border-color);
   }
-  body{
-    background-color: var(--background-color);
-  }
+
   .colorback{
     display: flex;
     align-items: center;
@@ -1010,7 +958,7 @@ button {
   }
   .signupaccount{
     display: grid;
-    background-color: var(--colorback-background-color);
+    background-color: var(--pink);
     border-radius: 20px;
     height: 600px;
     width: 65%;
@@ -1152,16 +1100,6 @@ button {
 /* style.css*/
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-:root {
-    --background-color: #8D6262;
-    --primary-color: #393232;
-    --secondary-color: #ED8D8D;
-    --background-color2: #ff8177;
-    --text-color: #fff;
-    --logo-gradient-start: #fafafa;
-    --logo-gradient-end: #4ac7d8;
-    --border-color: #bbb;
-  }
   * {
     box-sizing: border-box;
     margin: 0;
@@ -1252,16 +1190,7 @@ button {
   hr.solid {
     border-top: 3px solid var(--border-color);
   }
-  body{
-    background-color: var(--background-color);
-  }
-  .colorcontainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 600px;
-    width: 100%;
-  }
+
   .container{
     display: grid;
     height: 500px;

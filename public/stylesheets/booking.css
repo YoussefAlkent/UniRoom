@@ -1,6 +1,5 @@
 :root {
     --border-color: #756f6f;
-    --background-color:#a6a6a6;
     --background-color2:#a88181;
     --background-color3: #fafafa;
     --background-color4: #ED8D8D;
@@ -12,7 +11,7 @@
 body{
     font-family:sans-serif;
 }
-button{
+.button{
     margin-top:0.3em;
     width:100%;
     padding: 0.5em;
@@ -40,7 +39,7 @@ button{
     border-width: medium;
     border-color:var(--border-color);
     border-radius:0.5em;
-    background-color:var(--background-color);
+    background-color:#c2b0b0;
     filter: drop-shadow(4px 3px 3px #706060);
 }
 
@@ -110,7 +109,7 @@ button{
 .available {
     background-color:var(--background-color3);
 }
-button:hover {
+.button:hover {
     background-color: var(--background-color4);
 }
 .selected,

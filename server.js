@@ -93,6 +93,30 @@ app.post('/Signin', async (req, res) =>{
         next();
     })
 })
+
+app.post('/SignupPage', async(req, res)=>{
+    try{
+        query="SELECT * FROM aiuroom.person WHERE NID=?";
+        let token = jwt.verify(req.cookies.token, secretPhrase);
+        let nid = token.id;
+        let values=[nid];
+        con.query(query,values, function(err, data){
+            
+            if(err){
+                throw err;
+            }
+            else if(data == null){
+    
+            } else{
+                //alert("Booking Successfully processed");
+                console.log(data);
+                res.render('pages/signup', {userdata:data[0][0]});
+            }
+        });
+    } catch {
+        res.redirect('/');
+    } 
+});
 app.post('/signup', async(req, res)=>{
     console.log(req.body)
     var Fname = req.body.name;

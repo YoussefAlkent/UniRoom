@@ -107,7 +107,7 @@ body{
 
 /* Button Color Classes */
 .submit {
-    background-color:var(--background-color2)
+    background-color:var(--submit-color)
 }
 .available {
     background-color:var(--background-color3);

@@ -10,20 +10,22 @@
 <body>
 	<%- include('../partials/nav') %>
 	<header>
-		<h1>About Us</h1>
+		<h1 class="aboutheader">About Us</h1>
 	</header>
 	<main>
-		<section>
-			<h2>Our Mission</h2>
-			<p><%= data.mission %></p>
-		</section>
-		<section>
-			<h2>Our Team</h2>
-			<% for(var i=0; i<data.teams.length; i++) { %>
-			<h3><%= data.teams[i].name %></h3>
-			<p><%= data.teams[i].description %></p>
-			<% } %>
-		</section>
+		<div class="about">
+			<section class="aboutdiv">
+				<h2>Our Mission</h2>
+				<p><%= data.mission %></p>
+			</section>
+			<section class="aboutdiv">
+				<h2>Our Team</h2>
+				<% for(var i=0; i<data.teams.length; i++) { %>
+				<h3><%= data.teams[i].name %></h3>
+				<p><%= data.teams[i].description %></p>
+				<% } %>
+			</section>	
+		</div>
 	</main>
 </body>
 </html>

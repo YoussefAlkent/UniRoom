@@ -122,19 +122,20 @@ app.post('/signup', async(req, res)=>{
     var Fname = req.body.name;
     var email = req.body.uemail;
     var uid = req.body.uid;
-    var pass = req.body.pass;
+    var pass = req.body.password;
     var phonenum = req.body.phonenum;
     var repeatpass = req.body.repeatpass;
     var gender = req.body.gender;
     var year = req.body.year;
-    var field = req.body.fleid;
+    var field = req.body.feild;
     var parentnum = req.body.parentnum
+    let parent = req.body.parent_name;
     if(pass == repeatpass){
         transporter.sendMail(createSignUpMail(email), function(err, info){
             if(err) throw err; else console.log("email sent" + info.response)
         })
         let query = "INSERT INTO person (Fname, Phone, UniversityEmail, Username, Password, Gender, NID) VALUES ?"
-        let values=[Fname, phonenum, email, uid, password, gender, uid]
+        let values=[Fname, phonenum, email, uid, pass, gender, uid]
         con.query(query, [values], function(err, result){
             if (err) throw err;
             console.log("Signup 1 Successful:  ", result)
@@ -355,11 +356,11 @@ app.post('/About', async (req, res) => {
     const data = {
         mission: 'our mission is to create a simple and efficient online system for any student at Alamein International University to book housing for short- and long-term stays..',
         teams: [
-            { name: 'member 1:', description: 'Youssef Bedair' },
-            { name: 'member 2:', description: 'Omar El-Hamraway' },
-            { name: 'member 3:', description: ' Rebecca Whitten' },
-            { name: 'member 4:', description: 'Tedy Huang' },
-            { name: 'member 5:', description: 'Khaled Bahaaeldin' }
+            { name: 'Member 1:', description: 'Youssef Bedair' },
+            { name: 'Member 2:', description: 'Omar El-Hamraway' },
+            { name: 'Member 3:', description: ' Rebecca Whitten' },
+            { name: 'Member 4:', description: 'Tedy Huang' },
+            { name: 'Member 5:', description: 'Khaled Bahaaeldin' }
         ]
     };
     try{
@@ -390,11 +391,11 @@ app.get('/About', (req, res) => {
     const data = {
         mission: 'our mission is to create a simple and efficient online system for any student at Alamein International University to book housing for short- and long-term stays..',
         teams: [
-            { name: 'member 1:', description: 'Youssef Bedair' },
-            { name: 'member 2:', description: 'Omar El-Hamraway' },
-            { name: 'member 3:', description: 'Rebecca Whitten' },
-            { name: 'member 4:', description: 'Tedy Huang' },
-            { name: 'member 5:', description: 'Khaled Bahaaeldin' }
+            { name: 'Member 1:', description: 'Youssef Bedair' },
+            { name: 'Member 2:', description: 'Omar El-Hamraway' },
+            { name: 'Member 3:', description: 'Rebecca Whitten' },
+            { name: 'Member 4:', description: 'Tedy Huang' },
+            { name: 'Member 5:', description: 'Khaled Bahaaeldin' }
         ]
     };
     try {

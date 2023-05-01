@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="signup.css" />
     <title>UniRoom - Home</title>
 </head>
@@ -12,7 +13,7 @@
     <%- include('../partials/nav') %>
 <div class="colorback">
     <form class="signupaccount" method="post" action="/Signup">
-        <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Sign Up to a New Account</div>
+        <div class="title"><img src="aiu.jpg" alt="" id="ai_logo">Sign up for a new account</div>
         <div class="sName">
             <h3>
                 Name: <br>
@@ -20,21 +21,21 @@
             </h3>
         </div>
         <div class="pName"><h3>Parent Name: <br><input id="parentname" type="text" name="parent_name"></h3></div>
-        <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="email_address"></h3></div>
-        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel" name="parent_phone_num"></h3></div>
+        <div class="sEmail"><h3>University Email: <br><input id="email" type="text" name="uemail"></h3></div>
+        <div class="pPhone"><h3>Parent Phone Number: <br><input id="phone" type="tel" name="parentnum"></h3></div>
         <div class="sId"><h3>University ID: <br><input id="id" type="number" name="student_id"></h3></div>
         <div class="ps"><h3>Password: <br><input id="password" type="password" name="password"></h3>
             <i class="bi-eye-slash" id="togglePassword"></i>
         </div>
-        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text" name="student_phone"></h3></div>
-        <div class="rps"><h3>Repeat Password: <br><input id="rpassword" type="password"></h3>
+        <div class="sPhone"><h3>Phone Number: <br><input id="sphone" type="text" name="phonenum"></h3></div>
+        <div class="rps"><h3>Repeat Password: <br><input id="repeatpass" type="password" name="repeatpass"></h3>
             <i class="bi-eye-slash" id="togglePasswordConfirm"></i>
         </div>
         <div class="pickurgender">
             <label for="languages">Gender: </label>
             <select name="gender" id="languages">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
             </select>
 
             <label for="year">Year of Study: </label>
@@ -47,9 +48,9 @@
                 <option value="six">6</option>
             </select>
         </div>
-        <div class="studyfleid">
-            <label for="fleid">Field of Study: </label>
-            <select name="fleid" id="fleid">
+        <div class="studyfeild">
+            <label for="feild">Field of Study: </label>
+            <select name="feild" id="feild">
                 <option value="cs">Computer Science</option>
                 <option value="art">Art</option>
                 <option value="ce">Computer Engineer</option>
@@ -57,7 +58,7 @@
             </select>
         </div>
         <div class="confirmbut">
-            <button id="submit" type="button">Confirm !</button>
+            <button id="submit" type="submit">Confirm !</button>
         </div>
     </form>
 </div>

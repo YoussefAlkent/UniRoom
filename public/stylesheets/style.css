@@ -8,7 +8,8 @@
   --logo-gradient-start: #fafafa;
   --logo-gradient-end: #4ac7d8;
   --border-color: #bbb;
-  --accent-color: #3324d8;
+  --accent-color: #4ac7d8;
+  --submit-color:#218380;
 }
 * {
   box-sizing: border-box;
@@ -210,4 +211,22 @@ form i {
   height: 50px;
   border-radius: 20px;
   margin-right: 5px;
+}
+
+.aboutheader{
+  font-size:larger;
+  margin:1em;
+  position:relative;
+  text-align: center;
+}
+.about{
+  display:flex;
+  flex-wrap: wrap;
+}
+.aboutdiv{
+  padding:1em;
+  margin:1em;
+  background-color:var(--secondary-color);
+  width:100%;
+  border-radius:1em;
 }

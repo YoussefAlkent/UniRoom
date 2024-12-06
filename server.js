@@ -9,10 +9,10 @@ const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const secretPhrase = 'ThisIsTheSecretPhrasePleaseChangeMeOkayIMPORTANT' //what the variable said
 const bodyParser = require('body-parser')
-const paymentAuth = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TnpVeU5UY3dMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuNDFiTDBadWdjWTZZV19PRURha2pjUVNDNnNDZXlSR2pwVjVLWGhmbVdCS1BtX2J1bXA3LWRrS0E2T29ybmx5WWRtdTVxVWFSeWp2SjRWR2FrclNETWc=" //Our paymob Key
+const paymentAuth = "" //Paymob Key
 
 var con = mysql.createConnection({
-    host: "uni-room.mysql.database.azure.com",
+    host: "", //Enter the Environment Variable Here
     port: 3306,
     user:"Uniroom_Admin",
     password:"vtaiu@12345",
